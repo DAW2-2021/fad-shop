@@ -13,7 +13,7 @@ class CreateCouponsUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('coupons_user', function (Blueprint $table) {
+        Schema::create('coupon_user', function (Blueprint $table) {
             $table->foreignId('coupon_id');
             $table->foreignId('user_id');
             $table->dateTime('redeem_date');
@@ -29,6 +29,6 @@ class CreateCouponsUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('coupons_user');
+        Schema::dropIfExists('coupon_user');
     }
 }
