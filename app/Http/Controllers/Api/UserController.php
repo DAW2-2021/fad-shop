@@ -16,7 +16,6 @@ class UserController extends BaseController
             'username' => 'required|min:3|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
-            'role_id' => 'required',
             'phone' => 'required'
         ]);
         $dataValidated['password'] = Hash::make($request->password);

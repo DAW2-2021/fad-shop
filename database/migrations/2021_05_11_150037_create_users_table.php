@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('phone');
             $table->string('google_id')->unique()->nullable();
-            $table->foreignId('role_id');
+            $table->foreignId('role_id')->default(3);
             $table->rememberToken();
             $table->timestamps();
             $table->foreign('role_id')->references('id')->on('roles');
