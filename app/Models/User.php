@@ -21,7 +21,7 @@ use App\Models\Shop;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens/* TwoFactorAuthenticatable */;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -107,6 +107,22 @@ class User extends Authenticatable
     {
         if ($this->role()->where('role', $role)->first()) {
             return true;
+        }
+        return false;
+    }
+
+    public function hasAnyRole($roles)
+    {
+        if (is_array($roles)) {
+            foreach ($roles as $role) {
+                if ($this->hasRole($role)) {
+                    return true;
+                }
+            }
+        } else {
+            if ($this->hasRole($roles)) {
+                return true;
+            }
         }
         return false;
     }

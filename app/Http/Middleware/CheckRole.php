@@ -14,11 +14,15 @@ class CheckRole
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $role)
+    public function handle($request, Closure $next, $roles)
     {
-        if (!$request->user()->hasRole($role)) {
-            return abort(403, "Non autorized");
+        $roles_ar = explode('|', $roles);
+
+        foreach ($roles_ar as $role) {
+            if ($request->user()->hasRole($role)) {
+                return $next($request);
+            }
         }
-        return $next($request);
+        abort(403, "Non authorized");
     }
 }
