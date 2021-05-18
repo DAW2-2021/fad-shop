@@ -135,7 +135,7 @@
                 </div>
                 <form class="row g-3 needs-validation" novalidate>
                     <div class="modal-body">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label for="validationCustomShopName" class="form-label">Shop Name</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
@@ -150,6 +150,18 @@
                             </div>
                         </div>
                         <div class="col-md-12">
+                            <label for="validationCustomDescription" class="form-label">Description</label>
+                            <div class="input-group has-validation">
+                                <textarea class="form-control" id="validationCustomDescription" rows="3"></textarea>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please choose a description.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
                             <label for="validationCustomLogo" class="form-label">Logo</label>
                             <div class="input-group has-validation">
                                 <input type="file" class="form-control" id="validationCustomLogo"
@@ -159,18 +171,6 @@
                                 </div>
                                 <div class="invalid-feedback">
                                     Please choose a Logo.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <label for="validationCustomDescription" class="form-label">Description</label>
-                            <div class="input-group has-validation">
-                                <textarea class="form-control" id="validationCustomDescription" rows="3"></textarea>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please choose a description.
                                 </div>
                             </div>
                         </div>

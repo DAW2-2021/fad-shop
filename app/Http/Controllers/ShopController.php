@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Shop;
+use App\Models\Product;
 
 class ShopController extends Controller
 {
@@ -13,17 +17,7 @@ class ShopController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('shop.index');
     }
 
     /**
@@ -34,7 +28,7 @@ class ShopController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //el administrador acepta las peticiones
     }
 
     /**
@@ -43,20 +37,29 @@ class ShopController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Shop $shop)
     {
-        //
+        //cambiar if si añadimos que puedan verlo los "empleados" del vendedor
+        if ($shop->user_id == Auth::user()->id) {
+            return view('shop.settings');
+        }
+        return redirect()->route('index');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the specified product in shop.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  $request
+     * @param   array $shop
+     * @param   array $request (product)
+     * @return  \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function showProduct(Shop $shop, Product $product)
     {
-        //
+        if ($product->shop_id == $shop->id) {
+            return view('product.index', compact('product'));
+        }
+        return redirect()->route('index');
     }
 
     /**
@@ -66,9 +69,22 @@ class ShopController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Shop $shop)
     {
-        //
+        if ($shop->user_id == Auth::user()->id) {
+            $validator = Validator::make($request->all(), [
+                'name' => ['nullable', 'string', 'min:3', 'max:255'],
+                'description' => ['nullable', 'string', 'min:3', 'max:255'],
+                'logo' => ['nullable', 'mimes:png,jpg,jpeg', 'max:1024'],
+            ]);
+            if ($validator->fails()) {
+                //Cambiar id por name
+                return redirect()->route('shop.settings', $shop->id)->withErrors($validator);
+            }
+            $shop->update($request->all());
+            return redirect()->route('shop.settings', $shop->id);
+        }
+        return redirect()->route('shop.index');
     }
 
     /**
@@ -77,8 +93,12 @@ class ShopController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Shop $shop)
     {
-        //
+        if ($shop->user_id == Auth::user()->id) {
+            $shop->delete();
+            return redirect()->route('shop.index');
+        }
+        return redirect()->route('shop.index');
     }
 }
