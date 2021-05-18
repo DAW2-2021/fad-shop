@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class PetitionController extends Controller
 {
@@ -34,7 +36,16 @@ class PetitionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'min:3', 'max:255'],
+            'description' => ['required', 'string', 'min:3', 'max:255'],
+            'logo' => ['required', 'mimes:png,jpg,jpeg', 'max:1024']
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('shop.index')->withErrors($validator);
+        }
+        $shop = Auth::user()->shop()->create($request->all());
+        return redirect()->route('shop.index', $shop->id);
     }
 
     /**
