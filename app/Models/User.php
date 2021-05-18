@@ -16,6 +16,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Opinion;
 use App\Models\Coupon;
+use App\Models\Shop;
 
 class User extends Authenticatable
 {
@@ -53,6 +54,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function shop()
+    {
+        return $this->hasOne(Shop::class);
+    }
 
     public function role()
     {
