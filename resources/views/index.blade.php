@@ -192,7 +192,7 @@
 
                         <div class="text mt-4 mb-3">
                             <h4 class="h3 text-center text-break">
-                                Aitor's shopaaaaaaaaaaaaaa
+                                Aitors shopaaaaaaaaaaaaaa
                             </h4>
                         </div>
                     </a><a href="#" class="shop p-4 m-2 text-dark text-decoration-none rounded">
@@ -202,7 +202,7 @@
 
                         <div class="text mt-4 mb-3">
                             <h4 class="h3 text-center text-break">
-                                Aitor's shopaaaaaaaaaaaaaa
+                                Aitors shopaaaaaaaaaaaaaa
                             </h4>
                         </div>
                     </a><a href="#" class="shop p-4 m-2 text-dark text-decoration-none rounded">
@@ -212,7 +212,7 @@
 
                         <div class="text mt-4 mb-3">
                             <h4 class="h3 text-center text-break">
-                                Aitor's shopaaaaaaaaaaaaaa
+                                Aitors shopaaaaaaaaaaaaaa
                             </h4>
                         </div>
                     </a>

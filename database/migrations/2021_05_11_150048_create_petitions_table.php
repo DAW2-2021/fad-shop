@@ -20,6 +20,7 @@ class CreatePetitionsTable extends Migration
             $table->string('dni_front');
             $table->string('dni_back');
             $table->string('state');
+            $table->string('reason')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

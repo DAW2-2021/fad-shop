@@ -48,7 +48,10 @@
                                     <hr class="dropdown-divider" />
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">Log Out</a>
+                                    <a class="dropdown-item"  onclick="event.preventDefault(); document.getElementById('frm-logout').submit();" style="cursor: pointer">Log Out</a>
+                                    <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
                                 </li>
                             </ul>
                         </div>
@@ -103,9 +106,9 @@
                         data-bs-toggle="modal" data-bs-dismiss="modal">
                         Iniciar Sesión
                     </button>
-                    <button type="button" class="btn btn-primary">
+                    <a href="{{ url('auth/google') }}" type="button" class="btn btn-primary">
                         <span><i class="fab fa-google"></i></span> Google
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -134,9 +137,9 @@
                         data-bs-toggle="modal" data-bs-dismiss="modal">
                         Registrarse
                     </button>
-                    <button type="button" class="btn btn-primary">
+                    <a href="{{ url('auth/google') }}" type="button" class="btn btn-primary">
                         <span><i class="fab fa-google"></i></span> Google
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
