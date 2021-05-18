@@ -16,10 +16,11 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Opinion;
 use App\Models\Coupon;
+/* use Laravel\Fortify\TwoFactorAuthenticatable; */
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens/* TwoFactorAuthenticatable */;
 
     /**
      * The attributes that are mass assignable.
@@ -43,6 +44,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
     ];
 
     /**
