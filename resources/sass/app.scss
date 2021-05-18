@@ -1,0 +1,39 @@
+////////////////////////////////////
+/// Colores
+////////////////////////////////////
+$background: #efefef;
+$background-nav: #e8e8e8;
+$color1: #a5a6f6;
+$color1_dark: darken($color1, 5%);
+$color2: #e6eaee;
+$border: #7e7e7e;
+////////////////////////////////////
+/// Modificaciones Variables Bootstrap
+////////////////////////////////////
+$primary: $color1;
+$border-color: $border;
+$dropdown-border-color: $border;
+$dropdown-bg: lighten(#e8e8e8, 5%);
+
+//IMPORT'S Librerias
+//-- Boostrap
+@import '~bootstrap/scss/bootstrap';
+//-- Owl Carousel
+@import '~owl.carousel/src/scss/owl.carousel.scss';
+// Font Awesome
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+
+//-- Global
+@import 'src/global';
+
+////////////////////////////////////
+/// Modificaciones Clases
+////////////////////////////////////
+@import 'src/carousel';
+@import 'src/cards';
+@import 'src/categories';
+@import 'src/shops';
+@import 'src/settings';
