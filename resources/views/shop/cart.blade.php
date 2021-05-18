@@ -182,11 +182,11 @@
                             </dd>
                         </dl>
                         <hr />
-                        <a href="#" class="btn btn-out btn-primary btn-square btn-main" data-abc="true">
-                            Make Purchase
+                        <a @if (Auth::guest()) href="#" data-bs-target="#loginModal" data-bs-toggle="modal" data-bs-dismiss="modal" @endif href="#enlacePasarela" class="btn btn-out btn-primary btn-square btn-main"
+                            data-abc="true">
+                            Tramitar Pedido
                         </a>
-                        <a href="#" class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">Continue
-                            Shopping</a>
+
                     </div>
                 </div>
             </aside>

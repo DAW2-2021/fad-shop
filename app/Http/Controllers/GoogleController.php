@@ -39,7 +39,7 @@ class GoogleController extends Controller
 
                 Auth::login($finduser);
 
-                return redirect()->intended('index');
+                return redirect()->intended('/');
             } else {
                 $newUser = User::create([
                     'username' => $user->name,
@@ -51,10 +51,11 @@ class GoogleController extends Controller
 
                 Auth::login($newUser);
 
-                return redirect()->intended('index');
+                return redirect()->intended('/');
             }
         } catch (Exception $e) {
-            dd($e->getMessage());
+            // dd($e->getMessage());
+            return redirect()->route('index');
         }
     }
 }
