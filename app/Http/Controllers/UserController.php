@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -13,50 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return view("user.index");
     }
 
     /**
@@ -66,19 +27,42 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        if ($user->id == Auth::user()->id) {
+            $validator = Validator::make($request->all(), [
+                'username' => ['nullable', 'string', 'min:3', 'max:255'],
+                'email' => ['nullable', 'email'],
+                'password' => ['nullable', 'confirmed', 'string', 'min:3', 'max:255'],
+                'phone' => ['nullable', 'int', 'min:3', 'max:255']
+            ]);
+            if ($validator->fails()) {
+                return redirect()->route('user.index')->withErrors($validator);
+            }
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'phone' => $request->phone
+            ]);
+            $user->save();
+            return redirect()->route("user.index", ['success' => "true"]);
+        }
+        return redirect()->route('user.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  array  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        if ($user->id == Auth::user()->id) {
+            $user->delete();
+            return redirect()->route('index');
+        }
+        return redirect()->route('user.index');
     }
 }
