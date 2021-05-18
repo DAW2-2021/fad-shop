@@ -1,0 +1,31 @@
+.profile-head {
+    h5 {
+        color: #333;
+    }
+
+    .nav-tabs {
+        margin-bottom: 3%;
+
+        .nav-link {
+            font-weight: 600;
+            border: none;
+
+            &.active {
+                border: none;
+                border-bottom: 2px solid $primary;
+                background-color: lighten($color2, 3%);
+            }
+        }
+    }
+}
+
+.about-tab {
+    label {
+        font-weight: 600;
+    }
+
+    p {
+        font-weight: 600;
+        color: #0062cc;
+    }
+}

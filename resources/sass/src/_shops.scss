@@ -1,0 +1,25 @@
+.top-shop-container {
+    .shop {
+        background-color: $primary;
+
+        .image {
+            width: 10rem;
+            height: 7rem;
+        }
+        .text {
+            width: 10rem;
+        }
+    }
+}
+.rounded-shop {
+    width: 5rem;
+    height: 5rem;
+
+    img {
+        transition: all 0.25s;
+    }
+
+    &:hover img {
+        opacity: 0.4;
+    }
+}

@@ -1,0 +1,31 @@
+.card-product {
+    height: 11rem;
+    width: 18rem;
+    margin: 10px;
+    cursor: pointer;
+
+    .card-image {
+        @extend .cover-image;
+    }
+
+    .card-over {
+        background-color: rgba(0, 0, 0, 0.5);
+        min-width: 100%;
+        min-height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: all 0.45s;
+        border-radius: $border-radius;
+    }
+
+    &:hover .card-over {
+        opacity: 1;
+    }
+
+    .card-stars {
+        background-color: transparentize(darken($primary, 5%), 0.2);
+        border-bottom-left-radius: 9px;
+    }
+}

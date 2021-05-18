@@ -1,0 +1,83 @@
+$color-base: #869791 !default;
+$color-white: #fff !default;
+$color-gray: #d6d6d6 !default;
+
+//nav
+
+$nav-color: $color-white !default;
+$nav-color-hover: $color-white !default;
+$nav-font-size: 14px !default;
+$nav-rounded: 3px !default;
+$nav-margin: 5px !default;
+$nav-padding: 4px 7px !default;
+$nav-background: none !default;
+$nav-background-hover: $color-base !default;
+$nav-disabled-opacity: 0.5 !default;
+
+//dots
+
+$dot-width: 10px !default;
+$dot-height: 10px !default;
+$dot-rounded: 30px !default;
+$dot-margin-y: 5px;
+$dot-margin: $dot-margin-y 7px !default;
+$dot-background: $color-gray !default;
+$dot-background-active: $primary !default;
+
+@import '~owl.carousel/src/scss/theme';
+
+.carousel-container {
+    background: $color2;
+}
+
+@include media-breakpoint-up(md) {
+    .carousel-container {
+        box-shadow: 10px 10px 0px 1px darken($color2, 10%);
+    }
+}
+
+//Poner a los lados las flechas
+
+.carousel-wrap {
+    position: relative;
+
+    .owl-stage {
+        // background-color: whitesmoke;
+    }
+
+    .customNextBtn,
+    .customPrevBtn {
+        z-index: 10;
+
+        position: absolute;
+        font-size: 3rem;
+        color: $primary;
+
+        top: 0;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        height: calc(100% - 25.5px);
+        width: 60px;
+
+        cursor: pointer;
+        transition: all 0.15s;
+    }
+
+    .customNextBtn {
+        left: 0;
+        background: linear-gradient(to right, $color2, transparent);
+    }
+
+    .customPrevBtn {
+        right: -1px;
+        background: linear-gradient(to left, $color2, transparent);
+    }
+
+    .customNextBtn:hover,
+    .customPrevBtn:hover {
+        color: $color1_dark;
+    }
+}

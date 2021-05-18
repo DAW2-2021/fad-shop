@@ -1,0 +1,16 @@
+.categories {
+    .category {
+        background-color: darken($background, 70%);
+        width: 8rem !important;
+        transition: all 0.3s;
+
+        &:hover {
+            @extend .shadow-lg;
+        }
+
+        i,
+        svg {
+            font-size: 4.5rem !important;
+        }
+    }
+}
