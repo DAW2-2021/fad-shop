@@ -10,19 +10,21 @@
             <h1 class="display-4 fw-normal">Petición Tienda</h1>
         </div>
         <div class="container-md w-75 container-fluid p-5 background-2 text-dark rounded shadow">
-            <form>
+            <form action="{{ route('petition.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('POST')
                 <div class="form mb-3">
                     <label class="form-label h4" for="shop_name">Nombre de la Tienda:</label><input class="form-control"
                         placeholder="Fad shop" id="shop_name" name="shop_name" type="text" />
                 </div>
                 <div class="mb-3">
-                    <label for="shop_description" class="form-label h4">Descripción de la Tienda</label>
-                    <textarea class="form-control" placeholder="Tienda de animales..." id="shop_description"
-                        name="shop_description" rows="3"></textarea>
+                    <label for="description" class="form-label h4">Descripción de la Tienda</label>
+                    <textarea class="form-control" placeholder="Tienda de animales..." id="description" name="description"
+                        rows="3"></textarea>
                 </div>
                 <div class="col-md-10">
-                    <label class="form-label font-bold h4" for="shop_logo">Logo de la Tienda:</label><input
-                        class="form-control" id="shop_logo" name="shop_logo" type="file" />
+                    <label class="form-label font-bold h4" for="logo">Logo de la Tienda:</label><input class="form-control"
+                        id="logo" name="logo" type="file" />
                 </div>
                 <div class="form mb-3 row">
                     <div class="col-md-10">

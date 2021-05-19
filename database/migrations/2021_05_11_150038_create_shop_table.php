@@ -20,7 +20,7 @@ class CreateShopTable extends Migration
             $table->string('description');
             $table->string('logo');
             $table->string('slug')->unique();
-            $table->boolean('isActive');
+            $table->boolean('isActive')->default(1);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

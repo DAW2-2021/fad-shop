@@ -7,68 +7,62 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Shop;
 use App\Models\Product;
+use Illuminate\Support\Str;
+use App\Models\Petition;
 
 class ShopController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         return view('shop.index');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //el administrador acepta las peticiones
+        $validator = Validator::make($request->all(), [
+            'petition_id' => ['required', 'integer']
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('shop.index')->withErrors($validator);
+        }
+
+        $petition = Petition::findOrFail($request->petition_id);
+        $slug = Str::slug($petition->shop_name);
+        $dbSlug = Shop::where('slug', $slug)->first();
+
+        if ($dbSlug) {
+            return redirect()->route('shop.index')->withErrors(['Coincidence' => 'El nombre de la tienda ya existe.']);
+        }
+
+        $shop = $petition->user()->shop()->create(['slug' => $slug, 'name' => $petition->shop_name, 'description' => $petition->description, 'logo' => $petition->logo]);
+
+        $petition->state = 'active';
+        $petition->save();
+
+        return redirect()->route('shop.index', $shop->slug);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Shop $shop)
+    // public function show(Shop $shop)
+    // {
+    //     //cambiar if si añadimos que puedan verlo los "empleados" del vendedor
+    //     if ($shop->user_id == Auth::user()->id) {
+    //         return view('shop.settings');
+    //     }
+    //     return redirect()->route('index');
+    // }
+
+    public function show($shop)
     {
-        //cambiar if si añadimos que puedan verlo los "empleados" del vendedor
+        //hay que mirar que pasa si falla
+        $shop = Shop::firstOrFail('slug', $shop);
         if ($shop->user_id == Auth::user()->id) {
-            return view('shop.settings');
+            return view('shop.settings', $shop);
         }
-        return redirect()->route('index');
+        return redirect()->route('shop.index', compact('shop'));
     }
 
-    /**
-     * Show the specified product in shop.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param   array $shop
-     * @param   array $request (product)
-     * @return  \Illuminate\Http\Response
-     */
-    public function showProduct(Shop $shop, Product $product)
-    {
-        if ($product->shop_id == $shop->id) {
-            return view('product.index', compact('product'));
-        }
-        return redirect()->route('index');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Shop $shop)
     {
         if ($shop->user_id == Auth::user()->id) {
@@ -78,21 +72,15 @@ class ShopController extends Controller
                 'logo' => ['nullable', 'mimes:png,jpg,jpeg', 'max:1024'],
             ]);
             if ($validator->fails()) {
-                //Cambiar id por name
-                return redirect()->route('shop.settings', $shop->id)->withErrors($validator);
+                return redirect()->route('shop.settings', $shop->slug)->withErrors($validator);
             }
+
             $shop->update($request->all());
             return redirect()->route('shop.settings', $shop->id);
         }
         return redirect()->route('shop.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Shop $shop)
     {
         if ($shop->user_id == Auth::user()->id) {
