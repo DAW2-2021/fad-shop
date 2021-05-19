@@ -10,6 +10,14 @@ class ShopWallet extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'owner',
+        'cvv',
+        'card_number',
+        "expiry_date",
+        "shop_id"
+    ];
+
     public function shop()
     {
         return $this->belongsTo(Shop::class);

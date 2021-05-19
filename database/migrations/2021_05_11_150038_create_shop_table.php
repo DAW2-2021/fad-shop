@@ -16,9 +16,10 @@ class CreateShopTable extends Migration
         Schema::create('shops', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('description');
             $table->string('logo');
+            $table->string('slug')->unique();
             $table->boolean('isActive');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

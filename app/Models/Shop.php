@@ -12,6 +12,15 @@ class Shop extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'logo',
+        "isActive",
+        "slug",
+        "user_id"
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
