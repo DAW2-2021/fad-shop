@@ -10,23 +10,12 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         return view("user.index");
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, User $user)
     {
         if ($user->id == Auth::user()->id) {
@@ -34,7 +23,7 @@ class UserController extends Controller
                 'username' => ['nullable', 'string', 'min:3', 'max:255'],
                 'email' => ['nullable', 'email'],
                 'password' => ['nullable', 'confirmed', 'string', 'min:3', 'max:255'],
-                'phone' => ['nullable', 'int', 'min:3', 'max:255']
+                'phone' => ['nullable', 'integer', 'min:9', 'max:9']
             ]);
             if ($validator->fails()) {
                 return redirect()->route('user.index')->withErrors($validator);
@@ -51,12 +40,6 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  array  $user
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(User $user)
     {
         if ($user->id == Auth::user()->id) {

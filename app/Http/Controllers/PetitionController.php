@@ -5,91 +5,81 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Shop;
+use App\Models\Petition;
 
 class PetitionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        return view('petition.admin.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'min:3', 'max:255'],
+            'shop_name' => ['required', 'unique:petitions', 'string', 'min:3', 'max:255'],
             'description' => ['required', 'string', 'min:3', 'max:255'],
-            'logo' => ['required', 'mimes:png,jpg,jpeg', 'max:1024']
+            'logo' => ['required', 'file', 'mimes:png,jpg,jpeg', 'max:1024'],
+            'dni_front' => ['required', 'file', 'mimes:png,jpg,jpeg', 'max:2048'],
+            'dni_back' => ['required', 'file', 'mimes:png,jpg,jpeg', 'max:2048']
         ]);
+
         if ($validator->fails()) {
-            return redirect()->route('shop.index')->withErrors($validator);
+            return redirect()->route('petition.index')->withErrors($validator);
         }
-        $shop = Auth::user()->shop()->create($request->all());
-        return redirect()->route('shop.index', $shop->id);
+
+        $pathDniFront = $request->file('dni_front')->store('dnis_fronts', 'public');
+        $pathDniBack = $request->file('dni_back')->store('dnis_back', 'public');
+        $pathLogo = $request->file('logo')->store('logos', 'public');
+
+        $data = array_merge(request(['shop_name', 'description']), ['logo' => $pathLogo, 'dni_back' => $pathDniBack, 'dni_front' => $pathDniFront]);
+        $petition = Auth::user()->petition()->create($data);
+
+        return redirect()->route('petition.show', $petition->id);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function showAdminPetition(Petition $petition)
     {
-        //
+        return view('petition.admin.show');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    //user
+    public function show(Petition $petition)
     {
-        //
+        if (Auth::user()->id == $petition->user_id) {
+            return view('petition.show');
+        }
+        return redirect()->route('index');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, Petition $petition)
     {
-        //
-    }
+        $validator = Validator::make($request->all(), [
+            'shop_name' => ['required', 'unique:petitions', 'string', 'min:3', 'max:255'],
+            'description' => ['required', 'string', 'min:3', 'max:255'],
+            'logo' => ['required', 'file', 'mimes:png,jpg,jpeg', 'max:1024'],
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        if ($validator->fails()) {
+            return redirect()->route('petition.admin.show', $petition->id)->withErrors($validator);
+        }
+
+        if ($request->file('logo')) {
+            unlink(public_path('storage/' . $request->logo));
+            $petition->logo = $request->file('logo')->store('logos', 'public');
+        }
+
+        if ($request->filled('shop_name')) {
+            $petition->shop_name = $request->shop_name;
+        }
+
+
+        if ($request->filled('description')) {
+            $petition->description = $request->description;
+        }
+        $petition->save();
+        return redirect()->route('petition.admin.show', $petition->id);
     }
 }

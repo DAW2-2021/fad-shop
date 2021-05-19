@@ -19,8 +19,9 @@ class CreatePetitionsTable extends Migration
             $table->string('shop_name');
             $table->string('dni_front');
             $table->string('dni_back');
-            $table->string('state');
+            $table->string('state')->default('pending');
             $table->string('reason')->nullable();
+            $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
