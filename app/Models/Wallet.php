@@ -10,6 +10,14 @@ class Wallet extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'owner',
+        'cvv',
+        'car_number',
+        "expiry_date",
+        "user_id"
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -10,6 +10,14 @@ class Coupon extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'code',
+        'date_due',
+        'quantity',
+        "discount",
+        "shop_id"
+    ];
+
     public function users()
     {
         return $this->belongsToMany(User::class)->withPivot('redeem_date');

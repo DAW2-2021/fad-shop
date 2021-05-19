@@ -11,6 +11,13 @@ class Opinion extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'score',
+        'comment',
+        'product_id',
+        "user_id"
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('description');
             $table->float('price');
             $table->string('image');
+            $table->string('slug');
             $table->foreignId('shop_id');
             $table->foreignId('user_id');
             $table->timestamps();

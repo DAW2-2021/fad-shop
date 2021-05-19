@@ -10,6 +10,15 @@ class Petition extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'shop_name',
+        'dni_front',
+        'dni_back',
+        "state",
+        "reason",
+        "user_id"
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

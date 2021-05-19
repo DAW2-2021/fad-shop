@@ -13,6 +13,12 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "address_id",
+        "shop_id",
+        "user_id"
+    ];
+
     public function address()
     {
         return $this->belongsTo(Address::class);
