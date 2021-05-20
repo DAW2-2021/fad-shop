@@ -70,7 +70,7 @@ Route::group(['prefix' => 'petition', 'as' => 'petition.'], function () {
     });
     //Admin
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
-        Route::get('/', [PetitionController::class, 'index'])->name('index');
+        Route::get('/', [PetitionController::class, 'indexAdmin'])->name('index');
         Route::get('/{petition}', [PetitionController::class, 'showAdminPetition'])->name('show');
         Route::put('/{petition}', [PetitionController::class, 'update'])->name('update');
     });

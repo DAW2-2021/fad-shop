@@ -41,9 +41,19 @@
                                 <li>
                                     <a class="dropdown-item" href="{{ route('user.index') }}">Mi Perfil</a>
                                 </li>
+                                @if ( Auth::user()->hasRole('admin') )
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('petition.create') }}">Abrir Tienda</a>
+                                    <a class="dropdown-item" href="{{ route('petition.admin.index') }}">Administrar peticiones</a>
                                 </li>
+                                @elseif (Auth::user()->petition)
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('petition.create') }}">Ver mi peticion</a>
+                                </li>
+                                @else
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('petition.create') }}">Abrir una tienda</a>
+                                </li>
+                                @endif
                                 <li>
                                     <hr class="dropdown-divider" />
                                 </li>

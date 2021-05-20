@@ -11,10 +11,10 @@ use App\Models\Petition;
 class PetitionController extends Controller
 {
 
-    public function index()
+    public function indexAdmin()
     {
-        //aquí va la vista del usuario
-        // return view('');
+        $petitions = Petition::orderByDesc('id')->paginate(15);
+        return view('petition.admin.index')->with(['petitions' => $petitions]);
     }
 
     public function create()
