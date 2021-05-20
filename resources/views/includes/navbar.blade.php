@@ -81,24 +81,39 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="">
-                        <label for="" class="form-label">Username</label>
-                        <input type="text" class="form-control" />
-                        <label for="" class="form-label mt-2">Email</label>
-                        <input type="text" class="form-control" />
+                    <form action="{{ route('register') }}" method="POST">
+                        @csrf
+                        @method('POST')
+                        <label for="" class="form-label">{{ __('Username') }}</label>
+                        <input type="text" name="username" value="{{ old('name') }}" class="form-control" />
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        <label for="" class="form-label mt-2">{{ __('E-Mail Address') }}</label>
+                        <input type="text" name="email" value="{{ old('email') }}" class="form-control" />
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         <div class="row">
                             <div class="col">
                                 <label for="" class="form-label mt-2">Password</label>
-                                <input type="text" class="form-control" />
+                                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" />
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col">
                                 <label for="" class="form-label mt-2">Repite password</label>
-                                <input type="text" class="form-control" />
+                                <input type="password" name="password_confirmation" class="form-control" />
                             </div>
                         </div>
-                        <button type="button" class="btn btn-success mt-3" data-bs-dismiss="modal">
-                            Registrarse
-                        </button>
+                        <button type="submit" class="btn btn-success mt-3">{{ __('Register') }}</button>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -113,6 +128,7 @@
             </div>
         </div>
     </div>
+
     <!-- ---- LOGIN -->
     <div class="modal fade" id="loginModal" aria-hidden="true" aria-labelledby="loginModalLabel" tabindex="-1">
         <div class="modal-dialog  modal-dialog-centered modal-lg">
@@ -122,12 +138,24 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form action="{{ route('login') }}" method="POST">
+                        @csrf
+                        @method('POST')
                         <label for="" class="form-label mt-2">Email</label>
-                        <input type="text" class="form-control" />
+                        <input type="text" name="email" class="form-control" />
+                        @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                         <label for="" class="form-label mt-2">Password</label>
-                        <input type="text" class="form-control" />
-                        <button type="button" class="btn btn-success mt-3" data-bs-dismiss="modal">
+                        <input type="password" name="password" class="form-control" />
+                        @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                        <button type="submit" class="btn btn-success mt-3">
                             Iniciar sesión
                         </button>
                     </form>

@@ -20,47 +20,19 @@
             </button>
         </div>
         <div class="row d-sm-flex d-none categories justify-content-center align-items-center mt-2">
+            @for ($i=0; $i<6; $i++)
             <a href="#"
-                class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
-                <i class="fas text-center fa-gamepad"></i>
-                <h5 class="text-center">Gaming</h5>
-                <div class="row"></div>
+            class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
+            <i class="{{$categories[$i]->icon}} text-center"></i>
+            <h5 class="text-center mt-1">{{$categories[$i]->name }}</h5>
+            <div class="row"></div>
             </a>
-            <a href="#"
-                class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
-                <i class="fas text-center fa-gamepad"></i>
-                <h5 class="text-center">Gaming</h5>
-                <div class="row"></div>
-            </a>
-            <a href="#"
-                class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
-                <i class="fas text-center fa-gamepad"></i>
-                <h5 class="text-center">Gaming</h5>
-                <div class="row"></div>
-            </a>
-            <a href="#"
-                class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
-                <i class="fas text-center fa-gamepad"></i>
-                <h5 class="text-center">Gaming</h5>
-                <div class="row"></div>
-            </a>
-            <a href="#"
-                class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
-                <i class="fas text-center fa-gamepad"></i>
-                <h5 class="text-center">Gaming</h5>
-                <div class="row"></div>
-            </a>
-            <a href="#"
-                class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
-                <i class="fas text-center fa-gamepad"></i>
-                <h5 class="text-center">Gaming</h5>
-                <div class="row"></div>
-            </a>
+            @endfor
             <a href="#"
                 class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center"
                 data-bs-toggle="modal" data-bs-target="#categoriesModal">
                 <i class="fas text-center fa-ellipsis-h"></i>
-                <h5 class="text-center">Más</h5>
+                <h5 class="text-center mt-1">Más</h5>
                 <div class="row"></div>
             </a>
         </div>
@@ -269,72 +241,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body categories d-flex justify-content-center flex-wrap align-content-center">
+                    @foreach ($categories as $category)
                     <a href="#"
-                        class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
-                        <i class="fas text-center fa-gamepad"></i>
-                        <h5 class="text-center">Gaming</h5>
-                        <div class="row"></div>
+                    class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
+                    <i class="text-center {{ $category->icon }}"></i>
+                    <h5 class="text-center">{{ $category->name }}</h5>
+                    <div class="row"></div>
                     </a>
-                    <a href="#"
-                        class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
-                        <i class="fas text-center fa-gamepad"></i>
-                        <h5 class="text-center">Gaming</h5>
-                        <div class="row"></div>
-                    </a>
-                    <a href="#"
-                        class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
-                        <i class="fas text-center fa-gamepad"></i>
-                        <h5 class="text-center">Gaming</h5>
-                        <div class="row"></div>
-                    </a>
-                    <a href="#"
-                        class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
-                        <i class="fas text-center fa-gamepad"></i>
-                        <h5 class="text-center">Gaming</h5>
-                        <div class="row"></div>
-                    </a>
-                    <a href="#"
-                        class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
-                        <i class="fas text-center fa-gamepad"></i>
-                        <h5 class="text-center">Gaming</h5>
-                        <div class="row"></div>
-                    </a>
-                    <a href="#"
-                        class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
-                        <i class="fas text-center fa-gamepad"></i>
-                        <h5 class="text-center">Gaming</h5>
-                        <div class="row"></div>
-                    </a>
-                    <a href="#"
-                        class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
-                        <i class="fas text-center fa-gamepad"></i>
-                        <h5 class="text-center">Gaming</h5>
-                        <div class="row"></div>
-                    </a>
-                    <a href="#"
-                        class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
-                        <i class="fas text-center fa-gamepad"></i>
-                        <h5 class="text-center">Gaming</h5>
-                        <div class="row"></div>
-                    </a>
-                    <a href="#"
-                        class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
-                        <i class="fas text-center fa-gamepad"></i>
-                        <h5 class="text-center">Gaming</h5>
-                        <div class="row"></div>
-                    </a>
-                    <a href="#"
-                        class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
-                        <i class="fas text-center fa-gamepad"></i>
-                        <h5 class="text-center">Gaming</h5>
-                        <div class="row"></div>
-                    </a>
-                    <a href="#"
-                        class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
-                        <i class="fas text-center fa-gamepad"></i>
-                        <h5 class="text-center">Gaming</h5>
-                        <div class="row"></div>
-                    </a>
+                    @endforeach
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
