@@ -7,7 +7,7 @@
     <!-- AJUSTES PROFILE -->
     <div class="container">
         <div class="p-3 pb-md-4 mx-auto text-center">
-            <h1 class="display-4 fw-normal">My profile</h1>
+            <h1 class="display-4 fw-normal">Mi Perfil</h1>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -28,7 +28,7 @@
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="about-tab" data-bs-toggle="tab" href="#about" role="tab"
-                                aria-controls="about" aria-selected="true">Mi cuenta</a>
+                                aria-controls="about" aria-selected="true">Cuenta</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="coupons-tab" data-bs-toggle="tab" href="#coupons" role="tab"
