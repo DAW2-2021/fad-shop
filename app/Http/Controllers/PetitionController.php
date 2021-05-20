@@ -10,9 +10,10 @@ use App\Models\Petition;
 
 class PetitionController extends Controller
 {
-  
-    public function index(){
-         return view('petition.index');
+
+    public function index()
+    {
+        return view('petition.index');
     }
 
     public function indexAdmin()
@@ -48,12 +49,12 @@ class PetitionController extends Controller
 
         $pathDniFront = $request->file('dni_front')->store('dnis_fronts', 'public');
         $pathDniBack = $request->file('dni_back')->store('dnis_back', 'public');
-        $pathLogo = $request->file('logo')->store('logos', 'public');
+        $pathLogo = $request->file('shop_logo')->store('logos', 'public');
 
-        $data = array_merge(request(['shop_name', 'description']), ['logo' => $pathLogo, 'dni_back' => $pathDniBack, 'dni_front' => $pathDniFront]);
+        $data = array_merge(request(['shop_name', 'shop_description']), ['shop_logo' => $pathLogo, 'dni_back' => $pathDniBack, 'dni_front' => $pathDniFront]);
         $petition = Auth::user()->petition()->create($data);
 
-        return redirect()->route('petition.show', $petition->id);
+        return redirect()->route('petition.index');
     }
 
     public function showAdminPetition(Petition $petition)
