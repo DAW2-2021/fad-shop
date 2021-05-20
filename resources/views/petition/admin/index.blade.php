@@ -27,7 +27,7 @@
                 <th scope="col">Nº Pet.</th>
                 <th scope="col">Usuario</th>
                 <th scope="col">Nombre de la tienda</th>
-                <th scope="col">Descripcion</th>
+                <th scope="col">Descripción</th>
                 <th class="text-center" scope="col">Ver Petición</th>
               </tr>
             </thead>
@@ -37,10 +37,10 @@
                 <th scope="row">{{ $petition->id }}</th>
                 <td>{{ $petition->user->username }}</td>
                 <td>{{ $petition->shop_name }}</td>
-                @if (Str::length($petition->description) <= 20)
-                <td>{{$petition->description }}</td>
+                @if (Str::length($petition->shop_description) <= 20)
+                <td>{{$petition->shop_description }}</td>
                 @else
-                <td>{{ Str::substr($petition->description, 0, 20)."..." }}</td>
+                <td>{{ Str::substr($petition->shop_description, 0, 20)."..." }}</td>
                 @endif
                 <td class="text-center"><a href=""><i class="far fa-eye"></i></a></td>
               </tr>
