@@ -18,13 +18,13 @@
                         placeholder="Fad shop" id="shop_name" name="shop_name" type="text" />
                 </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label h4">Descripción de la Tienda</label>
-                    <textarea class="form-control" placeholder="Tienda de animales..." id="description" name="description"
-                        rows="3"></textarea>
+                    <label for="shop_description" class="form-label h4">Descripción de la Tienda</label>
+                    <textarea class="form-control" placeholder="Tienda de animales..." id="shop_description"
+                        name="shop_description" rows="3"></textarea>
                 </div>
                 <div class="col-md-10">
-                    <label class="form-label font-bold h4" for="logo">Logo de la Tienda:</label><input class="form-control"
-                        id="logo" name="logo" type="file" />
+                    <label class="form-label font-bold h4" for="shop_logo">Logo de la Tienda:</label><input
+                        class="form-control" id="shop_logo" name="shop_logo" type="file" />
                 </div>
                 <div class="form mb-3 row">
                     <div class="col-md-10">
@@ -32,7 +32,7 @@
                             class="form-control" id="dni_front" name="dni_front" type="file" />
                     </div>
                     <div class="col-md-2">
-                        <img src="img/AnversoDni3s.jpg" alt="anversoDNI" class="img-thumbnail" />
+                        <img src="{{ asset('img/AnversoDni.jpg') }}" alt="anversoDNI" class="img-thumbnail" />
                     </div>
                 </div>
                 <div class="form mb-3 row">
@@ -41,7 +41,7 @@
                             id="dni_back" name="dni_back" type="file" />
                     </div>
                     <div class="col-md-2">
-                        <img src="img/ReversoDni3s.jpg" alt="reversoDNI" class="img-thumbnail" />
+                        <img src="{{ asset('img/AnversoDni.jpg') }}" alt="reversoDNI" class="img-thumbnail" />
                     </div>
                 </div>
                 <p class="fs-5 text-primary">
