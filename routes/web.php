@@ -10,10 +10,11 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PetitionController;
+use App\Http\Controllers\ProductController;
 // ELIMINAR AL FINAL
-Route::get('/{route}', function ($route) {
-    return view($route);
-});
+// Route::get('/{route}', function ($route) {
+//     return view($route);
+// });
 
 //petitionController(show) solo para el admin
 
@@ -53,6 +54,7 @@ Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::put('/user', [UserController::class, 'update'])->name('user.update');
     Route::group(['prefix' => 'form', 'as' => 'form.'], function () {
         Route::get('/shop', [FormController::class, 'showFormShop'])->middleware('role:user')->name('shop');
         //users-sellers

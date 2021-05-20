@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row align-items-center">
             <div class="text-center col-12 col-lg-2">
-                <a href="#" class="navbar-brand link-dark fs-1 text-dark me-2">
+                <a href="{{ route('index') }}" class="navbar-brand link-dark fs-1 text-dark me-2">
                     FAD SHOP
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -39,17 +39,21 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
-                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="{{ route('user.index') }}">Mi Perfil</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Mi
+                                        Tienda</a>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider" />
                                 </li>
                                 <li>
-                                    <a class="dropdown-item"  onclick="event.preventDefault(); document.getElementById('frm-logout').submit();" style="cursor: pointer">Log Out</a>
-                                    <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <a class="dropdown-item"
+                                        onclick="event.preventDefault(); document.getElementById('frm-logout').submit();"
+                                        style="cursor: pointer">Log Out</a>
+                                    <form id="frm-logout" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
                                         {{ csrf_field() }}
                                     </form>
                                 </li>
@@ -86,22 +90,23 @@
                         @method('POST')
                         <label for="" class="form-label">{{ __('Username') }}</label>
                         <input type="text" name="username" value="{{ old('name') }}" class="form-control" />
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                         <label for="" class="form-label mt-2">{{ __('E-Mail Address') }}</label>
                         <input type="text" name="email" value="{{ old('email') }}" class="form-control" />
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                         <div class="row">
                             <div class="col">
                                 <label for="" class="form-label mt-2">Password</label>
-                                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" />
+                                <input type="password" name="password"
+                                    class="form-control @error('password') is-invalid @enderror" />
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -144,17 +149,17 @@
                         <label for="" class="form-label mt-2">Email</label>
                         <input type="text" name="email" class="form-control" />
                         @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                         <label for="" class="form-label mt-2">Password</label>
                         <input type="password" name="password" class="form-control" />
                         @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                         <button type="submit" class="btn btn-success mt-3">
                             Iniciar sesión
                         </button>
