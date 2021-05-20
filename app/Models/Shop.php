@@ -18,6 +18,7 @@ class Shop extends Model
         'logo',
         "isActive",
         "slug",
+        "reason",
         "user_id"
     ];
 

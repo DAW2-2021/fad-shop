@@ -16,6 +16,7 @@ class Petition extends Model
         'shop_logo',
         'dni_front',
         'dni_back',
+        'description',
         "state",
         "reason",
         "user_id"
