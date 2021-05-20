@@ -1,7 +1,7 @@
 .categories {
     .category {
         background-color: darken($background, 70%);
-        width: 8rem !important;
+        width: 8.5rem !important;
         transition: all 0.3s;
 
         &:hover {
@@ -10,7 +10,7 @@
 
         i,
         svg {
-            font-size: 4.5rem !important;
+            font-size: 4rem !important;
         }
     }
 }
