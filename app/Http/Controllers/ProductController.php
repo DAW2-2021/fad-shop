@@ -21,7 +21,6 @@ class ProductController extends Controller
 
     public function show($shop, $product)
     {
-        //hay que mirar que pasa si falla
         $shop = Shop::firstOrFail('slug', $shop);
         $product = Product::firstOrFail(['slug' => $product, 'shop_id' => $shop->id]);
         return view('product.index', compact('product'));
