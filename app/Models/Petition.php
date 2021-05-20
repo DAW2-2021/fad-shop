@@ -12,6 +12,8 @@ class Petition extends Model
 
     protected $fillable = [
         'shop_name',
+        'shop_description',
+        'shop_logo',
         'dni_front',
         'dni_back',
         'description',

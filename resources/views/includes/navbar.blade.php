@@ -17,7 +17,7 @@
                 <div class="col-sm-8">
                     <div class="position-relative">
                         <input class="form-control me-2 search rounded-pill bg-primary ps-5 py-2 my-2 my-md-0"
-                            type="search" placeholder="Search" aria-label="Search" />
+                            type="search" placeholder="Buscar" aria-label="Search" />
                         <span class="position-absolute top-50 start-0 translate-middle-y ms-4 text-black-50">
                             <i class="fas fa-search"></i>
                         </span>
@@ -26,10 +26,10 @@
                 <div class="col-sm-4 ps-lg-5 pt-lg-0 py-3 py-md-0 d-flex justify-content-evenly align-items-center ">
                     @if (!Auth::check())
                         <a href="#" class="text-dark text-decoration-none" data-bs-toggle="modal"
-                            data-bs-target="#registerModal">Sign Up</a>
+                            data-bs-target="#registerModal">Registrarse</a>
                         <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal"
                             class="btn px-3 fw-bold btn-outline-primary">
-                            Sign in
+                            Identificarse
                         </a>
                     @else
                         <div class="nav-item dropdown justify-content-evenly align-items-center">
@@ -46,13 +46,16 @@
                                     <a class="dropdown-item" href="{{ route('petition.admin.index') }}">Administrar peticiones</a>
                                 </li>
                                 @elseif (Auth::user()->petition)
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('petition.create') }}">Ver mi peticion</a>
-                                </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('petition.index') }}">Estado
+                                            Petición
+                                            Tienda</a>
+                                    </li>
                                 @else
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('petition.create') }}">Abrir una tienda</a>
-                                </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('petition.create') }}">Crear Petición
+                                            Tienda</a>
+                                    </li>
                                 @endif
                                 <li>
                                     <hr class="dropdown-divider" />
@@ -60,7 +63,7 @@
                                 <li>
                                     <a class="dropdown-item"
                                         onclick="event.preventDefault(); document.getElementById('frm-logout').submit();"
-                                        style="cursor: pointer">Log Out</a>
+                                        style="cursor: pointer">Cerrar Sesión</a>
                                     <form id="frm-logout" action="{{ route('logout') }}" method="POST"
                                         style="display: none;">
                                         {{ csrf_field() }}
@@ -97,14 +100,14 @@
                     <form action="{{ route('register') }}" method="POST">
                         @csrf
                         @method('POST')
-                        <label for="" class="form-label">{{ __('Username') }}</label>
+                        <label for="" class="form-label">{{ __('Nombre') }}</label>
                         <input type="text" name="username" value="{{ old('name') }}" class="form-control" />
                         @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                        <label for="" class="form-label mt-2">{{ __('E-Mail Address') }}</label>
+                        <label for="" class="form-label mt-2">{{ __('Email') }}</label>
                         <input type="text" name="email" value="{{ old('email') }}" class="form-control" />
                         @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -113,7 +116,7 @@
                         @enderror
                         <div class="row">
                             <div class="col">
-                                <label for="" class="form-label mt-2">Password</label>
+                                <label for="" class="form-label mt-2">Contraseña</label>
                                 <input type="password" name="password"
                                     class="form-control @error('password') is-invalid @enderror" />
                                 @error('password')
@@ -123,11 +126,11 @@
                                 @enderror
                             </div>
                             <div class="col">
-                                <label for="" class="form-label mt-2">Repite password</label>
+                                <label for="" class="form-label mt-2">Repetir Contraseña</label>
                                 <input type="password" name="password_confirmation" class="form-control" />
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-success mt-3">{{ __('Register') }}</button>
+                        <button type="submit" class="btn btn-success mt-3">{{ __('Registrarse') }}</button>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -162,7 +165,7 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                        <label for="" class="form-label mt-2">Password</label>
+                        <label for="" class="form-label mt-2">Contraseña</label>
                         <input type="password" name="password" class="form-control" />
                         @error('password')
                             <span class="invalid-feedback" role="alert">

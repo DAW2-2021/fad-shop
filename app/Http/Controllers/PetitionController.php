@@ -10,6 +10,10 @@ use App\Models\Petition;
 
 class PetitionController extends Controller
 {
+  
+    public function index(){
+         return view('petition.index');
+    }
 
     public function indexAdmin()
     {
@@ -19,15 +23,21 @@ class PetitionController extends Controller
 
     public function create()
     {
+        if (Auth::user()->petition) {
+            return redirect()->route('petition.index');
+        }
         return view('form.shop');
     }
 
     public function store(Request $request)
     {
+        if (Auth::user()->petition) {
+            return redirect()->route('petition.index');
+        }
         $validator = Validator::make($request->all(), [
             'shop_name' => ['required', 'unique:petitions', 'string', 'min:3', 'max:255'],
-            'description' => ['required', 'string', 'min:3', 'max:255'],
-            'logo' => ['required', 'file', 'mimes:png,jpg,jpeg', 'max:1024'],
+            'shop_description' => ['required', 'string', 'min:3', 'max:255'],
+            'shop_logo' => ['required', 'file', 'mimes:png,jpg,jpeg', 'max:1024'],
             'dni_front' => ['required', 'file', 'mimes:png,jpg,jpeg', 'max:2048'],
             'dni_back' => ['required', 'file', 'mimes:png,jpg,jpeg', 'max:2048']
         ]);

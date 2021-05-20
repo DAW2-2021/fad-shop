@@ -17,7 +17,8 @@ class CreatePetitionsTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('shop_name');
-            $table->string('description');
+            $table->string('shop_description');
+            $table->string('shop_logo');
             $table->string('dni_front');
             $table->string('dni_back');
             $table->string('state')->default('pending');
