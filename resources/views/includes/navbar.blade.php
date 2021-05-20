@@ -42,8 +42,7 @@
                                     <a class="dropdown-item" href="{{ route('user.index') }}">Mi Perfil</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">Mi
-                                        Tienda</a>
+                                    <a class="dropdown-item" href="{{ route('petition.create') }}">Abrir Tienda</a>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider" />

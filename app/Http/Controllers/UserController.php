@@ -40,6 +40,7 @@ class UserController extends Controller
 
 
             if ($request->filled('email')) {
+                $user->google_id = null;
                 $user->email = $request->email;
             }
 

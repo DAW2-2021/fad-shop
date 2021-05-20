@@ -63,8 +63,9 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::group(['prefix' => 'petition', 'as' => 'petition.'], function () {
-    Route::get('/{petition}', [PetitionController::class, 'show'])->name('show');
+    Route::get('/', [PetitionController::class, 'index'])->name('index');
     Route::group(['middleware' => ['auth', 'role:user']], function () {
+        Route::get('/create', [PetitionController::class, 'create'])->name('create');
         Route::post('/create', [PetitionController::class, 'store'])->name('store');
     });
     //Admin

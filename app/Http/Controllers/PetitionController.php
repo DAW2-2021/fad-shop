@@ -13,7 +13,13 @@ class PetitionController extends Controller
 
     public function index()
     {
-        return view('petition.admin.index');
+        //aquí va la vista del usuario
+        // return view('');
+    }
+
+    public function create()
+    {
+        return view('form.shop');
     }
 
     public function store(Request $request)

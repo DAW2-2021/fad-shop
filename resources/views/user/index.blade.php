@@ -392,7 +392,7 @@
                     @csrf
                     @method("PUT")
                     <div class="modal-body">
-                        <div class="col-md-12">
+                        <div class="col-md-12 my-3">
                             <label for="validationCustomUsername" class="form-label">Nombre</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
@@ -407,8 +407,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 my-3">
                             <label for="validationCustomEmail" class="form-label">Email</label>
+                            <p class="text-muted">Si tienes una cuenta de google asociada, al cambiar el
+                                email se
+                                desasociará
+                                automáticamente.</p>
                             <div class="input-group has-validation">
                                 <input type="email" class="form-control" name="email" id="validationCustomEmail"
                                     aria-describedby="inputGroupPrepend" value="{{ Auth::User()->email }}" />
@@ -420,7 +424,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 my-3">
                             <label for="validationCustomPhone" class="form-label">Teléfono</label>
                             <div class="input-group has-validation">
                                 <input type="number" class="form-control" name="phone" id="validationCustomPhone"
@@ -434,7 +438,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 my-3">
                             <label for="validationCustomPassword" class="form-label">Nueva contraseña</label>
                             <div class="input-group has-validation">
                                 <input type="password" class="form-control" name="password" id="validationCustomPassword"
@@ -447,7 +451,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 my-3">
                             <label for="validationCustomConfirmPassword" class="form-label">Confirmar nueva
                                 contraseña</label>
                             <div class="input-group has-validation">
