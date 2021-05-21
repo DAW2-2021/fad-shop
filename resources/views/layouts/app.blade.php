@@ -25,6 +25,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- JQUERY -->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <!-- FUNCTIONS -->
+    <script src="{{ asset('js/functions.js') }}"></script>
     @yield('extraHeader')
 </head>
 
