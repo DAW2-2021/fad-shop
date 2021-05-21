@@ -25,9 +25,15 @@
                     <textarea class="form-control" placeholder="Tienda de animales..." id="shop_description"
                         name="shop_description" rows="3"></textarea>
                 </div>
-                <div class="col-md-10">
-                    <label class="form-label font-bold h4" for="shop_logo">Logo de la Tienda:</label><input
-                        class="form-control" id="shop_logo" name="shop_logo" type="file" />
+                <div class="form mb-3 row">
+                    <div class="col-md-10">
+                        <label class="form-label font-bold h4" for="shop_logo">Logo de la Tienda: <span
+                                class="text-muted fs-6">(250px x 70px)</span></label><input class="form-control"
+                            id="shop_logo" name="shop_logo" type="file" />
+                    </div>
+                    <div class="col-md-2">
+                        <img src="#" id="shop_logo-show" alt="Logo" class="img-thumbnail" />
+                    </div>
                 </div>
                 <div class="form mb-3 row">
                     <div class="col-md-10">
@@ -35,7 +41,8 @@
                             class="form-control" id="dni_front" name="dni_front" type="file" />
                     </div>
                     <div class="col-md-2">
-                        <img src="{{ asset('img/AnversoDni.jpg') }}" alt="anversoDNI" class="img-thumbnail" />
+                        <img src="{{ asset('img/AnversoDni.jpg') }}" id="dni_front-show" alt="anversoDNI"
+                            class="img-thumbnail" />
                     </div>
                 </div>
                 <div class="form mb-3 row">
@@ -44,7 +51,8 @@
                             id="dni_back" name="dni_back" type="file" />
                     </div>
                     <div class="col-md-2">
-                        <img src="{{ asset('img/AnversoDni.jpg') }}" alt="reversoDNI" class="img-thumbnail" />
+                        <img src="{{ asset('img/ReversoDni.jpg') }}" id="dni_back-show" alt="reversoDNI"
+                            class="img-thumbnail" />
                     </div>
                 </div>
                 <p class="fs-5 text-primary">
@@ -58,5 +66,18 @@
     </div>
 @endsection
 @section('extraFooter')
+    <script>
+        $(document).ready(function() {
+            $("#dni_back").change(function() {
+                previewImage("dni_back");
+            });
+            $("#dni_front").change(function() {
+                previewImage("dni_front");
+            });
+            $("#shop_logo").change(function() {
+                previewImage("shop_logo");
+            });
+        });
 
+    </script>
 @endsection
