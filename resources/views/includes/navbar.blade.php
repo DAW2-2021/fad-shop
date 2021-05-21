@@ -41,10 +41,15 @@
                                 <li>
                                     <a class="dropdown-item" href="{{ route('user.index') }}">Mi Perfil</a>
                                 </li>
-                                @if ( Auth::user()->hasRole('admin') )
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('petition.admin.index') }}">Administrar peticiones</a>
-                                </li>
+                                @if (Auth::user()->hasRole('admin'))
+                                    <li>
+                                        <a class="dropdown-item"
+                                            href="{{ route('petition.admin.index') }}">Administrar Peticiones</a>
+                                    </li>
+                                    {{-- <li>
+                                        <a class="dropdown-item" href="{{ route('shop.admin.index') }}">Administrar
+                                            Tiendas</a>
+                                    </li> EXTRA --}}
                                 @elseif (Auth::user()->petition)
                                     <li>
                                         <a class="dropdown-item" href="{{ route('petition.index') }}">Estado
