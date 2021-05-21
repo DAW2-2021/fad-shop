@@ -11,7 +11,7 @@ class PagesController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $shops = Shop::all();
+        $shops = Shop::inRandomOrder()->limit(7)->get();
         return view('index', compact('categories', 'shops'));
     }
 

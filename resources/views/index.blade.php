@@ -207,27 +207,6 @@
                         <img src="{{asset('storage/'. $shop->logo) }}" class="cover-image rounded-circle" alt="logo" />
                     </a>
                     @endforeach
-                    <a href="#" class="bg-dark rounded-circle border m-3 rounded-shop">
-                        <img src="img/producto.jpg" class="cover-image rounded-circle" alt="" />
-                    </a>
-                    <a href="#" class="bg-dark rounded-circle border m-3 rounded-shop">
-                        <img src="img/producto.jpg" class="cover-image rounded-circle" alt="" />
-                    </a>
-                    <a href="#" class="bg-dark rounded-circle border m-3 rounded-shop">
-                        <img src="img/producto.jpg" class="cover-image rounded-circle" alt="" />
-                    </a>
-                    <a href="#" class="bg-dark rounded-circle border m-3 rounded-shop">
-                        <img src="img/producto.jpg" class="cover-image rounded-circle" alt="" />
-                    </a>
-                    <a href="#" class="bg-dark rounded-circle border m-3 rounded-shop">
-                        <img src="img/producto.jpg" class="cover-image rounded-circle" alt="" />
-                    </a>
-                    <a href="#" class="bg-dark rounded-circle border m-3 rounded-shop">
-                        <img src="img/producto.jpg" class="cover-image rounded-circle" alt="" />
-                    </a>
-                    <a href="#" class="bg-dark rounded-circle border m-3 rounded-shop">
-                        <img src="img/producto.jpg" class="cover-image rounded-circle" alt="" />
-                    </a>
                 </div>
             </div>
         </div>
