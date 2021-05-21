@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::group(['prefix' => 'petition', 'as' => 'petition.'], function () {
-    Route::get('/', [PetitionController::class, 'index'])->name('index');
+    Route::get('/', [PetitionController::class, 'index'])->middleware('role:user')->name('index');
     Route::group(['middleware' => ['auth', 'role:user']], function () {
         Route::get('/create', [PetitionController::class, 'create'])->name('create');
         Route::post('/create', [PetitionController::class, 'store'])->name('store');
@@ -73,6 +73,9 @@ Route::group(['prefix' => 'petition', 'as' => 'petition.'], function () {
         Route::get('/', [PetitionController::class, 'indexAdmin'])->name('index');
         Route::get('/{petition}', [PetitionController::class, 'showAdminPetition'])->name('show');
         Route::put('/{petition}', [PetitionController::class, 'update'])->name('update');
+        Route::post('/{petition}', [PetitionController::class, 'acceptPetition'])->name('accept');
+        Route::post('/deny/{petition}', [PetitionController::class, 'rejectPetition'])->name('reject');
+        Route::post('/pending/{petition}', [PetitionController::class, 'pendingPetition'])->name('pending');
     });
 });
 

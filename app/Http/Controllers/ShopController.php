@@ -37,7 +37,7 @@ class ShopController extends Controller
             return redirect()->route('shop.admin.index')->withErrors(['Coincidence' => 'El nombre de la tienda ya existe.']);
         }
 
-        $shop = $petition->user()->shop()->create(['slug' => $slug, 'name' => $petition->shop_name, 'description' => $petition->description, 'logo' => $petition->logo]);
+        $shop = $petition->user()->shop()->create(['slug' => $slug, 'name' => $petition->shop_name, 'description' => $petition->shop_description, 'logo' => $petition->shop_logo]);
 
         $petition->state = 'active';
         $petition->save();

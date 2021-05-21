@@ -42,7 +42,7 @@
                 @else
                 <td>{{ Str::substr($petition->shop_description, 0, 20)."..." }}</td>
                 @endif
-                <td class="text-center"><a href=""><i class="far fa-eye"></i></a></td>
+                <td class="text-center"><a href="{{ route('petition.admin.show', $petition->id) }}"><i class="far fa-eye"></i></a></td>
               </tr>
               @endforeach
             </tbody>

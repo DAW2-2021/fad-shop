@@ -13,6 +13,9 @@ class PetitionController extends Controller
 
     public function index()
     {
+        if (!Auth::user()->petition()) {
+            return redirect()->route('index');
+        }
         return view('petition.index');
     }
 
@@ -38,7 +41,7 @@ class PetitionController extends Controller
         $validator = Validator::make($request->all(), [
             'shop_name' => ['required', 'unique:petitions', 'string', 'min:3', 'max:255'],
             'shop_description' => ['required', 'string', 'min:3', 'max:255'],
-            'shop_logo' => ['required', 'file', 'mimes:png,jpg,jpeg', 'max:1024', 'dimensions:width=300,height=200'],
+            'shop_logo' => ['required', 'file', 'mimes:png,jpg,jpeg', 'max:1024', 'dimensions:width=250,height=70'],
             'dni_front' => ['required', 'file', 'mimes:png,jpg,jpeg', 'max:2048'],
             'dni_back' => ['required', 'file', 'mimes:png,jpg,jpeg', 'max:2048']
         ]);
@@ -59,24 +62,52 @@ class PetitionController extends Controller
 
     public function showAdminPetition(Petition $petition)
     {
-        return view('petition.admin.show');
+        return view('petition.admin.show')->with(['petition' => $petition]);
     }
 
     //user
     public function show(Petition $petition)
     {
+
         if (Auth::user()->id == $petition->user_id) {
             return view('petition.show');
         }
         return redirect()->route('index');
     }
 
+    /* public function acceptPetition(Petition $petition)
+    {
+        $petition->state = "accepted";
+        $petition->save();
+        
+        return redirect()->route('petition.admin.show', $petition->id);
+    } */
+
+    public function pendingPetition(Petition $petition)
+    {
+        $petition->state = "pending";
+        $petition->save();
+        return redirect()->route('petition.admin.show', $petition->id);
+    }
+
+    public function rejectPetition(Petition $petition)
+    {
+        $petition->state = "rejected";
+        $petition->save();
+        return redirect()->route('petition.admin.show', $petition->id);
+    }
+
     public function update(Request $request, Petition $petition)
     {
+
+        if ($petition->state != 'pending') {
+            return redirect()->route('petition.admin.show', $petition->id);
+        }
+
         $validator = Validator::make($request->all(), [
             'shop_name' => ['nullable', 'unique:petitions', 'string', 'min:3', 'max:255'],
             'shop_description' => ['nullable', 'string', 'min:3', 'max:255'],
-            'shop_logo' => ['nullable', 'file', 'mimes:png,jpg,jpeg', 'max:1024', 'dimensions:width=300,height=200'],
+            'shop_logo' => ['nullable', 'file', 'mimes:png,jpg,jpeg', 'max:1024', 'dimensions:width=250,height=70'],
             'state' => ['nullable', 'string', 'min:3', 'max:255'],
         ]);
 
