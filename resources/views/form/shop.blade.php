@@ -10,6 +10,9 @@
             <h1 class="display-4 fw-normal">Petición Tienda</h1>
         </div>
         <div class="container-md w-75 container-fluid p-5 background-2 text-dark rounded shadow">
+            @if ($errors->any())
+                {!! implode('', $errors->all('<span class="invalid-feedback" role="alert" style="display:block !important"> <strong>:message</strong></span><br>')) !!}
+            @endif
             <form action="{{ route('petition.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('POST')
@@ -45,11 +48,10 @@
                     </div>
                 </div>
                 <p class="fs-5 text-primary">
-                    This form will be reviewed as soon as possible by an
-                    administrator.
+                    Este formulario será revisado lo antes posible por un Administrador.
                 </p>
                 <button type="submit" class="btn btn-primary">
-                    Submit
+                    Enviar petición
                 </button>
             </form>
         </div>
