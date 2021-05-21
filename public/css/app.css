@@ -17322,3 +17322,9 @@ body {
   font-weight: 600;
   color: #0062cc;
 }
+
+.paginator nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
