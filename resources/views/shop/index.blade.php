@@ -5,10 +5,11 @@
 
 @section('content')
     <!-- NAV TIENDA -->
-    <div class="text-center container-fluid container-md my-3">
-        <a href="#" class="navbar-brand link-dark fs-1 text-dark me-2">
-            {{ Auth::user()->shop_name }}
-        </a>
+    <div class="text-center container-fluid container-md my-3 d-flex justify-content-center align-items-center flex-wrap">
+        <a href="{{ route('shop.index', $shop->slug) }}"><img class="img me-3" src="{{asset('storage/'. $shop->logo) }}" alt="logo_shop"></a>
+        <h2 class="navbar-brand link-dark fs-1 fw-normal text-dark me-2">
+            {{ $shop->name }}
+        </h2>
         <button class="navbar-toggler justify-content-center align-content-center" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
             <span class="fas fa-search"></span>
