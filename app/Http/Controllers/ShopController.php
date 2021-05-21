@@ -9,6 +9,7 @@ use App\Models\Shop;
 use App\Models\Product;
 use Illuminate\Support\Str;
 use App\Models\Petition;
+use App\Models\User;
 
 class ShopController extends Controller
 {
@@ -30,6 +31,7 @@ class ShopController extends Controller
         }
 
         $petition = Petition::findOrFail($request->petition_id);
+        $user = User::where('id', $petition->user_id)->first();
         $slug = Str::slug($petition->shop_name);
         $dbSlug = Shop::where('slug', $slug)->first();
 
@@ -44,8 +46,9 @@ class ShopController extends Controller
 
         $petition->state = 'accepted';
         $petition->save();
-
-        return redirect()->route('shop.index', $shop->slug);
+        $user->role_id = 2;
+        $user->save();
+        return redirect()->route('petition.admin.index');
     }
 
     // public function show($shop)

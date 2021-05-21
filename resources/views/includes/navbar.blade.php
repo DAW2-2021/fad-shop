@@ -51,11 +51,17 @@
                                             Tiendas</a>
                                     </li> EXTRA --}}
                                 @elseif (Auth::user()->petition)
+                                    @if (Auth::user()->petition->state == "accepted")
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('shop.index', Auth::user()->shop->slug) }}">Ver tu tienda</a>
+                                    </li>
+                                    @else
                                     <li>
                                         <a class="dropdown-item" href="{{ route('petition.index') }}">Estado
                                             Petición
                                             Tienda</a>
                                     </li>
+                                    @endif
                                 @else
                                     <li>
                                         <a class="dropdown-item" href="{{ route('petition.create') }}">Crear Petición
