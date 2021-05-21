@@ -202,9 +202,11 @@
                     </h1>
                 </div>
                 <div class="d-flex flex-wrap justify-content-center align-items-center">
-                    <a href="#" class="bg-dark rounded-circle border m-3 rounded-shop">
-                        <img src="img/producto.jpg" class="cover-image rounded-circle" alt="" />
+                    @foreach ($shops as $shop)
+                    <a href="{{ route('shop.index', $shop->slug) }}" class="bg-dark rounded-circle border m-3 rounded-shop">
+                        <img src="{{asset('storage/'. $shop->logo) }}" class="cover-image rounded-circle" alt="logo" />
                     </a>
+                    @endforeach
                     <a href="#" class="bg-dark rounded-circle border m-3 rounded-shop">
                         <img src="img/producto.jpg" class="cover-image rounded-circle" alt="" />
                     </a>

@@ -27,6 +27,14 @@
                 <h5 class="card-title fw-bold">Logo</h5>
                 <p class="card-text"><img src="{{ asset('storage/' . $petition->shop_logo) }}"
                         alt="Logo"></p>
+                <h5 class="card-title fw-bold">Fronal del DNI</h5>
+                <p class="card-text"><img src="{{ asset('storage/' . $petition->dni_front) }}"
+                    alt="Logo">
+                </p>
+                <h5 class="card-title fw-bold">Reverso del DNI</h5>
+                <p class="card-text"><img src="{{ asset('storage/' . $petition->dni_back) }}"
+                    alt="Logo">
+                </p>
 
                 <h5 class="card-title fw-bold">Descripción</h5>
                 <p class="card-text">{{ $petition->shop_description }}</p>
@@ -71,11 +79,12 @@
     </div>
     
     {{--  modal modificar  --}}
+    @if ($petition->state == 'pending')
     <div class="modal fade" id="modalModifyPetition" tabindex="-1" role="dialog" aria-labelledby="modalModifyPetitionTitle" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="modalModifyPetitionTitle">Modal title</h5>
+            <h5 class="modal-title" id="modalModifyPetitionTitle">Modificar petición</h5>
             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -96,9 +105,15 @@
                         <textarea class="form-control" placeholder="Tienda de animales..." id="shop_description"
                             name="shop_description" rows="3"></textarea>
                     </div>
-                    <div class="col-md-10">
-                        <label class="form-label font-bold h4" for="shop_logo">Logo de la Tienda:</label><input
-                            class="form-control" id="shop_logo" name="shop_logo" type="file" />
+                    <div class="form mb-3 row">
+                        <div class="col-md-10">
+                            <label class="form-label font-bold h4" for="shop_logo">Logo de la Tienda: <span
+                                    class="text-muted fs-6">(250px x 70px)</span></label><input class="form-control"
+                                id="shop_logo" name="shop_logo" type="file" />
+                        </div>
+                        <div class="col-md-2">
+                            <img src="#" id="shop_logo-show" alt="Logo" class="img-thumbnail" />
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary mt-2">
                         Modificar petición
@@ -108,10 +123,18 @@
         </div>
         </div>
     </div>
+    @endif
     {{--  modal modificar  --}}
 </div>
 
 @endsection
 @section('extraFooter')
+<script>
+    $(document).ready(function() {
+        $("#shop_logo").change(function() {
+            previewImage("shop_logo");
+        });
+    });
 
+</script>
 @endsection

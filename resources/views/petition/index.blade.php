@@ -12,7 +12,7 @@
         <div class="row">
             <div class="card @if (Auth::user()->petition->state == 'pending') bg-warning
                 text-dark
-            @elseif (Auth::user()->petition->state == 'accept') text-white bg-success
+            @elseif (Auth::user()->petition->state == 'accepted') text-white bg-success
             @elseif (Auth::user()->petition->state == 'rejected') text-white bg-danger @endif
 
                 mb-3">
