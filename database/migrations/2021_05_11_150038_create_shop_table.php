@@ -22,6 +22,7 @@ class CreateShopTable extends Migration
             $table->string('slug')->unique();
             $table->string('reason')->nullable();
             $table->boolean('isActive')->default(1);
+            $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

@@ -40,7 +40,7 @@ Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
 });
 
 Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
-    Route::get('/{shop}', [ShopController::class, 'show'])->name('index');
+    Route::get('/{shop}', [ShopController::class, 'index'])->name('index');
     Route::get('/{shop}/{product}', [ProductController::class, 'show'])->name('product');
     Route::group(['middleware' => ['auth', 'role:seller']], function () {
         Route::get('/settings/{shop}', [ShopController::class, 'showSettings'])->name('settings');

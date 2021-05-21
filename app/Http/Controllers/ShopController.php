@@ -15,8 +15,8 @@ class ShopController extends Controller
 
     public function index($shop)
     {
-        $shop = Shop::firstOrFail('slug', $shop);
-        return redirect()->route('shop.index', compact('shop'));
+        $shop = Shop::where('slug', $shop)->firstOrFail();
+        return view('shop.index', compact('shop'));
     }
 
     public function store(Request $request)
@@ -37,18 +37,21 @@ class ShopController extends Controller
             return redirect()->route('shop.admin.index')->withErrors(['Coincidence' => 'El nombre de la tienda ya existe.']);
         }
 
-        $shop = $petition->user()->shop()->create(['slug' => $slug, 'name' => $petition->shop_name, 'description' => $petition->shop_description, 'logo' => $petition->shop_logo]);
+        $shop = Shop::create([
+            'slug' => $slug, 'name' => $petition->shop_name, 'description' => $petition->shop_description,
+            'logo' => $petition->shop_logo, 'user_id' => $petition->user_id
+        ]);
 
-        $petition->state = 'active';
+        $petition->state = 'accepted';
         $petition->save();
 
-        return redirect()->route('shop.admin.index');
+        return redirect()->route('shop.index', $shop->slug);
     }
 
     // public function show($shop)
     // {
     //     $shop = Shop::firstOrFail('slug', $shop);
-    //     return redirect()->route('shop.index', compact('shop'));
+    //     return view('shop.index', compact('shop'));
     // }
 
     public function showSettings($shop)
