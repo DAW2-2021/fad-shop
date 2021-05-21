@@ -75,3 +75,30 @@ Route::group(['prefix' => 'petition', 'as' => 'petition.'], function () {
         Route::put('/{petition}', [PetitionController::class, 'update'])->name('update');
     });
 });
+
+Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
+    Route::get('/{shop}', [ShopController::class, 'index'])->name('index');
+    //Seller
+    Route::group(['prefix' => 'seller', 'as' => 'seller.', 'middleware' => ['auth', 'role:seller']], function () {
+        Route::get('/', [ShopController::class, 'showSettings'])->name('settings');
+        Route::put('/', [ShopController::class, 'update'])->name('update');
+        //delete por soporte (extra)
+    });
+    //Admin
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
+        //show de administración de tiendas para bloquear (extra)
+        Route::put('/{shop}', [ShopController::class, 'update'])->name('update');
+        Route::post('/create', [ShopController::class, 'store'])->name('store');
+        //delete (bloquear por el campo is_active (extra) )
+    });
+});
+
+Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
+    Route::get('/{product}', [ProductController::class, 'index'])->name('index');
+    //Seller
+    Route::group(['prefix' => 'seller', 'as' => 'seller.', 'middleware' => ['auth', 'role:seller']], function () {
+        Route::put('/', [ProductController::class, 'update'])->name('update');
+        Route::post('/create', [ProductController::class, 'store'])->name('store');
+        //delete por activo o stock (extra)
+    });
+});

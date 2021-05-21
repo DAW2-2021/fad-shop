@@ -13,9 +13,10 @@ use App\Models\Petition;
 class ShopController extends Controller
 {
 
-    public function index()
+    public function index($shop)
     {
-        return view('shop.index');
+        $shop = Shop::firstOrFail('slug', $shop);
+        return redirect()->route('shop.index', compact('shop'));
     }
 
     public function store(Request $request)
@@ -25,7 +26,7 @@ class ShopController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('shop.index')->withErrors($validator);
+            return redirect()->route('shop.admin.index')->withErrors($validator);
         }
 
         $petition = Petition::findOrFail($request->petition_id);
@@ -33,7 +34,7 @@ class ShopController extends Controller
         $dbSlug = Shop::where('slug', $slug)->first();
 
         if ($dbSlug) {
-            return redirect()->route('shop.index')->withErrors(['Coincidence' => 'El nombre de la tienda ya existe.']);
+            return redirect()->route('shop.admin.index')->withErrors(['Coincidence' => 'El nombre de la tienda ya existe.']);
         }
 
         $shop = $petition->user()->shop()->create(['slug' => $slug, 'name' => $petition->shop_name, 'description' => $petition->description, 'logo' => $petition->logo]);
@@ -41,22 +42,19 @@ class ShopController extends Controller
         $petition->state = 'active';
         $petition->save();
 
-        return redirect()->route('shop.index', $shop->slug);
+        return redirect()->route('shop.admin.index');
     }
 
-    // public function show(Shop $shop)
+    // public function show($shop)
     // {
-    //     //cambiar if si añadimos que puedan verlo los "empleados" del vendedor
-    //     if ($shop->user_id == Auth::user()->id) {
-    //         return view('shop.settings');
-    //     }
-    //     return redirect()->route('index');
+    //     $shop = Shop::firstOrFail('slug', $shop);
+    //     return redirect()->route('shop.index', compact('shop'));
     // }
 
-    public function show($shop)
+    public function showSettings($shop)
     {
-        //hay que mirar que pasa si falla
         $shop = Shop::firstOrFail('slug', $shop);
+        //cambiar if si añadimos que puedan verlo los "empleados" del vendedor
         if ($shop->user_id == Auth::user()->id) {
             return view('shop.settings', $shop);
         }
