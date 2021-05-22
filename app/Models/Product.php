@@ -4,23 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Order;
 use App\Models\User;
 use App\Models\Opinion;
 
-
 class Product extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',
         'description',
         'price',
-        "image",
-        "slug",
-        "shop_id",
-        "user_id"
+        'image',
+        'slug',
+        'shop_id',
+        'user_id'
     ];
 
     public function orders()

@@ -22,8 +22,9 @@ class CreateProductsTable extends Migration
             $table->string('slug');
             $table->foreignId('shop_id');
             $table->foreignId('user_id');
-            $table->timestamps();
             $table->integer('stock');
+            $table->softDeletes();
+            $table->timestamps();
             $table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

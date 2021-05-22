@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Order;
 use App\Models\ShopWallet;
 use App\Models\User;
@@ -11,15 +12,16 @@ use App\Models\User;
 class Shop extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',
         'description',
         'logo',
-        "isActive",
-        "slug",
-        "reason",
-        "user_id"
+        'slug',
+        'blocked_at',
+        'reason',
+        'user_id'
     ];
 
     public function user()

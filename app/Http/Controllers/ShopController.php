@@ -67,9 +67,11 @@ class ShopController extends Controller
         return redirect()->route('shop.index', compact('shop'));
     }
 
-    public function update(Request $request, Shop $shop)
+    public function update(Request $request, $shop)
     {
-        if ($shop->user_id == Auth::user()->id) {
+        $shop = Shop::where('slug', $shop)->firstOrFail();
+
+        if (Auth::user()->hasRole('admin')) {
             $validator = Validator::make($request->all(), [
                 'name' => ['nullable', 'string', 'min:3', 'max:255'],
                 'description' => ['nullable', 'string', 'min:3', 'max:255'],
@@ -92,5 +94,37 @@ class ShopController extends Controller
             return redirect()->route('shop.index');
         }
         return redirect()->route('shop.index');
+    }
+
+    public function ban(Request $request, $shop)
+    {
+        $shop = Shop::where('slug', $shop)->firstOrFail();
+        $validator = Validator::make($request->all(), [
+            'reason' => ['required', 'string', 'min:20']
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('shop.index', $shop->slug)->withErrors($validator);
+        }
+
+        $shop->update(['reason' => $request->reason, 'blocked_at' =>  date("Y-m-d H:i:s")]);
+
+        return redirect()->route('shop.index', $shop->slug);
+    }
+
+    public function unban(Request $request, $shop)
+    {
+        $shop = Shop::where('slug', $shop)->firstOrFail();
+        $validator = Validator::make($request->all(), [
+            'reason' => ['required', 'string', 'min:20']
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('shop.index', $shop->slug)->withErrors($validator);
+        }
+
+        $shop->update(['reason' => $request->reason, 'blocked_at' =>  null]);
+
+        return redirect()->route('shop.index', $shop->slug);
     }
 }
