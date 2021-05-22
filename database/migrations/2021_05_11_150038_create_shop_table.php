@@ -20,8 +20,9 @@ class CreateShopTable extends Migration
             $table->string('description');
             $table->string('logo');
             $table->string('slug')->unique();
+            $table->timestamp('blocked_at')->nullable();
             $table->string('reason')->nullable();
-            $table->boolean('isActive')->default(1);
+            $table->softDeletes();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
