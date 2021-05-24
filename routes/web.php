@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PetitionController;
 use App\Http\Controllers\ProductController;
 
@@ -28,7 +29,7 @@ Route::get('/cart', [PagesController::class, 'cart'])->name('shop.cart');
 Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
     Route::get('/product/{searchProduct}', [PagesController::class, 'searchProduct'])->name('product');
     Route::get('/product/{shop}/{searchProduct}', [PagesController::class, 'searchShopProduct'])->name('shop.product');
-    Route::get('/category/{searchCategory}', [PagesController::class, 'searchCategory'])->name('category');
+    /* Route::get('/category/{searchCategory}', [PagesController::class, 'searchCategory'])->name('category'); */
     // Meter un search de tienda??
 });
 
@@ -84,8 +85,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 //PETITIONS
 Route::group(['prefix' => 'petition', 'as' => 'petition.'], function () {
-    Route::get('/', [PetitionController::class, 'index'])->middleware('role:user')->name('index');
     Route::group(['middleware' => ['auth', 'role:user']], function () {
+        Route::get('/', [PetitionController::class, 'index'])->name('index');
         Route::get('/create', [PetitionController::class, 'create'])->name('create');
         Route::post('/create', [PetitionController::class, 'store'])->name('store');
     });
@@ -97,6 +98,17 @@ Route::group(['prefix' => 'petition', 'as' => 'petition.'], function () {
         Route::post('/{petition}', [PetitionController::class, 'acceptPetition'])->name('accept');
         Route::post('/deny/{petition}', [PetitionController::class, 'rejectPetition'])->name('reject');
         Route::post('/pending/{petition}', [PetitionController::class, 'pendingPetition'])->name('pending');
+    });
+});
+
+//CATEGORIES
+Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
+    Route::get('/', [CategoryController::class, 'index'])->name('index');
+    Route::get('/{category}', [CategoryController::class, 'show'])->name('show');
+    //ADMIN PETITIONS
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
+        Route::put('/{category}', [CategoryController::class, 'update'])->name('update');
+        Route::post('/create', [CategoryController::class, 'store'])->name('store');
     });
 });
 

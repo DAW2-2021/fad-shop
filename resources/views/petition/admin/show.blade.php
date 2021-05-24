@@ -27,7 +27,7 @@
                 <h5 class="card-title fw-bold">Logo</h5>
                 <p class="card-text"><img src="{{ asset('storage/' . $petition->shop_logo) }}"
                         alt="Logo"></p>
-                <h5 class="card-title fw-bold">Fronal del DNI</h5>
+                <h5 class="card-title fw-bold">Frontal del DNI</h5>
                 <p class="card-text"><img src="{{ asset('storage/' . $petition->dni_front) }}"
                     alt="Logo">
                 </p>
