@@ -17,7 +17,7 @@ class Petition extends Model
         'dni_front',
         'dni_back',
         'description',
-        "state",
+        "status",
         "reason",
         "user_id"
     ];

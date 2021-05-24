@@ -47,12 +47,16 @@
                                         <a class="dropdown-item"
                                             href="{{ route('petition.admin.index') }}">Administrar Peticiones</a>
                                     </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('support.admin.index') }}">Administrar
+                                            Soportes</a>
+                                    </li>
                                     {{-- <li>
                                         <a class="dropdown-item" href="{{ route('shop.admin.index') }}">Administrar
                                             Tiendas</a>
                                     </li> EXTRA --}}
                                 @elseif (Auth::user()->petition)
-                                    @if (Auth::user()->petition->state == 'accepted')
+                                    @if (Auth::user()->petition->status == 'accepted')
                                         <li>
                                             <a class="dropdown-item"
                                                 href="{{ route('shop.index', Auth::user()->shop->slug) }}">Ver tu
@@ -71,9 +75,11 @@
                                             Tienda</a>
                                     </li>
                                 @endif
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('support.index') }}">Soporte</a>
-                                </li>
+                                @if (Auth::user()->hasAnyRole(['user', 'seller']))
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('support.index') }}">Soporte</a>
+                                    </li>
+                                @endif
                                 <li>
                                     <hr class="dropdown-divider" />
                                 </li>

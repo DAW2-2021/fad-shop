@@ -44,7 +44,7 @@ class ShopController extends Controller
             'logo' => $petition->shop_logo, 'user_id' => $petition->user_id
         ]);
 
-        $petition->state = 'accepted';
+        $petition->status = 'accepted';
         $petition->save();
         $user->role_id = 2;
         $user->save();

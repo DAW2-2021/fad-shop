@@ -10,13 +10,13 @@
             <h1 class="display-4 fw-normal">Estado Petición</h1>
         </div>
         <div class="row">
-            <div class="card @if (Auth::user()->petition->state == 'pending') bg-warning
+            <div class="card @if (Auth::user()->petition->status == 'pending') bg-warning
                 text-dark
-            @elseif (Auth::user()->petition->state == 'accepted') text-white bg-success
-            @elseif (Auth::user()->petition->state == 'rejected') text-white bg-danger @endif
+            @elseif (Auth::user()->petition->status == 'accepted') text-white bg-success
+            @elseif (Auth::user()->petition->status == 'rejected') text-white bg-danger @endif
 
                 mb-3">
-                <div class="card-header text-capitalize">{{ Auth::user()->petition->state }}</div>
+                <div class="card-header text-capitalize">{{ Auth::user()->petition->status }}</div>
                 <div class="card-body">
                     <h5 class="card-title fw-bold">Nombre de la tienda</h5>
                     <p class="card-text">{{ Auth::user()->petition->shop_name }}</p>
@@ -38,7 +38,7 @@
                     <h5 class="card-title fw-bold">Fecha de creación</h5>
                     <p class="card-text">{{ Auth::user()->petition->created_at }}</p>
 
-                    @if (Auth::user()->petition->state != 'pending')
+                    @if (Auth::user()->petition->status != 'pending')
                         <h5 class="card-title fw-bold">Fecha de modificación</h5>
                         <p class="card-text">{{ Auth::user()->petition->updated_at }}</p>
                     @endif

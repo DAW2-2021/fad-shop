@@ -103,6 +103,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Coupon::class)->withPivot('redeem_date');
     }
 
+    public function supports()
+    {
+        return $this->hasMany(Support::class);
+    }
+
     public function hasRole($role)
     {
         if ($this->role()->where('name', $role)->first()) {
