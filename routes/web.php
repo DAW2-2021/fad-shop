@@ -12,6 +12,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PetitionController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SupportController;
 
 //NORMAL LOGIN & REGISTER
 Auth::routes();
@@ -102,32 +103,31 @@ Route::group(['prefix' => 'petition', 'as' => 'petition.'], function () {
 });
 
 //CATEGORIES
-Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
-    Route::get('/', [CategoryController::class, 'index'])->name('index');
+Route::group(['prefix' => 'category', 'as' => 'categories.'], function () {
     Route::get('/{category}', [CategoryController::class, 'show'])->name('show');
-    //ADMIN PETITIONS
+    //ADMIN CATEGORY
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('index');
         Route::put('/{category}', [CategoryController::class, 'update'])->name('update');
         Route::post('/create', [CategoryController::class, 'store'])->name('store');
     });
 });
 
+//suport
+Route::group(['prefix' => 'support', 'as' => 'support.'], function () {
 
-// diria que he puesto las rutas bien ya y comentadas, si falta alguna de estas muevela
-// // SHOP
-// Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
-//     Route::get('/{shop}', [ShopController::class, 'index'])->name('index');
-//     //SELLER
-//     Route::group(['as' => 'seller.', 'middleware' => ['auth', 'role:seller']], function () {
-//         Route::get('/settings', [ShopController::class, 'showSettings'])->name('settings');
-//         Route::put('/update', [ShopController::class, 'update'])->name('update');
-//         //delete por soporte (extra)
-//     });
-//     //Admin
-//     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
-//         //show de administración de tiendas para bloquear (extra)
-//         Route::put('/{shop}', [ShopController::class, 'update'])->name('update');
-//         Route::post('/create', [ShopController::class, 'store'])->name('store');
-//         //delete (bloquear por el campo is_active (extra) )
-//     });
-// });
+    //user
+    Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth', 'role:user']], function () {
+        Route::post('/create', [SupportController::class, 'store'])->name('store');
+    });
+
+    //seller
+    Route::group(['prefix' => 'seller', 'as' => 'seller.', 'middleware' => ['auth', 'role:seller']], function () {
+        Route::post('/create', [SupportController::class, 'store'])->name('store');
+    });
+
+    //admin
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
+        Route::get('/{support}', [SupportController::class, 'index'])->name('index');
+    });
+});
