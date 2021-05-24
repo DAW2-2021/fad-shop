@@ -14,7 +14,7 @@
         <button class="btn btn-outline-danger rounded-pill ms-2 mt-2 mt-md-0" data-bs-toggle="modal"
             data-bs-target="#banModal">Banear la tienda</button>
         <!-- BAN SHOP Modal -->
-        <form action="{{ route('shop.ban', $shop->slug) }}" method="post">
+        <form action="{{ route('shop.admin.ban', $shop->slug) }}" method="post">
             @csrf
             @method('PUT')
             <div class="modal fade" id="banModal" tabindex="-1" aria-labelledby="banModalLabel" aria-hidden="true">

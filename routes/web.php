@@ -34,7 +34,7 @@ Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
 
 //ADMIN SHOP
 //Tiene que ir a fuera de la shop para poder desbloquear, por que abajo mira si esta activa la tienda, así que apovechamos y metemos todo aqui
-Route::group(['prefix' => 'shop', 'as' => 'shop.', 'middleware' => ['auth', 'role:admin']], function () {
+Route::group(['prefix' => 'shop/admin', 'as' => 'shop.admin.', 'middleware' => ['auth', 'role:admin']], function () {
     Route::put('/{shop}/ban', [ShopController::class, 'ban'])->name('ban');
     Route::put('/{shop}/unban', [ShopController::class, 'unban'])->name('unban');
 

@@ -19,7 +19,7 @@
                     <button class="btn btn-outline-success rounded-pill ms-2 mt-2 mt-md-0" data-bs-toggle="modal"
                         data-bs-target="#banModal">Desbloquear la tienda</button>
                     <!-- BAN SHOP Modal -->
-                    <form action="{{ route('shop.unban', $shop->slug) }}" method="post">
+                    <form action="{{ route('shop.admin.unban', $shop->slug) }}" method="post">
                         @csrf
                         @method('PUT')
                         <div class="modal fade" id="banModal" tabindex="-1" aria-labelledby="banModalLabel"
