@@ -75,8 +75,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'form', 'as' => 'form.'], function () {
         // ONLY USERS
         Route::get('/shop', [FormController::class, 'showFormShop'])->middleware('role:user')->name('shop');
-        // ONLY USERS & SELLERS
-        Route::get('/support', [FormController::class, 'showFormSupport'])->middleware('role:user|seller')->name('support');
     });
 });
 
@@ -114,11 +112,13 @@ Route::group(['prefix' => 'support', 'as' => 'support.'], function () {
 
     //USER & SELLER
     Route::group(['middleware' => ['auth', 'role:user|seller']], function () {
+        Route::get('/', [SupportController::class, 'index'])->name('index');
         Route::post('/create', [SupportController::class, 'store'])->name('store');
     });
 
     //ADMIN
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
-        Route::get('/{support}', [SupportController::class, 'index'])->name('index');
+        Route::get('/', [SupportController::class, 'indexAdmin'])->name('index');
+        Route::get('/{support}', [SupportController::class, 'show'])->name('show');
     });
 });
