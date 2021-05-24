@@ -41,6 +41,7 @@
                                 <li>
                                     <a class="dropdown-item" href="{{ route('user.index') }}">Mi Perfil</a>
                                 </li>
+
                                 @if (Auth::user()->hasRole('admin'))
                                     <li>
                                         <a class="dropdown-item"
@@ -51,16 +52,18 @@
                                             Tiendas</a>
                                     </li> EXTRA --}}
                                 @elseif (Auth::user()->petition)
-                                    @if (Auth::user()->petition->state == "accepted")
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('shop.index', Auth::user()->shop->slug) }}">Ver tu tienda</a>
-                                    </li>
+                                    @if (Auth::user()->petition->state == 'accepted')
+                                        <li>
+                                            <a class="dropdown-item"
+                                                href="{{ route('shop.index', Auth::user()->shop->slug) }}">Ver tu
+                                                tienda</a>
+                                        </li>
                                     @else
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('petition.index') }}">Estado
-                                            Petición
-                                            Tienda</a>
-                                    </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('petition.index') }}">Estado
+                                                Petición
+                                                Tienda</a>
+                                        </li>
                                     @endif
                                 @else
                                     <li>
@@ -68,6 +71,9 @@
                                             Tienda</a>
                                     </li>
                                 @endif
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('support.index') }}">Soporte</a>
+                                </li>
                                 <li>
                                     <hr class="dropdown-divider" />
                                 </li>
