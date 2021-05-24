@@ -51,12 +51,6 @@ class ShopController extends Controller
         return redirect()->route('petition.admin.index');
     }
 
-    // public function show($shop)
-    // {
-    //     $shop = Shop::firstOrFail('slug', $shop);
-    //     return view('shop.index', compact('shop'));
-    // }
-
     public function showSettings($shop)
     {
         $shop = Shop::firstOrFail('slug', $shop);
