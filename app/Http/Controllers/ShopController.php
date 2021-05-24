@@ -10,6 +10,7 @@ use App\Models\Product;
 use Illuminate\Support\Str;
 use App\Models\Petition;
 use App\Models\User;
+use App\Models\Category;
 
 class ShopController extends Controller
 {
@@ -59,12 +60,15 @@ class ShopController extends Controller
 
     public function showSettings($shop)
     {
-        $shop = Shop::firstOrFail('slug', $shop);
+        $shop = Shop::where('slug', $shop)->firstOrFail();
+
         //cambiar if si añadimos que puedan verlo los "empleados" del vendedor
-        if ($shop->user_id == Auth::user()->id) {
-            return view('shop.settings', $shop);
+        if ($shop->user_id != Auth::user()->id) {
+            return redirect()->route('shop.index', compact('shop'));
         }
-        return redirect()->route('shop.index', compact('shop'));
+
+        $categories = Category::orderBy('name')->get();
+        return view('shop.settings', compact('shop', 'categories'));
     }
 
     public function update(Request $request, $shop)
@@ -75,7 +79,7 @@ class ShopController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => ['nullable', 'string', 'min:3', 'max:255'],
                 'description' => ['nullable', 'string', 'min:3', 'max:255'],
-                'logo' => ['nullable', 'mimes:png,jpg,jpeg', 'max:1024'],
+                'logo' => ['nullable', 'file', 'mimes:png,jpg,jpeg', 'max:1024', 'dimensions:width=250,height=70'],
             ]);
             if ($validator->fails()) {
                 return redirect()->route('shop.settings', $shop->slug)->withErrors($validator);
