@@ -43,19 +43,15 @@ Route::group(['prefix' => 'shop/admin', 'as' => 'shop.admin.', 'middleware' => [
     Route::post('/create', [ShopController::class, 'store'])->name('store');
     Route::put('/{shop}', [ShopController::class, 'update'])->name('update');
 });
-
-//SHOP user/seller
+//SHOP
+// ---- SELLER
+Route::group(['middleware' => ['active_shop', 'auth', 'role:seller']], function () {
+    Route::get('shop/settings/{shop}', [ShopController::class, 'showSettings'])->name('shop.settings');
+});
+//  ---- USER
 Route::group(['prefix' => 'shop', 'as' => 'shop.', 'middleware' => 'active_shop'], function () {
     Route::get('/{shop}', [ShopController::class, 'index'])->name('index');
     Route::get('/{shop}/{product}', [ProductController::class, 'show'])->name('product');
-    //SELLER SHOP
-    Route::group(['middleware' => ['auth', 'role:seller']], function () {
-        Route::get('/settings/{shop}', [ShopController::class, 'showSettings'])->name('settings');
-        Route::get('/settings', [ShopController::class, 'showSettings'])->name('settings');
-        //         Route::put('/update', [ShopController::class, 'update'])->name('update');
-        //         //delete por soporte (extra)
-        //Post,update,etc
-    });
 
     // PRODUCT
     Route::group(['prefix' => '{shop}', 'as' => 'product.'], function () {
@@ -113,20 +109,15 @@ Route::group(['prefix' => 'category', 'as' => 'categories.'], function () {
     });
 });
 
-//suport
+//SUPPORT
 Route::group(['prefix' => 'support', 'as' => 'support.'], function () {
 
-    //user
-    Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth', 'role:user']], function () {
+    //USER & SELLER
+    Route::group(['middleware' => ['auth', 'role:user|seller']], function () {
         Route::post('/create', [SupportController::class, 'store'])->name('store');
     });
 
-    //seller
-    Route::group(['prefix' => 'seller', 'as' => 'seller.', 'middleware' => ['auth', 'role:seller']], function () {
-        Route::post('/create', [SupportController::class, 'store'])->name('store');
-    });
-
-    //admin
+    //ADMIN
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
         Route::get('/{support}', [SupportController::class, 'index'])->name('index');
     });
