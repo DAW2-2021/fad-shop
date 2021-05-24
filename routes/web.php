@@ -123,3 +123,18 @@ Route::group(['prefix' => 'support', 'as' => 'support.'], function () {
         Route::post('/close/{support}', [SupportController::class, 'closeSupport'])->name('close');
     });
 });
+
+//OPINIONS
+Route::group(['prefix' => 'opinion', 'as' => 'opinion.'], function () {
+    //COMUNES
+    Route::get('/', [OpinionController::class, 'index'])->name('index');
+    //USUARIOS
+    Route::group(['middleware' => ['auth', 'role:user']], function () {
+        Route::put('/{category}', [OpinionController::class, 'update'])->name('update');
+        Route::post('/create', [OpinionController::class, 'store'])->name('store');
+    });
+    //ADMIN
+    Route::group(['middleware' => ['auth', 'role:admin|user']], function () {
+        Route::delete('/delete', [OpinionController::class, 'destroy'])->name('delete');
+    });
+});

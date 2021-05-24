@@ -75,14 +75,6 @@ class PetitionController extends Controller
         return redirect()->route('index');
     }
 
-    /* public function acceptPetition(Petition $petition)
-    {
-        $petition->status = "accepted";
-        $petition->save();
-
-        return redirect()->route('petition.admin.show', $petition->id);
-    } */
-
     public function pendingPetition(Petition $petition)
     {
         $petition->status = "pending";
