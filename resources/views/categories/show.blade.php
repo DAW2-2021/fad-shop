@@ -4,13 +4,12 @@
 @endsection
 
 @section('content')
-    @include('includes.navbar-shop')
     <!-- SLIDER -->
     <div class="container-fluid container-md my-5 p-2 carousel-container">
         <div class="row my-2">
             <div class="col">
                 <h1 class="text-center h2">
-                    Productos Añadidos Recientemente
+                    Productos Añadidos Recientemente a: {{ $category->name }}
                 </h1>
             </div>
         </div>

@@ -9,22 +9,15 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PetitionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupportController;
 
-// ELIMINAR AL FINAL
-// Route::get('/{route}', function ($route) {
-//     return view($route);
-// });
-
-//petitionController(show) solo para el admin
-
-//Rutas
+//NORMAL LOGIN & REGISTER
 Auth::routes();
-//Crear la pagina de not found y no permisions
 
-//LOGIN & register with google
+//LOGIN & REGISTER with google
 Route::group(['middleware' => ['guest']], function () {
     Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
     Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
@@ -33,44 +26,72 @@ Route::group(['middleware' => ['guest']], function () {
 Route::get('/', [PagesController::class, 'index'])->name('index');
 Route::get('/cart', [PagesController::class, 'cart'])->name('shop.cart');
 
-//Search
+//SEARCH
 Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
     Route::get('/product/{searchProduct}', [PagesController::class, 'searchProduct'])->name('product');
     Route::get('/product/{shop}/{searchProduct}', [PagesController::class, 'searchShopProduct'])->name('shop.product');
-    Route::get('/category/{searchCategory}', [PagesController::class, 'searchCategory'])->name('category');
+    /* Route::get('/category/{searchCategory}', [PagesController::class, 'searchCategory'])->name('category'); */
     // Meter un search de tienda??
 });
 
-Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
+//ADMIN SHOP
+//Tiene que ir a fuera de la shop para poder desbloquear, por que abajo mira si esta activa la tienda, así que apovechamos y metemos todo aqui
+Route::group(['prefix' => 'shop/admin', 'as' => 'shop.admin.', 'middleware' => ['auth', 'role:admin']], function () {
+    Route::put('/{shop}/ban', [ShopController::class, 'ban'])->name('ban');
+    Route::put('/{shop}/unban', [ShopController::class, 'unban'])->name('unban');
+
+    Route::post('/create', [ShopController::class, 'store'])->name('store');
+    Route::put('/{shop}', [ShopController::class, 'update'])->name('update');
+});
+
+//SHOP user/seller
+Route::group(['prefix' => 'shop', 'as' => 'shop.', 'middleware' => 'active_shop'], function () {
     Route::get('/{shop}', [ShopController::class, 'index'])->name('index');
     Route::get('/{shop}/{product}', [ProductController::class, 'show'])->name('product');
+    //SELLER SHOP
     Route::group(['middleware' => ['auth', 'role:seller']], function () {
         Route::get('/settings/{shop}', [ShopController::class, 'showSettings'])->name('settings');
+        Route::get('/settings', [ShopController::class, 'showSettings'])->name('settings');
+        //         Route::put('/update', [ShopController::class, 'update'])->name('update');
+        //         //delete por soporte (extra)
         //Post,update,etc
     });
-    //Admin
-    Route::group(['middleware' => ['auth', 'role:admin']], function () {
-        Route::post('/create', [ShopController::class, 'store'])->name('store');
+
+    // PRODUCT
+    Route::group(['prefix' => '{shop}', 'as' => 'product.'], function () {
+        Route::get('/{product}', [ProductController::class, 'index'])->name('index');
+        //PRODUCT SELLER
+        Route::group(['as' => 'seller.', 'middleware' => ['auth', 'role:seller']], function () {
+            Route::get('/product/create', [ProductController::class, 'create'])->name('create');
+            Route::post('/product/create', [ProductController::class, 'store'])->name('store');
+            Route::put('/{product}/update', [ProductController::class, 'update'])->name('update');
+
+            //El delete funciona con el soft, así que se puede hacer un delete normal que en la bd seguira existiendo
+        });
     });
 });
 
+//LOGGED
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
     Route::put('/user', [UserController::class, 'update'])->name('user.update');
+    //FORMS
     Route::group(['prefix' => 'form', 'as' => 'form.'], function () {
+        // ONLY USERS
         Route::get('/shop', [FormController::class, 'showFormShop'])->middleware('role:user')->name('shop');
-        //users-sellers
+        // ONLY USERS & SELLERS
         Route::get('/support', [FormController::class, 'showFormSupport'])->middleware('role:user|seller')->name('support');
     });
 });
 
+//PETITIONS
 Route::group(['prefix' => 'petition', 'as' => 'petition.'], function () {
     Route::group(['middleware' => ['auth', 'role:user']], function () {
         Route::get('/', [PetitionController::class, 'index'])->name('index');
         Route::get('/create', [PetitionController::class, 'create'])->name('create');
         Route::post('/create', [PetitionController::class, 'store'])->name('store');
     });
-    //Admin
+    //ADMIN PETITIONS
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
         Route::get('/', [PetitionController::class, 'indexAdmin'])->name('index');
         Route::get('/{petition}', [PetitionController::class, 'showAdminPetition'])->name('show');
@@ -81,30 +102,14 @@ Route::group(['prefix' => 'petition', 'as' => 'petition.'], function () {
     });
 });
 
-Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
-    Route::get('/{shop}', [ShopController::class, 'index'])->name('index');
-    //Seller
-    Route::group(['prefix' => 'seller', 'as' => 'seller.', 'middleware' => ['auth', 'role:seller']], function () {
-        Route::get('/', [ShopController::class, 'showSettings'])->name('settings');
-        Route::put('/', [ShopController::class, 'update'])->name('update');
-        //delete por soporte (extra)
-    });
-    //Admin
+//CATEGORIES
+Route::group(['prefix' => 'category', 'as' => 'categories.'], function () {
+    Route::get('/{category}', [CategoryController::class, 'show'])->name('show');
+    //ADMIN CATEGORY
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
-        //show de administración de tiendas para bloquear (extra)
-        Route::put('/{shop}', [ShopController::class, 'update'])->name('update');
-        Route::post('/create', [ShopController::class, 'store'])->name('store');
-        //delete (bloquear por el campo is_active (extra) )
-    });
-});
-
-Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
-    Route::get('/{product}', [ProductController::class, 'index'])->name('index');
-    //Seller
-    Route::group(['prefix' => 'seller', 'as' => 'seller.', 'middleware' => ['auth', 'role:seller']], function () {
-        Route::put('/', [ProductController::class, 'update'])->name('update');
-        Route::post('/create', [ProductController::class, 'store'])->name('store');
-        //delete por activo o stock (extra)
+        Route::get('/', [CategoryController::class, 'index'])->name('index');
+        Route::put('/{category}', [CategoryController::class, 'update'])->name('update');
+        Route::post('/create', [CategoryController::class, 'store'])->name('store');
     });
 });
 
@@ -126,44 +131,3 @@ Route::group(['prefix' => 'support', 'as' => 'support.'], function () {
         Route::get('/{support}', [SupportController::class, 'index'])->name('index');
     });
 });
-
-
-Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
-    //comunes
-    Route::get('/{category}', [CategoryController::class, 'index'])->name('index');
-
-    //admin
-    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
-        Route::put('/update', [CategoryController::class, 'update'])->name('update');
-        Route::post('/create', [CategoryController::class, 'store'])->name('store');
-    });
-});
-
-
-// Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
-//     //comunes
-//     Route::get('/{category}', [CategoryController::class, 'index'])->name('index');
-//     Route::put('/', [ProductController::class, 'update'])->name('update');
-//     Route::post('/create', [ProductController::class, 'store'])->name('store');
-
-//     //user
-//     Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth', 'role:user']], function () {
-//         Route::get('/{product}', [ProductController::class, 'index'])->name('index');
-//         Route::put('/', [ProductController::class, 'update'])->name('update');
-//         Route::post('/create', [ProductController::class, 'store'])->name('store');
-//     });
-
-//     //seller
-//     Route::group(['prefix' => 'seller', 'as' => 'seller.', 'middleware' => ['auth', 'role:seller']], function () {
-//         Route::get('/{product}', [ProductController::class, 'index'])->name('index');
-//         Route::put('/', [ProductController::class, 'update'])->name('update');
-//         Route::post('/create', [ProductController::class, 'store'])->name('store');
-//     });
-
-//     //admin
-//     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
-//         Route::get('/{product}', [ProductController::class, 'index'])->name('index');
-//         Route::put('/', [ProductController::class, 'update'])->name('update');
-//         Route::post('/create', [ProductController::class, 'store'])->name('store');
-//     });
-// });
