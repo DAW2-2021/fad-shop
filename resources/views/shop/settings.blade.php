@@ -14,44 +14,49 @@
                 <div class="shopSettings-head">
                     <div class="row">
                         <div class="col-md-10 d-flex align-items-center">
-                            <h5>
-                                Shopname
+                            <h5 class="me-5">
+                                {{ $shop->name }}
                             </h5>
                             <div class="col-1">
-                                <img class="img-thumbnail" src="img/logo.png" alt="" />
+                                <img src="{{ asset('storage/' . $shop->logo) }}"
+                                    alt="Logo de la tienda {{ $shop->name }}" />
                             </div>
                         </div>
                         <div class="col-md-2 d-flex align-items-center">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#shopSettingsModal">
-                                Edit Shop
+                                Editar Tienda
                             </button>
                         </div>
                     </div>
 
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="about-tab" data-bs-toggle="tab" href="#about" role="tab"
-                                aria-controls="about" aria-selected="true">About</a>
+                                aria-controls="about" aria-selected="true">Sobre</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="coupons-tab" data-bs-toggle="tab" href="#coupons" role="tab"
-                                aria-controls="coupons" aria-selected="false">Coupons</a>
+                                aria-controls="coupons" aria-selected="false">Cupones</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="add-product-tab" data-bs-toggle="tab" href="#add-product" role="tab"
+                                aria-controls="coupons" aria-selected="false">Añadir producto</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-md-12">
                 <div class="tab-content about-tab" id="myTabContent">
                     <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
                         <div class="row">
                             <div class="col-md-6">
-                                <label>Shop Name</label>
+                                <label>Nombre de la Tienda</label>
                             </div>
                             <div class="col-md-6">
-                                <p>Shopname</p>
+                                <p>{{ $shop->name }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -59,22 +64,7 @@
                                 <label>Description</label>
                             </div>
                             <div class="col-md-6">
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur
-                                    adipisicing elit. Alias voluptas quas
-                                    dolor fugit dolorum magnam sit quo,
-                                    incidunt iusto fuga nulla ratione
-                                    repellat reprehenderit consectetur
-                                    necessitatibus vitae ab aspernatur ipsa?
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Active</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>Yes</p>
+                                <p class="text-break">{{ $shop->description }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -83,7 +73,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="col-2">
-                                    <img class="img-thumbnail" src="img/logo.png" alt="" />
+                                    <img src="{{ asset('storage/' . $shop->logo) }}"
+                                        alt="Logo de la tienda {{ $shop->name }}" />
                                 </div>
                             </div>
                         </div>
@@ -117,6 +108,66 @@
                             </div>
                         </div>
                     </div>
+                    <div class="tab-pane fade" id="add-product" role="tabpanel" aria-labelledby="add-product-tab">
+                        <div class="container-fluid container-md">
+                            <div class="row">
+                                <div class="col-12 col-md-6 mb-2 mb-md-5">
+                                    @if ($errors->any())
+                                        {!! implode('', $errors->all('<span class="invalid-feedback" role="alert" style="display:block !important"> <strong>:message</strong></span><br>')) !!}
+                                    @endif
+                                    <form id="formProduct" method="post"
+                                        action="{{ route('shop.product.seller.store', $shop->slug) }}"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        @method('POST')
+                                        <div class="mb-3">
+                                            <label for="product_name" class="form-label">Nombre del Producto</label>
+                                            <input type="text" class="form-control" id="product_name" minlength="4"
+                                                name="name" value="{{ old('name') }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="product_description" class="form-label">Descripción</label>
+                                            <textarea class="form-control" id="product_description" rows="5"
+                                                name="description" minlength="20"
+                                                required>{{ old('description') }}</textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="product_price" class="form-label">Precio</label>
+                                            <input type="number" min=".50" step=".01" class="form-control" name="price"
+                                                value="{{ old('price') }}" id="product_price" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="product_stock" class="form-label">Stock</label>
+                                            <input type="number" min="0" class="form-control" id="product_stock"
+                                                value="{{ old('stock') }}" name="stock" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="product_image" class="form-label">Imagen <span
+                                                    class="text-muted fs-6">(650px x 400px)</span></label>
+                                            <input type="file" class="form-control" id="product_image" name="image"
+                                                value="{{ old('image') }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <h3 class="form-label mb-2">Categorias</h3>
+                                            @foreach ($categories as $category)
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input categories-checkbox" type="checkbox"
+                                                        name="categories[]" id="product_category-{{ $category->id }}"
+                                                        value="{{ $category->id }}">
+                                                    <label class="form-check-label fw-normal"
+                                                        for="product_category-{{ $category->id }}">{{ $category->name }}</label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Crear Producto</button>
+                                    </form>
+                                </div>
+                                <div class="col-12 col-md-6 bg-dark border rounded mb-md-0 mb-4 p-0" style="height:25rem">
+                                    <img class="cover-image" alt="Seleccionar Imagen" id="product_image-show" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -141,24 +192,12 @@
                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
                                 <input type="text" class="form-control" id="validationCustomShopName"
                                     aria-describedby="inputGroupPrepend" required />
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please choose a shop name.
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <label for="validationCustomDescription" class="form-label">Description</label>
+                            <label for="validationCustomDescription" class="form-label">Descripción</label>
                             <div class="input-group has-validation">
                                 <textarea class="form-control" id="validationCustomDescription" rows="3"></textarea>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please choose a description.
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -166,12 +205,6 @@
                             <div class="input-group has-validation">
                                 <input type="file" class="form-control" id="validationCustomLogo"
                                     aria-describedby="inputGroupPrepend" required />
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please choose a Logo.
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -204,12 +237,6 @@
                             <div class="input-group has-validation">
                                 <input type="text" class="form-control" id="validationCustomCode"
                                     aria-describedby="inputGroupPrepend" required />
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please choose a code.
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -217,12 +244,6 @@
                             <div class="input-group has-validation">
                                 <input type="date" class="form-control" id="validationCustomDateDu"
                                     aria-describedby="inputGroupPrepend" required />
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please choose a date-due.
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -241,29 +262,24 @@
 @endsection
 @section('extraFooter')
     <script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-        ;
-        (function() {
-            'use strict'
+        $(document).ready(function() {
+            $("#product_image").change(function() {
+                previewImage("product_image");
+            });
 
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.querySelectorAll('.needs-validation')
+        });
+        $('#formProduct').on('submit', function(e) {
+            let valid = true;
 
-            // Loop over them and prevent submission
-            Array.prototype.slice.call(forms).forEach(function(form) {
-                form.addEventListener(
-                    'submit',
-                    function(event) {
-                        if (!form.checkValidity()) {
-                            event.preventDefault()
-                            event.stopPropagation()
-                        }
-                        form.classList.add('was-validated')
-                    },
-                    false
-                )
-            })
-        })()
+            if (!$(".categories-checkbox:checked").length) {
+                alert("¡Tienes que seleccionar al menos una categoria!");
+                valid = false;
+            }
+
+            if (!valid) {
+                e.preventDefault();
+            }
+        });
 
     </script>
 @endsection

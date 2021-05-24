@@ -409,13 +409,14 @@
                         </div>
                         <div class="col-md-12 my-3">
                             <label for="validationCustomEmail" class="form-label">Email</label>
-                            <p class="text-muted">Si tienes una cuenta de google asociada, al cambiar el
-                                email se
-                                desasociará
-                                automáticamente.</p>
                             <div class="input-group has-validation">
                                 <input type="email" class="form-control" name="email" id="validationCustomEmail"
-                                    aria-describedby="inputGroupPrepend" value="{{ Auth::User()->email }}" />
+                                    aria-describedby="emailHelp" value="{{ Auth::User()->email }}" />
+                                <div id="emailHelp" class="form-text">Si tienes una cuenta de google asociada, al cambiar el
+                                    email se
+                                    desasociará
+                                    automáticamente.
+                                </div>
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>

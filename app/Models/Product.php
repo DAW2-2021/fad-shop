@@ -5,9 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Order;
-use App\Models\User;
-use App\Models\Opinion;
 
 class Product extends Model
 {
@@ -20,6 +17,7 @@ class Product extends Model
         'price',
         'image',
         'slug',
+        'stock',
         'shop_id',
         'user_id'
     ];
@@ -37,6 +35,11 @@ class Product extends Model
     public function opinions()
     {
         return $this->hasMany(Opinion::class);
+    }
+
+    public function shop()
+    {
+        return $this->belongsTo(Shop::class);
     }
 
     public function categories()
