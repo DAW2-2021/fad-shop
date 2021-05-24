@@ -11,6 +11,8 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PetitionController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SupportController;
+
 // ELIMINAR AL FINAL
 // Route::get('/{route}', function ($route) {
 //     return view($route);
@@ -63,8 +65,8 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::group(['prefix' => 'petition', 'as' => 'petition.'], function () {
-    Route::get('/', [PetitionController::class, 'index'])->middleware('role:user')->name('index');
     Route::group(['middleware' => ['auth', 'role:user']], function () {
+        Route::get('/', [PetitionController::class, 'index'])->name('index');
         Route::get('/create', [PetitionController::class, 'create'])->name('create');
         Route::post('/create', [PetitionController::class, 'store'])->name('store');
     });
@@ -105,3 +107,63 @@ Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
         //delete por activo o stock (extra)
     });
 });
+
+//suport
+Route::group(['prefix' => 'support', 'as' => 'support.'], function () {
+
+    //user
+    Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth', 'role:user']], function () {
+        Route::post('/create', [SupportController::class, 'store'])->name('store');
+    });
+
+    //seller
+    Route::group(['prefix' => 'seller', 'as' => 'seller.', 'middleware' => ['auth', 'role:seller']], function () {
+        Route::post('/create', [SupportController::class, 'store'])->name('store');
+    });
+
+    //admin
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
+        Route::get('/{support}', [SupportController::class, 'index'])->name('index');
+    });
+});
+
+
+Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
+    //comunes
+    Route::get('/{category}', [CategoryController::class, 'index'])->name('index');
+
+    //admin
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
+        Route::put('/update', [CategoryController::class, 'update'])->name('update');
+        Route::post('/create', [CategoryController::class, 'store'])->name('store');
+    });
+});
+
+
+// Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
+//     //comunes
+//     Route::get('/{category}', [CategoryController::class, 'index'])->name('index');
+//     Route::put('/', [ProductController::class, 'update'])->name('update');
+//     Route::post('/create', [ProductController::class, 'store'])->name('store');
+
+//     //user
+//     Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth', 'role:user']], function () {
+//         Route::get('/{product}', [ProductController::class, 'index'])->name('index');
+//         Route::put('/', [ProductController::class, 'update'])->name('update');
+//         Route::post('/create', [ProductController::class, 'store'])->name('store');
+//     });
+
+//     //seller
+//     Route::group(['prefix' => 'seller', 'as' => 'seller.', 'middleware' => ['auth', 'role:seller']], function () {
+//         Route::get('/{product}', [ProductController::class, 'index'])->name('index');
+//         Route::put('/', [ProductController::class, 'update'])->name('update');
+//         Route::post('/create', [ProductController::class, 'store'])->name('store');
+//     });
+
+//     //admin
+//     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
+//         Route::get('/{product}', [ProductController::class, 'index'])->name('index');
+//         Route::put('/', [ProductController::class, 'update'])->name('update');
+//         Route::post('/create', [ProductController::class, 'store'])->name('store');
+//     });
+// });
