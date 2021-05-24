@@ -7,6 +7,7 @@ use App\Models\Support;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
+
 class SupportController extends Controller
 {
 
@@ -26,9 +27,8 @@ class SupportController extends Controller
             return redirect()->route('support.index')->withErrors($validator);
         }
 
-        Support::create([
-            'title' => $request->title, 'content' => $request->content,
-            'status' => 'pending', 'user_id' => Auth::user()->id
+        Auth::user()->supports()->create([
+            'title' => $request->title, 'content' => $request->content
         ]);
 
         return redirect()->route('index');
@@ -41,7 +41,14 @@ class SupportController extends Controller
 
     public function indexAdmin()
     {
-        $support = Support::orderByDesc('id')->all();
-        return view('support.index', compact('support'));
+        $supports = Support::orderByDesc('id')->paginate(15);
+        return view('support.index', compact('supports'));
+    }
+
+    public function closeSupport(Support $support)
+    {
+        $support->status = "closed";
+        $support->save();
+        return redirect()->route('support.admin.show', $support->id);
     }
 }

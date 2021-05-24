@@ -120,5 +120,6 @@ Route::group(['prefix' => 'support', 'as' => 'support.'], function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
         Route::get('/', [SupportController::class, 'indexAdmin'])->name('index');
         Route::get('/{support}', [SupportController::class, 'show'])->name('show');
+        Route::post('/close/{support}', [SupportController::class, 'closeSupport'])->name('close');
     });
 });

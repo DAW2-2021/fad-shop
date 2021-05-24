@@ -77,22 +77,22 @@ class PetitionController extends Controller
 
     /* public function acceptPetition(Petition $petition)
     {
-        $petition->state = "accepted";
+        $petition->status = "accepted";
         $petition->save();
-        
+
         return redirect()->route('petition.admin.show', $petition->id);
     } */
 
     public function pendingPetition(Petition $petition)
     {
-        $petition->state = "pending";
+        $petition->status = "pending";
         $petition->save();
         return redirect()->route('petition.admin.show', $petition->id);
     }
 
     public function rejectPetition(Petition $petition)
     {
-        $petition->state = "rejected";
+        $petition->status = "rejected";
         $petition->save();
         return redirect()->route('petition.admin.show', $petition->id);
     }
@@ -100,7 +100,7 @@ class PetitionController extends Controller
     public function update(Request $request, Petition $petition)
     {
 
-        if ($petition->state != 'pending') {
+        if ($petition->status != 'pending') {
             return redirect()->route('petition.admin.show', $petition->id);
         }
 
@@ -108,7 +108,7 @@ class PetitionController extends Controller
             'shop_name' => ['nullable', 'unique:petitions', 'string', 'min:3', 'max:255'],
             'shop_description' => ['nullable', 'string', 'min:3', 'max:255'],
             'shop_logo' => ['nullable', 'file', 'mimes:png,jpg,jpeg', 'max:1024', 'dimensions:width=250,height=70'],
-            'state' => ['nullable', 'string', 'min:3', 'max:255'],
+            'status' => ['nullable', 'string', 'min:3', 'max:255'],
         ]);
 
         if ($validator->fails()) {
@@ -128,8 +128,8 @@ class PetitionController extends Controller
             $petition->shop_description = $request->shop_description;
         }
 
-        if ($request->filled('state')) {
-            $petition->state = $request->state;
+        if ($request->filled('status')) {
+            $petition->status = $request->status;
         }
 
         $petition->save();

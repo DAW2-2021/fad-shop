@@ -6,7 +6,7 @@
 @section('content')
     <div class="container">
         <div class="p-3 pb-md-4 mx-auto text-center">
-            <h1 class="display-4 fw-normal">Peticiones</h1>
+            <h1 class="display-4 fw-normal">Soportes</h1>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col-md-10">
                             <h5>
-                                Todas las peticiones: </h5>
+                                Todos los soportes: </h5>
                         </div>
                     </div>
                 </div>
@@ -24,35 +24,34 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Nº Pet.</th>
+                        <th scope="col">Nº Sop.</th>
                         <th scope="col">Usuario</th>
-                        <th scope="col">Nombre de la tienda</th>
-                        <th scope="col">Descripción</th>
+                        <th scope="col">Asunto</th>
+                        <th scope="col">Contenido</th>
                         <th scope="col">Estado</th>
                         <th class="text-center" scope="col">Ver Petición</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($petitions as $petition)
+                    @foreach ($supports as $support)
                         <tr>
-                            <th scope="row">{{ $petition->id }}</th>
-                            <td>{{ $petition->user->username }}</td>
-                            <td>{{ $petition->shop_name }}</td>
-                            @if (Str::length($petition->shop_description) <= 20)
-                                <td>{{ $petition->shop_description }}</td>
+                            <th scope="row">{{ $support->id }}</th>
+                            <td>{{ $support->user->username }}</td>
+                            <td>{{ $support->title }}</td>
+                            @if (Str::length($support->content) <= 20)
+                                <td>{{ $support->content }}</td>
                             @else
-                                <td>{{ Str::substr($petition->shop_description, 0, 20) . '...' }}</td>
+                                <td>{{ Str::substr($support->content, 0, 20) . '...' }}</td>
                             @endif
-                            <td>{{ $petition->status }}</td>
-
-                            <td class="text-center"><a href="{{ route('petition.admin.show', $petition->id) }}"><i
+                            <td>{{ $support->status }}</td>
+                            <td class="text-center"><a href="{{ route('support.admin.show', $support->id) }}"><i
                                         class="far fa-eye"></i></a></td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-        <div class="row d-flex justify-content-center paginator">{{ $petitions->links() }}</div>
+        <div class="row d-flex justify-content-center paginator">{{ $supports->links() }}</div>
     </div>
 @endsection
 @section('extraFooter')
