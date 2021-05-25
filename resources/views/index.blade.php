@@ -20,13 +20,13 @@
             </button>
         </div>
         <div class="row d-sm-flex d-none categories justify-content-center align-items-center mt-2">
-            @for ($i=0; $i<6; $i++)
-            <a href="{{ route('categories.show', $categories[$i]->id) }}"
-            class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
-            <i class="{{$categories[$i]->icon}} text-center"></i>
-            <h5 class="text-center mt-1">{{$categories[$i]->name }}</h5>
-            <div class="row"></div>
-            </a>
+            @for ($i = 0; $i < 6; $i++)
+                <a href="{{ route('categories.show', $categories[$i]->slug) }}"
+                    class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
+                    <i class="{{ $categories[$i]->icon }} text-center"></i>
+                    <h5 class="text-center mt-1">{{ $categories[$i]->name }}</h5>
+                    <div class="row"></div>
+                </a>
             @endfor
             <a href="#"
                 class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center"
@@ -203,9 +203,11 @@
                 </div>
                 <div class="d-flex flex-wrap justify-content-center align-items-center">
                     @foreach ($shops as $shop)
-                    <a href="{{ route('shop.index', $shop->slug) }}" class="bg-dark rounded-circle border m-3 rounded-shop">
-                        <img src="{{asset('storage/'. $shop->logo) }}" class="cover-image rounded-circle" alt="logo" />
-                    </a>
+                        <a href="{{ route('shop.index', $shop->slug) }}"
+                            class="bg-dark rounded-circle border m-3 rounded-shop">
+                            <img src="{{ asset('storage/' . $shop->logo) }}" class="cover-image rounded-circle"
+                                alt="logo" />
+                        </a>
                     @endforeach
                 </div>
             </div>
@@ -223,12 +225,12 @@
                 </div>
                 <div class="modal-body categories d-flex justify-content-center flex-wrap align-content-center">
                     @foreach ($categories as $category)
-                    <a href="{{ route('categories.show', $category->id) }}"
-                    class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
-                    <i class="text-center {{ $category->icon }}"></i>
-                    <h5 class="text-center">{{ $category->name }}</h5>
-                    <div class="row"></div>
-                    </a>
+                        <a href="{{ route('categories.show', $category->slug) }}"
+                            class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
+                            <i class="text-center {{ $category->icon }}"></i>
+                            <h5 class="text-center">{{ $category->name }}</h5>
+                            <div class="row"></div>
+                        </a>
                     @endforeach
                 </div>
                 <div class="modal-footer">

@@ -7,19 +7,15 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function indexAdmin()
     {
-        //
+        $categories = Category::orderByDesc('id')->paginate(15);
+        return view('categories.admin.index', compact('categories'));
     }
 
     public function create()
     {
-        //
+        return view('form.category');
     }
 
     public function store(Request $request)
@@ -27,15 +23,15 @@ class CategoryController extends Controller
         //
     }
 
-    public function show(Category $category)
+    public function show($category)
     {
-        $category = Category::where('id', $category->id)->firstOrFail();
+        $category = Category::where('slug', $category)->firstOrFail();
         return view('categories.show', compact('category'));
     }
 
     public function showAdmin(Category $category)
     {
-        $category = Category::where('id', $category->id)->firstOrFail();
+        $category = Category::where('slug', $category->slug)->firstOrFail();
         return view('categories.admin.show', compact('category'));
     }
 

@@ -4,14 +4,13 @@
 @endsection
 
 @section('content')
-    <!-- FIN SLIDER -->
     <!-- CONTENEDOR TARJETAS -->
-    <div class="container-fluid py-5 background-2" >
+    <div class="container-fluid background-1 py-5">
         <div class="container-fluid container-md">
             <div class="row justify-content-center align-content-center">
                 <div class="col mb-4">
                     <h1 class="text-center h2">
-                        Todos los Productos de {{ $category->name }}
+                        Productos de la categoría <span class="fw-bold">{{ $category->name }}</span>
                     </h1>
                 </div>
                 <div class="d-flex flex-wrap justify-content-center align-items-center">

@@ -14,7 +14,7 @@ use App\Http\Controllers\PetitionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\PayPalController;
-use App\Http\Controllers\MailController;
+use App\Http\Controllers\OpinionController;
 
 //NORMAL LOGIN & REGISTER
 Auth::routes();
@@ -100,11 +100,11 @@ Route::group(['prefix' => 'petition', 'as' => 'petition.'], function () {
 });
 
 //CATEGORIES
-Route::group(['prefix' => 'category', 'as' => 'categories.'], function () {
+Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
     Route::get('/{category}', [CategoryController::class, 'show'])->name('show');
     //ADMIN CATEGORY
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
-        Route::get('/', [CategoryController::class, 'index'])->name('index');
+        Route::get('/all', [CategoryController::class, 'indexAdmin'])->name('index');
         Route::put('/{category}', [CategoryController::class, 'update'])->name('update');
         Route::post('/create', [CategoryController::class, 'store'])->name('store');
     });
@@ -123,6 +123,7 @@ Route::group(['prefix' => 'support', 'as' => 'support.'], function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
         Route::get('/', [SupportController::class, 'indexAdmin'])->name('index');
         Route::get('/{support}', [SupportController::class, 'show'])->name('show');
+        Route::put('/{support}', [SupportController::class, 'update'])->name('update');
         Route::post('/close/{support}', [SupportController::class, 'closeSupport'])->name('close');
     });
 });
