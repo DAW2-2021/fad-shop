@@ -80,8 +80,9 @@ Route::group(['middleware' => ['auth']], function () {
 
 //PETITIONS
 Route::group(['prefix' => 'petition', 'as' => 'petition.'], function () {
+    Route::get('/', [PetitionController::class, 'index'])->middleware('auth', 'role:user|seller')->name('index');
+
     Route::group(['middleware' => ['auth', 'role:user']], function () {
-        Route::get('/', [PetitionController::class, 'index'])->name('index');
         Route::get('/create', [PetitionController::class, 'create'])->name('create');
         Route::post('/create', [PetitionController::class, 'store'])->name('store');
     });

@@ -32,8 +32,8 @@ class ProductController extends Controller
         $shop = Shop::where('slug', $shop)->firstOrFail();
 
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'min:3', 'max:255'],
-            'description' => ['required', 'string', 'min:3', 'max:255'],
+            'name' => ['required', 'string', 'min_length:3', 'max_length:255'],
+            'description' => ['required', 'string', 'min_length:20', 'max_length:255'],
             'price' => ['required', 'numeric', 'min:0.5'],
             'stock' => ['required', 'integer', 'min:0'],
             'categories' => ['required', 'array', 'min:1'],

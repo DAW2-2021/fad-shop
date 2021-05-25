@@ -71,8 +71,8 @@ class ShopController extends Controller
 
         if (Auth::user()->hasRole('admin')) {
             $validator = Validator::make($request->all(), [
-                'name' => ['nullable', 'string', 'min:3', 'max:255'],
-                'description' => ['nullable', 'string', 'min:3', 'max:255'],
+                'name' => ['nullable', 'string', 'min_length:3', 'max_length:255'],
+                'description' => ['nullable', 'string', 'min_length:3', 'max_length:255'],
                 'logo' => ['nullable', 'file', 'mimes:png,jpg,jpeg', 'max:1024', 'dimensions:width=250,height=70'],
             ]);
             if ($validator->fails()) {
@@ -98,7 +98,7 @@ class ShopController extends Controller
     {
         $shop = Shop::where('slug', $shop)->firstOrFail();
         $validator = Validator::make($request->all(), [
-            'reason' => ['required', 'string', 'min:20']
+            'reason' => ['required', 'string', 'min_length:20']
         ]);
 
         if ($validator->fails()) {
@@ -114,7 +114,7 @@ class ShopController extends Controller
     {
         $shop = Shop::where('slug', $shop)->firstOrFail();
         $validator = Validator::make($request->all(), [
-            'reason' => ['required', 'string', 'min:20']
+            'reason' => ['required', 'string', 'min_length:20']
         ]);
 
         if ($validator->fails()) {

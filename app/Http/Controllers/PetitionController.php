@@ -39,8 +39,8 @@ class PetitionController extends Controller
             return redirect()->route('petition.index');
         }
         $validator = Validator::make($request->all(), [
-            'shop_name' => ['required', 'unique:petitions', 'string', 'min:3', 'max:255'],
-            'shop_description' => ['required', 'string', 'min:3', 'max:255'],
+            'shop_name' => ['required', 'unique:petitions', 'string', 'min_length:3', 'max_length:255'],
+            'shop_description' => ['required', 'string', 'min_length:20', 'max_length:255'],
             'shop_logo' => ['required', 'file', 'mimes:png,jpg,jpeg', 'max:1024', 'dimensions:width=250,height=70'],
             'dni_front' => ['required', 'file', 'mimes:png,jpg,jpeg', 'max:2048'],
             'dni_back' => ['required', 'file', 'mimes:png,jpg,jpeg', 'max:2048']
@@ -97,10 +97,10 @@ class PetitionController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'shop_name' => ['nullable', 'unique:petitions', 'string', 'min:3', 'max:255'],
-            'shop_description' => ['nullable', 'string', 'min:3', 'max:255'],
+            'shop_name' => ['nullable', 'unique:petitions', 'string', 'min_length:3', 'max_length:255'],
+            'shop_description' => ['nullable', 'string', 'min_length:3', 'max_length:255'],
             'shop_logo' => ['nullable', 'file', 'mimes:png,jpg,jpeg', 'max:1024', 'dimensions:width=250,height=70'],
-            'status' => ['nullable', 'string', 'min:3', 'max:255'],
+            'status' => ['nullable', 'string', 'min_length:3', 'max_length:255'],
         ]);
 
         if ($validator->fails()) {

@@ -19,8 +19,8 @@ class SupportController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => ['required', 'string', 'min:3', 'max:255'],
-            'content' => ['required', 'string', 'min:3', 'max:255']
+            'title' => ['required', 'string', 'min_length:3', 'max_length:255'],
+            'content' => ['required', 'string', 'min_length:3', 'max_length:255']
         ]);
 
         if ($validator->fails()) {
