@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use App\Models\Petition;
 use App\Models\User;
 use App\Models\Category;
+use App\Mail\MailSender;
 
 class ShopController extends Controller
 {
@@ -44,6 +45,14 @@ class ShopController extends Controller
             'slug' => $slug, 'name' => $petition->shop_name, 'description' => $petition->shop_description,
             'logo' => $petition->shop_logo, 'user_id' => $petition->user_id
         ]);
+
+        $details = [
+            'title' => 'Tu tienda ha sido creada correctamente',
+            'body' => '¡Felicidades! Tu tienda ha sido activada. Ya podrás vender los productos que desees. 
+            Disfruta y se consciente de lo que haces con tu tienda',
+            'view' => 'emails.shop'
+        ];
+        \Mail::to($user->email)->send(new MailSender($details));
 
         $petition->status = 'accepted';
         $petition->save();
@@ -105,7 +114,14 @@ class ShopController extends Controller
             return redirect()->route('shop.index', $shop->slug)->withErrors($validator);
         }
 
+
         $shop->update(['reason' => $request->reason, 'blocked_at' =>  date("Y-m-d H:i:s")]);
+        $details = [
+            'title' => 'Tu tienda ha sido bloqueada',
+            'body' => $shop->reason,
+            'view' => 'emails.ban'
+        ];
+        \Mail::to($shop->user->email)->send(new MailSender($details));
 
         return redirect()->route('shop.index', $shop->slug);
     }
@@ -121,6 +137,12 @@ class ShopController extends Controller
             return redirect()->route('shop.index', $shop->slug)->withErrors($validator);
         }
 
+        $details = [
+            'title' => 'Tu tienda ha sido desbloqueada',
+            'body' => 'Enhorabuena tu tienda ha vuelto a reactivarse. Si volvemos a desactivar tu cuenta, quedará desactivada para siempre ',
+            'view' => 'emails.unban'
+        ];
+        \Mail::to($shop->user->email)->send(new MailSender($details));
         $shop->update(['reason' => $request->reason, 'blocked_at' =>  null]);
 
         return redirect()->route('shop.index', $shop->slug);
