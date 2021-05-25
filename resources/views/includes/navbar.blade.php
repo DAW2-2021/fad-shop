@@ -41,7 +41,6 @@
                                 <li>
                                     <a class="dropdown-item" href="{{ route('user.index') }}">Mi Perfil</a>
                                 </li>
-
                                 @if (Auth::user()->hasRole('admin'))
                                     <li>
                                         <a class="dropdown-item"
@@ -51,6 +50,7 @@
                                         <a class="dropdown-item" href="{{ route('support.admin.index') }}">Administrar
                                             Soportes</a>
                                     </li>
+
                                     {{-- <li>
                                         <a class="dropdown-item" href="{{ route('shop.admin.index') }}">Administrar
                                             Tiendas</a>
