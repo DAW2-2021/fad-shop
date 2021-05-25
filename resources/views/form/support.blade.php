@@ -19,7 +19,7 @@
                 <div class="mb-3">
                     <label for="title" class="form-label h4 mb-3">Motivo</label>
                     <select name="title" id="title" class="form-select">
-                        <option value="0" selected>Selecciona una opción</option>
+                        <option value="0" selected>Selecciona un motivo</option>
                         <option value="Devolución de un pedido">Devolución de un pedido</option>
                         <option value="He encontrado un bug">He encontrado un bug</option>
                         <option value="Reporte">Reporte</option>

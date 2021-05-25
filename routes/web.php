@@ -13,6 +13,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PetitionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupportController;
+use App\Http\Controllers\PayPalController;
 
 //NORMAL LOGIN & REGISTER
 Auth::routes();
@@ -130,11 +131,20 @@ Route::group(['prefix' => 'opinion', 'as' => 'opinion.'], function () {
     Route::get('/', [OpinionController::class, 'index'])->name('index');
     //USUARIOS
     Route::group(['middleware' => ['auth', 'role:user']], function () {
-        Route::put('/{category}', [OpinionController::class, 'update'])->name('update');
+        Route::put('/{opinion}', [OpinionController::class, 'update'])->name('update');
         Route::post('/create', [OpinionController::class, 'store'])->name('store');
     });
     //ADMIN
     Route::group(['middleware' => ['auth', 'role:admin|user']], function () {
         Route::delete('/delete', [OpinionController::class, 'destroy'])->name('delete');
     });
+});
+
+//PAYPAL
+Route::group(['prefix' => 'payment', 'as' => 'payment.'], function () {
+
+    //USUARIOS
+    Route::get('/payment', [PayPalController::class, 'payment'])->name('payment');
+    Route::get('/cancel', [PayPalController::class, 'cancel'])->name('cancel');
+    Route::get('/success', [PayPalController::class, 'success'])->name('success');
 });
