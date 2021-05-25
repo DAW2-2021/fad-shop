@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Shop;
 use App\Models\Petition;
+use App\Mail\MailSender;
 
 class PetitionController extends Controller
 {
@@ -56,6 +57,12 @@ class PetitionController extends Controller
 
         $data = array_merge(request(['shop_name', 'shop_description']), ['shop_logo' => $pathLogo, 'dni_back' => $pathDniBack, 'dni_front' => $pathDniFront]);
         $petition = Auth::user()->petition()->create($data);
+        $details = [
+            'title' => 'Tu petición ha sido enviada',
+            'body' => 'Revisaremos tu petición de creación de tienda lo antes posible. Muchas gracias por confiar en nosotros',
+            'view' => 'emails.rejectPetition'
+        ];
+        \Mail::to(Auth::user()->email)->send(new MailSender($details));
 
         return redirect()->route('petition.index');
     }
@@ -84,6 +91,12 @@ class PetitionController extends Controller
 
     public function rejectPetition(Petition $petition)
     {
+        $details = [
+            'title' => 'Tu petición ha sido rechazada',
+            'body' => 'Si quieres que se revise tu petición contacta con soporte y dános algunos datos para saber que la petición de tienda es tuya ',
+            'view' => 'emails.rejectPetition'
+        ];
+        \Mail::to($petition->user->email)->send(new MailSender($details));
         $petition->status = "rejected";
         $petition->save();
         return redirect()->route('petition.admin.show', $petition->id);

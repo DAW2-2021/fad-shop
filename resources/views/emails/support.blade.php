@@ -1,5 +1,5 @@
-<h1>{{ $details['title'] }}</h1>
+<h1>Motivo: {{ $details['title'] }}</h1>
 
-<p>{{ $details['body'] }}</p>
+<p>Descripción: {{ $details['body'] }}</p>
 
-<p>Thank you for support</p>
+<p>Gracias por contactar con el servicio técnico, contactaremos contigo lo antes posible</p>

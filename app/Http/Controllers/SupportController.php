@@ -32,10 +32,11 @@ class SupportController extends Controller
         ]);
 
         $details = [
-            'title' => 'Support ' . $request->title,
-            'body' => 'This is for testing email using smtp' . $request->content
+            'title' => $request->title,
+            'body' => $request->content,
+            'view' => 'emails.support'
         ];
-        \Mail::to(Auth::user()->email)->send(new MailSender($details));
+        \Mail::to([Auth::user()->email, 'fadshop8@gmail.com'])->send(new MailSender($details));
 
         return redirect()->route('index');
     }
