@@ -120,18 +120,21 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    @if ($errors->any())
+                        {!! implode('', $errors->all('<span class="invalid-feedback" role="alert" style="display:block !important"> <strong>:message</strong></span><br>')) !!}
+                    @endif
                     <form action="{{ route('register') }}" method="POST">
                         @csrf
                         @method('POST')
                         <label for="" class="form-label">{{ __('Nombre') }}</label>
-                        <input type="text" name="username" value="{{ old('name') }}" class="form-control" />
+                        <input type="text" minlength="3" name="username" value="{{ old('name') }}" class="form-control" />
                         @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                         <label for="" class="form-label mt-2">{{ __('Email') }}</label>
-                        <input type="text" name="email" value="{{ old('email') }}" class="form-control" />
+                        <input type="text" minlength="3" name="email" value="{{ old('email') }}" class="form-control" />
                         @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -140,7 +143,7 @@
                         <div class="row">
                             <div class="col">
                                 <label for="" class="form-label mt-2">Contraseña</label>
-                                <input type="password" name="password"
+                                <input type="password" minlength="3" name="password"
                                     class="form-control @error('password') is-invalid @enderror" />
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -150,7 +153,7 @@
                             </div>
                             <div class="col">
                                 <label for="" class="form-label mt-2">Repetir Contraseña</label>
-                                <input type="password" name="password_confirmation" class="form-control" />
+                                <input type="password" minlength="3" name="password_confirmation" class="form-control" />
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success mt-3">{{ __('Registrarse') }}</button>
@@ -178,18 +181,21 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    @if ($errors->any())
+                        {!! implode('', $errors->all('<span class="invalid-feedback" role="alert" style="display:block !important"> <strong>:message</strong></span><br>')) !!}
+                    @endif
                     <form action="{{ route('login') }}" method="POST">
                         @csrf
                         @method('POST')
                         <label for="" class="form-label mt-2">Email</label>
-                        <input type="text" name="email" class="form-control" />
+                        <input type="text" minlength="3" name="email" class="form-control" />
                         @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                         <label for="" class="form-label mt-2">Contraseña</label>
-                        <input type="password" name="password" class="form-control" />
+                        <input type="password" minlength="3" name="password" class="form-control" />
                         @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

@@ -18,7 +18,7 @@
                 @method('POST')
                 <div class="form mb-3">
                     <label class="form-label h4" for="shop_name">Nombre de la Tienda:</label><input class="form-control"
-                        placeholder="Fad shop" id="shop_name" name="shop_name" type="text" />
+                        placeholder="Fad shop" minlength="3" id="shop_name" name="shop_name" type="text" />
                 </div>
                 <div class="mb-3">
                     <label for="shop_description" class="form-label h4">Descripción de la Tienda</label>
@@ -38,7 +38,7 @@
                 <div class="form mb-3 row">
                     <div class="col-md-10">
                         <label class="form-label font-bold h4" for="dni_front">Anverso dni/nif:</label><input
-                            class="form-control" id="dni_front" name="dni_front" type="file" />
+                            class="form-control" minlength="3" id="dni_front" name="dni_front" type="file" />
                     </div>
                     <div class="col-md-2">
                         <img src="{{ asset('img/AnversoDni.jpg') }}" id="dni_front-show" alt="anversoDNI"
@@ -48,7 +48,7 @@
                 <div class="form mb-3 row">
                     <div class="col-md-10">
                         <label class="form-label h4" for="dni_back">Reverso dni/nif:</label><input class="form-control"
-                            id="dni_back" name="dni_back" type="file" />
+                            id="dni_back" minlength="3" name="dni_back" type="file" />
                     </div>
                     <div class="col-md-2">
                         <img src="{{ asset('img/ReversoDni.jpg') }}" id="dni_back-show" alt="reversoDNI"
