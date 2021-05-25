@@ -30,6 +30,7 @@
                             <a class="nav-link active" id="about-tab" data-bs-toggle="tab" href="#about" role="tab"
                                 aria-controls="about" aria-selected="true">Cuenta</a>
                         </li>
+                        @if (Auth::user()->role_id != 1)
                         <li class="nav-item">
                             <a class="nav-link" id="coupons-tab" data-bs-toggle="tab" href="#coupons" role="tab"
                                 aria-controls="coupons" aria-selected="false">Cupones</a>
@@ -38,6 +39,7 @@
                             <a class="nav-link" id="history-tab" data-bs-toggle="tab" href="#history" role="tab"
                                 aria-controls="history" aria-selected="false">Historial</a>
                         </li>
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -89,6 +91,7 @@
                             </div>
                         </div>
                     </div>
+                    @if (Auth::user()->role_id != 1)
                     <div class="tab-pane fade" id="coupons" role="tabpanel" aria-labelledby="coupons-tab">
                         <div class="row row-cols-1 row-cols-md-3 g-4">
                             <div class="col">
@@ -372,6 +375,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
