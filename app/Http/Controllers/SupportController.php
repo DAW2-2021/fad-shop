@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Support;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-
+use App\Mail\MailSender;
 
 class SupportController extends Controller
 {
@@ -30,6 +30,12 @@ class SupportController extends Controller
         Auth::user()->supports()->create([
             'title' => $request->title, 'content' => $request->content
         ]);
+
+        $details = [
+            'title' => 'Support ' . $request->title,
+            'body' => 'This is for testing email using smtp' . $request->content
+        ];
+        \Mail::to(Auth::user()->email)->send(new MailSender($details));
 
         return redirect()->route('index');
     }
