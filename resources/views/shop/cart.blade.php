@@ -148,6 +148,9 @@
             <aside class="col-lg-3">
                 <div class="card mb-3">
                     <div class="card-body">
+                        @if ($errors->any())
+                            {!! implode('', $errors->all('<span class="invalid-feedback" role="alert" style="display:block !important"> <strong>:message</strong></span><br>')) !!}
+                        @endif
                         <form>
                             <div class="form-group">
                                 <label>Have coupon?</label>

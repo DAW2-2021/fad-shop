@@ -396,7 +396,7 @@
                             <label for="validationCustomUsername" class="form-label">Nombre</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                <input type="text" class="form-control" name="username"
+                                <input type="text" class="form-control" minlength="3" name="username"
                                     value="{{ Auth::User()->username }}" id="validationCustomUsername"
                                     aria-describedby="inputGroupPrepend" />
                                 <div class="valid-feedback">
@@ -410,7 +410,7 @@
                         <div class="col-md-12 my-3">
                             <label for="validationCustomEmail" class="form-label">Email</label>
                             <div class="input-group has-validation">
-                                <input type="email" class="form-control" name="email" id="validationCustomEmail"
+                                <input type="email" class="form-control" minlength="3" name="email" id="validationCustomEmail"
                                     aria-describedby="emailHelp" value="{{ Auth::User()->email }}" />
                                 <div id="emailHelp" class="form-text">Si tienes una cuenta de google asociada, al cambiar el
                                     email se
@@ -428,7 +428,7 @@
                         <div class="col-md-12 my-3">
                             <label for="validationCustomPhone" class="form-label">Teléfono</label>
                             <div class="input-group has-validation">
-                                <input type="number" class="form-control" name="phone" id="validationCustomPhone"
+                                <input type="number" class="form-control" minlength="3" name="phone" id="validationCustomPhone"
                                     aria-describedby="inputGroupPrepend" placeholder="611111111"
                                     value="{{ Auth::User()->phone }}" />
                                 <div class="valid-feedback">
@@ -442,7 +442,7 @@
                         <div class="col-md-12 my-3">
                             <label for="validationCustomPassword" class="form-label">Nueva contraseña</label>
                             <div class="input-group has-validation">
-                                <input type="password" class="form-control" name="password" id="validationCustomPassword"
+                                <input type="password" class="form-control" minlength="3" name="password" id="validationCustomPassword"
                                     aria-describedby="inputGroupPrepend" />
                                 <div class="valid-feedback">
                                     Looks good!
@@ -456,7 +456,7 @@
                             <label for="validationCustomConfirmPassword" class="form-label">Confirmar nueva
                                 contraseña</label>
                             <div class="input-group has-validation">
-                                <input type="password" class="form-control" id="validationCustomConfirmPassword"
+                                <input type="password" class="form-control" minlength="3" id="validationCustomConfirmPassword"
                                     aria-describedby="inputGroupPrepend" name="password_confirmation" />
                                 <div class="valid-feedback">
                                     Looks good!
