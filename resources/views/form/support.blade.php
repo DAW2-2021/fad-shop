@@ -27,14 +27,15 @@
                     </select>
                 </div>
                 <div class="form mb-3">
-                    <input type="text" class="form-control" id="titleSpecific" minlength="15" placeholder="Especificar un motivo" />
+                    <input type="text" class="form-control" id="titleSpecific" minlength="15"
+                        placeholder="Especificar un motivo" />
                 </div>
                 <div class="form mb-3">
                     <textarea type="text" minlength="3" class="form-control" name="content" id="content"
                         placeholder="Introduce un mensaje"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">
-                    Enviar
+                    Submit
                 </button>
             </form>
         </div>

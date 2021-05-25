@@ -50,6 +50,10 @@
                                         <a class="dropdown-item" href="{{ route('support.admin.index') }}">Administrar
                                             Soportes</a>
                                     </li>
+                                    <li>
+                                        <a class="dropdown-item"
+                                            href="{{ route('categories.admin.index') }}">Administrar Categorías</a>
+                                    </li>
 
                                     {{-- <li>
                                         <a class="dropdown-item" href="{{ route('shop.admin.index') }}">Administrar
@@ -127,14 +131,16 @@
                         @csrf
                         @method('POST')
                         <label for="" class="form-label">{{ __('Nombre') }}</label>
-                        <input type="text" minlength="3" name="username" value="{{ old('name') }}" class="form-control" />
+                        <input type="text" minlength="3" name="username" value="{{ old('name') }}"
+                            class="form-control" />
                         @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                         <label for="" class="form-label mt-2">{{ __('Email') }}</label>
-                        <input type="text" minlength="3" name="email" value="{{ old('email') }}" class="form-control" />
+                        <input type="text" minlength="3" name="email" value="{{ old('email') }}"
+                            class="form-control" />
                         @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -153,7 +159,8 @@
                             </div>
                             <div class="col">
                                 <label for="" class="form-label mt-2">Repetir Contraseña</label>
-                                <input type="password" minlength="3" name="password_confirmation" class="form-control" />
+                                <input type="password" minlength="3" name="password_confirmation"
+                                    class="form-control" />
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success mt-3">{{ __('Registrarse') }}</button>
