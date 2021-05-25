@@ -14,6 +14,7 @@ use App\Http\Controllers\PetitionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\PayPalController;
+use App\Http\Controllers\MailController;
 
 //NORMAL LOGIN & REGISTER
 Auth::routes();
