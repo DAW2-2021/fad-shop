@@ -206,7 +206,7 @@
                         <a href="{{ route('shop.index', $shop->slug) }}"
                             class="bg-dark rounded-circle border m-3 rounded-shop">
                             <img src="{{ asset('storage/' . $shop->logo) }}" class="cover-image rounded-circle"
-                                alt="logo" />
+                                alt="Logo de la tienda {{ $shop->name }}" />
                         </a>
                     @endforeach
                 </div>

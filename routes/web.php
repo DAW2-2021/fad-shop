@@ -28,13 +28,11 @@ Route::group(['middleware' => ['guest']], function () {
 Route::get('/', [PagesController::class, 'index'])->name('index');
 Route::get('/cart', [PagesController::class, 'cart'])->name('shop.cart');
 
-//SEARCH
-Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
-    Route::get('/product/{searchProduct}', [PagesController::class, 'searchProduct'])->name('product');
-    Route::get('/product/{shop}/{searchProduct}', [PagesController::class, 'searchShopProduct'])->name('shop.product');
-    /* Route::get('/category/{searchCategory}', [PagesController::class, 'searchCategory'])->name('category'); */
-    // Meter un search de tienda??
-});
+// //SEARCH
+// Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
+//     Route::get('/product/{searchProduct}', [PagesController::class, 'searchProduct'])->name('product');
+//     Route::get('/product/{shop}/{searchProduct}', [PagesController::class, 'searchShopProduct'])->name('shop.product');
+// });
 
 //ADMIN SHOP
 //Tiene que ir a fuera de la shop para poder desbloquear, por que abajo mira si esta activa la tienda, así que apovechamos y metemos todo aqui
@@ -50,14 +48,14 @@ Route::group(['prefix' => 'shop/admin', 'as' => 'shop.admin.', 'middleware' => [
 Route::group(['middleware' => ['active_shop', 'auth', 'role:seller']], function () {
     Route::get('shop/settings/{shop}', [ShopController::class, 'showSettings'])->name('shop.settings');
 });
-//  ---- USER
+//  ---- GENERAL
 Route::group(['prefix' => 'shop', 'as' => 'shop.', 'middleware' => 'active_shop'], function () {
     Route::get('/{shop}', [ShopController::class, 'index'])->name('index');
     Route::get('/{shop}/{product}', [ProductController::class, 'show'])->name('product');
 
     // PRODUCT
     Route::group(['prefix' => '{shop}', 'as' => 'product.'], function () {
-        Route::get('/{product}', [ProductController::class, 'index'])->name('index');
+        Route::get('/{product}', [ProductController::class, 'show'])->name('index');
         //PRODUCT SELLER
         Route::group(['as' => 'seller.', 'middleware' => ['auth', 'role:seller']], function () {
             Route::get('/product/create', [ProductController::class, 'create'])->name('create');
