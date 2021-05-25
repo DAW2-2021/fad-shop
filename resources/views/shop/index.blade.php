@@ -18,114 +18,95 @@
             <div class="col">
                 <div class="carousel-wrap mx-auto" style="width:90%">
                     <div class="owl-carousel owl-theme" id="slider">
-                        <div class="item">
-                            <a href="#" class="card card-product border text-white position-relative mb-5 p-0">
-                                <img class="card-image" src="'img/producto3.jpg'{{-- {{ asset('img/producto3.jpg') }} --}}" alt="Card image" />
-                                <div class="card-over"></div>
-                                <div class="card-stars text-warning position-absolute top-0 end-0 p-1">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                </div>
-                                <h5
-                                    class="position-absolute mh-25 w-75 text-center top-100 start-50 translate-middle card-title bg-dark ms-0 rounded-pill px-3 py-2 text-capitalize">
-                                    text-capitalize asda{{-- {{ Auth::user()->product->name }} --}}
-                                    <!-- TRANSFORMAR CON PHP A LOWER Y HACER UN STRINGPOS Y PONER "..." -->
-                                </h5>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#" class="card card-product border text-white position-relative mb-5 p-0">
-                                <img class="card-image" src="img/producto3.jpg" alt="Card image" />
-                                <div class="card-over"></div>
-                                <div class="card-stars text-warning position-absolute top-0 end-0 p-1">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                </div>
-                                <h5
-                                    class="position-absolute mh-25 w-75 text-center top-100 start-50 translate-middle card-title bg-dark ms-0 rounded-pill px-3 py-2">
-                                    text-capitalize asda
-                                    <!-- TRANSFORMAR CON PHP A LOWER Y HACER UN STRINGPOS Y PONER "..." -->
-                                </h5>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#" class="card card-product border text-white position-relative mb-5 p-0">
-                                <img class="card-image" src="img/producto3.jpg" alt="Card image" />
-                                <div class="card-over"></div>
-                                <div class="card-stars text-warning position-absolute top-0 end-0 p-1">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                </div>
-                                <h5
-                                    class="position-absolute mh-25 w-75 text-center top-100 start-50 translate-middle card-title bg-dark ms-0 rounded-pill px-3 py-2">
-                                    text-capitalize asda
-                                    <!-- TRANSFORMAR CON PHP A LOWER Y HACER UN STRINGPOS Y PONER "..." -->
-                                </h5>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#" class="card card-product border text-white position-relative mb-5 p-0">
-                                <img class="card-image" src="img/producto3.jpg" alt="Card image" />
-                                <div class="card-over"></div>
-                                <div class="card-stars text-warning position-absolute top-0 end-0 p-1">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                </div>
-                                <h5
-                                    class="position-absolute mh-25 w-75 text-center top-100 start-50 translate-middle card-title bg-dark ms-0 rounded-pill px-3 py-2">
-                                    text-capitalize asda
-                                    <!-- TRANSFORMAR CON PHP A LOWER Y HACER UN STRINGPOS Y PONER "..." -->
-                                </h5>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#" class="card card-product border text-white position-relative mb-5 p-0">
-                                <img class="card-image" src="img/producto3.jpg" alt="Card image" />
-                                <div class="card-over"></div>
-                                <div class="card-stars text-warning position-absolute top-0 end-0 p-1">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                </div>
-                                <h5
-                                    class="position-absolute mh-25 w-75 text-center top-100 start-50 translate-middle card-title bg-dark ms-0 rounded-pill px-3 py-2">
-                                    text-capitalize asda
-                                    <!-- TRANSFORMAR CON PHP A LOWER Y HACER UN STRINGPOS Y PONER "..." -->
-                                </h5>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#" class="card card-product border text-white position-relative mb-5 p-0">
-                                <img class="card-image" src="img/producto3.jpg" alt="Card image" />
-                                <div class="card-over"></div>
-                                <div class="card-stars text-warning position-absolute top-0 end-0 p-1">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                </div>
-                                <h5
-                                    class="position-absolute mh-25 w-75 text-center top-100 start-50 translate-middle card-title bg-dark ms-0 rounded-pill px-3 py-2">
-                                    text-capitalize asda
-                                    <!-- TRANSFORMAR CON PHP A LOWER Y HACER UN STRINGPOS Y PONER "..." -->
-                                </h5>
-                            </a>
-                        </div>
+                        @foreach ($productsCarousel as $product)
+                            <div class="item">
+                                <a href="{{ route('shop.product.index', [$shop->slug, $product->slug]) }}"
+                                    class="card card-product border text-white position-relative mb-5 p-0">
+                                    <img class="card-image" src="{{ asset('storage/' . $product->image) }}"
+                                        alt="Imagen del producto {{ $product->name }}, de la tienda {{ $shop->name }}" />
+                                    <div class="card-over"></div>
+                                    <div class="card-stars text-warning position-absolute top-0 end-0 p-1">
+                                        @if (round($product->opinions()->avg('score'), 2) <= 0.49)
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        @elseif (round($product->opinions()->avg('score'), 2) <= 0.99) <i
+                                                class="fas fa-star-half-alt"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            @elseif (round($product->opinions()->avg('score'), 2) <= 1.49) <i
+                                                    class="fas fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                @elseif (round($product->opinions()->avg('score'), 2) <= 1.99) <i
+                                                        class="fas fa-star"></i>
+                                                        <i class="fas fa-star-half-alt"></i>
+                                                        <i class="far fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                    @elseif (round($product->opinions()->avg('score'), 2) <= 2.49) <i
+                                                            class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="far fa-star"></i>
+                                                            <i class="far fa-star"></i>
+                                                            <i class="far fa-star"></i>
+                                                        @elseif (round($product->opinions()->avg('score'), 2) <= 2.99)
+                                                                <i class="fas fa-star"></i>
+                                                                <i class="fas fa-star"></i>
+                                                                <i class="fas fa-star-half-alt"></i>
+                                                                <i class="far fa-star"></i>
+                                                                <i class="far fa-star"></i>
+                                                            @elseif (round($product->opinions()->avg('score'), 2) <=
+                                                                    3.49) <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                @elseif (round($product->opinions()->avg('score'), 2) <=
+                                                                        3.99) <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star-half-alt"></i>
+                                                                        <i class="far fa-star"></i>
+                                                                    @elseif (round($product->opinions()->avg('score'),
+                                                                        2) <= 4.49) <i class="fas fa-star"></i>
+                                                                            <i class="fas fa-star"></i>
+                                                                            <i class="fas fa-star"></i>
+                                                                            <i class="fas fa-star"></i>
+                                                                            <i class="far fa-star"></i>
+                                                                        @elseif(round($product->opinions()->avg('score'),
+                                                                            2) <= 4.99) <i class="fas fa-star"></i>
+                                                                                <i class="fas fa-star"></i>
+                                                                                <i class="fas fa-star"></i>
+                                                                                <i class="fas fa-star"></i>
+                                                                                <i class="fas fa-star-half-alt"></i>
+                                                                            @elseif(round($product->opinions()->avg('score'),
+                                                                                2) == 5)
+                                                                                <i class="fas fa-star"></i>
+                                                                                <i class="fas fa-star"></i>
+                                                                                <i class="fas fa-star"></i>
+                                                                                <i class="fas fa-star"></i>
+                                                                                <i class="fas fa-star"></i>
+
+                                        @endif
+                                    </div>
+                                    <h5
+                                        class="position-absolute mh-25 w-75 text-center top-100 start-50 translate-middle card-title bg-dark ms-0 rounded-pill px-3 py-2">
+                                        @if (Str::length($product->name) <= 10)
+                                            {{ $product->name }}
+                                        @else
+                                            {{ Str::substr($product->name, 0, 10) . '...' }}
+                                        @endif
+                                    </h5>
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
                     <!-- CONTROLS -->
                     <div class="customNextBtn">
@@ -148,177 +129,100 @@
                         Todos los Productos
                     </h1>
                 </div>
-                <div class="d-flex flex-wrap justify-content-center align-items-center">
-                    <a href="#" class="card card-product border text-white position-relative mb-5 p-0">
-                        <img class="card-image" src="img/producto3.jpg" alt="Card image" />
-                        <div class="card-over"></div>
-                        <div class="card-stars text-warning position-absolute top-0 end-0 p-1">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <h5
-                            class="position-absolute mh-25 w-75 text-center top-100 start-50 translate-middle card-title bg-dark ms-0 rounded-pill px-3 py-2">
-                            text-capitalize asda
-                            <!-- TRANSFORMAR CON PHP A LOWER Y HACER UN STRINGPOS Y PONER "..." -->
-                        </h5>
-                    </a>
-                    <a href="#" class="card card-product border text-white position-relative mb-5 p-0">
-                        <img class="card-image" src="img/producto3.jpg" alt="Card image" />
-                        <div class="card-over"></div>
-                        <div class="card-stars text-warning position-absolute top-0 end-0 p-1">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <h5
-                            class="position-absolute mh-25 w-75 text-center top-100 start-50 translate-middle card-title bg-dark ms-0 rounded-pill px-3 py-2">
-                            text-capitalize asda
-                            <!-- TRANSFORMAR CON PHP A LOWER Y HACER UN STRINGPOS Y PONER "..." -->
-                        </h5>
-                    </a>
-                    <a href="#" class="card card-product border text-white position-relative mb-5 p-0">
-                        <img class="card-image" src="img/producto3.jpg" alt="Card image" />
-                        <div class="card-over"></div>
-                        <div class="card-stars text-warning position-absolute top-0 end-0 p-1">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <h5
-                            class="position-absolute mh-25 w-75 text-center top-100 start-50 translate-middle card-title bg-dark ms-0 rounded-pill px-3 py-2">
-                            text-capitalize asda
-                            <!-- TRANSFORMAR CON PHP A LOWER Y HACER UN STRINGPOS Y PONER "..." -->
-                        </h5>
-                    </a>
-                    <a href="#" class="card card-product border text-white position-relative mb-5 p-0">
-                        <img class="card-image" src="img/producto3.jpg" alt="Card image" />
-                        <div class="card-over"></div>
-                        <div class="card-stars text-warning position-absolute top-0 end-0 p-1">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <h5
-                            class="position-absolute mh-25 w-75 text-center top-100 start-50 translate-middle card-title bg-dark ms-0 rounded-pill px-3 py-2">
-                            text-capitalize asda
-                            <!-- TRANSFORMAR CON PHP A LOWER Y HACER UN STRINGPOS Y PONER "..." -->
-                        </h5>
-                    </a>
-                    <a href="#" class="card card-product border text-white position-relative mb-5 p-0">
-                        <img class="card-image" src="img/producto3.jpg" alt="Card image" />
-                        <div class="card-over"></div>
-                        <div class="card-stars text-warning position-absolute top-0 end-0 p-1">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <h5
-                            class="position-absolute mh-25 w-75 text-center top-100 start-50 translate-middle card-title bg-dark ms-0 rounded-pill px-3 py-2">
-                            text-capitalize asda
-                            <!-- TRANSFORMAR CON PHP A LOWER Y HACER UN STRINGPOS Y PONER "..." -->
-                        </h5>
-                    </a>
-                    <a href="#" class="card card-product border text-white position-relative mb-5 p-0">
-                        <img class="card-image" src="img/producto3.jpg" alt="Card image" />
-                        <div class="card-over"></div>
-                        <div class="card-stars text-warning position-absolute top-0 end-0 p-1">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <h5
-                            class="position-absolute mh-25 w-75 text-center top-100 start-50 translate-middle card-title bg-dark ms-0 rounded-pill px-3 py-2">
-                            text-capitalize asda
-                            <!-- TRANSFORMAR CON PHP A LOWER Y HACER UN STRINGPOS Y PONER "..." -->
-                        </h5>
-                    </a>
-                    <a href="#" class="card card-product border text-white position-relative mb-5 p-0">
-                        <img class="card-image" src="img/producto3.jpg" alt="Card image" />
-                        <div class="card-over"></div>
-                        <div class="card-stars text-warning position-absolute top-0 end-0 p-1">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <h5
-                            class="position-absolute mh-25 w-75 text-center top-100 start-50 translate-middle card-title bg-dark ms-0 rounded-pill px-3 py-2">
-                            text-capitalize asda
-                            <!-- TRANSFORMAR CON PHP A LOWER Y HACER UN STRINGPOS Y PONER "..." -->
-                        </h5>
-                    </a>
-                    <a href="#" class="card card-product border text-white position-relative mb-5 p-0">
-                        <img class="card-image" src="img/producto3.jpg" alt="Card image" />
-                        <div class="card-over"></div>
-                        <div class="card-stars text-warning position-absolute top-0 end-0 p-1">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <h5
-                            class="position-absolute mh-25 w-75 text-center top-100 start-50 translate-middle card-title bg-dark ms-0 rounded-pill px-3 py-2">
-                            text-capitalize asda
-                            <!-- TRANSFORMAR CON PHP A LOWER Y HACER UN STRINGPOS Y PONER "..." -->
-                        </h5>
-                    </a>
-                    <a href="#" class="card card-product border text-white position-relative mb-5 p-0">
-                        <img class="card-image" src="img/producto3.jpg" alt="Card image" />
-                        <div class="card-over"></div>
-                        <div class="card-stars text-warning position-absolute top-0 end-0 p-1">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <h5
-                            class="position-absolute mh-25 w-75 text-center top-100 start-50 translate-middle card-title bg-dark ms-0 rounded-pill px-3 py-2">
-                            text-capitalize asda
-                            <!-- TRANSFORMAR CON PHP A LOWER Y HACER UN STRINGPOS Y PONER "..." -->
-                        </h5>
-                    </a>
+                <div id="products" class="d-flex flex-wrap justify-content-center align-items-center">
+                    @foreach ($products as $product)
+                        <a href="{{ route('shop.product.index', [$shop->slug, $product->slug]) }}"
+                            class="card card-product border text-white position-relative mb-5 p-0">
+                            <img class="card-image" src="{{ asset('storage/' . $product->image) }}"
+                                alt="Imagen del producto {{ $product->name }}, de la tienda {{ $shop->name }}" />
+                            <div class="card-over"></div>
+                            <div class="card-stars text-warning position-absolute top-0 end-0 p-1">
+                                @if (round($product->opinions()->avg('score'), 2) <= 0.49)
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                @elseif (round($product->opinions()->avg('score'), 2) <= 0.99) <i
+                                        class="fas fa-star-half-alt"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    @elseif (round($product->opinions()->avg('score'), 2) <= 1.49) <i
+                                            class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        @elseif (round($product->opinions()->avg('score'), 2) <= 1.99) <i
+                                                class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            @elseif (round($product->opinions()->avg('score'), 2) <= 2.49) <i
+                                                    class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                @elseif (round($product->opinions()->avg('score'), 2) <= 2.99) <i
+                                                        class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star-half-alt"></i>
+                                                        <i class="far fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                    @elseif (round($product->opinions()->avg('score'), 2) <= 3.49) <i
+                                                            class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="far fa-star"></i>
+                                                            <i class="far fa-star"></i>
+                                                        @elseif (round($product->opinions()->avg('score'), 2) <= 3.99)
+                                                                <i class="fas fa-star"></i>
+                                                                <i class="fas fa-star"></i>
+                                                                <i class="fas fa-star"></i>
+                                                                <i class="fas fa-star-half-alt"></i>
+                                                                <i class="far fa-star"></i>
+                                                            @elseif (round($product->opinions()->avg('score'),
+                                                                2) <= 4.49) <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                @elseif(round($product->opinions()->avg('score'),
+                                                                    2) <= 4.99) <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star-half-alt"></i>
+                                                                    @elseif(round($product->opinions()->avg('score'),
+                                                                        2) == 5)
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+
+                                @endif
+                            </div>
+                            <h5
+                                class="position-absolute mh-25 w-75 text-center top-100 start-50 translate-middle card-title bg-dark ms-0 rounded-pill px-3 py-2">
+                                @if (Str::length($product->name) <= 10)
+                                    {{ $product->name }}
+                                @else
+                                    {{ Str::substr($product->name, 0, 10) . '...' }}
+                                @endif
+                            </h5>
+                        </a>
+                    @endforeach
                 </div>
             </div>
-            <div class="row justify-content-center align-content-center mt-3">
-                <!-- BLADE PAGINATION -->
-                <nav aria-label="...">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <span class="page-link">Previous</span>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item active" aria-current="page">
-                            <span class="page-link">2</span>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+            <div class="row d-flex justify-content-center paginator">{{ $products->links() }}</div>
         </div>
     </div>
+    <span></span>
 @endsection
 
 @section('extraFooter')

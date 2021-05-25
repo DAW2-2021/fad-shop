@@ -19,7 +19,9 @@ class ShopController extends Controller
     public function index($shop)
     {
         $shop = Shop::where('slug', $shop)->firstOrFail();
-        return view('shop.index', compact('shop'));
+        $productsCarousel = $shop->products()->orderByDesc('id')->limit(8)->get();
+        $products = $shop->products()->orderBy('name')->paginate(9)->fragment('products');
+        return view('shop.index', compact('shop', 'productsCarousel', 'products'));
     }
 
     public function store(Request $request)
@@ -48,7 +50,7 @@ class ShopController extends Controller
 
         $details = [
             'title' => 'Tu tienda ha sido creada correctamente',
-            'body' => '¡Felicidades! Tu tienda ha sido activada. Ya podrás vender los productos que desees. 
+            'body' => '¡Felicidades! Tu tienda ha sido activada. Ya podrás vender los productos que desees.
             Disfruta y se consciente de lo que haces con tu tienda',
             'view' => 'emails.shop'
         ];

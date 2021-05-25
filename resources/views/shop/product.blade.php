@@ -9,26 +9,36 @@
     <div class="container-sm container-fluid mb-3 px-4">
         <div class="row mt-5 h-100">
             <div class="col-12 col-md-6 bg-dark border rounded mb-md-0 mb-4 p-0" style="height:25rem">
-                <img src="img/producto.jpg" class="cover-image" alt="" />
+                <img src="{{ asset('storage/' . $product->image) }}" class="cover-image"
+                    alt="Imagen del producto {{ $product->name }}, de la tienda {{ $shop->name }}" />
             </div>
             <div class="col-12 col-md-6 h-100 d-flex flex-column ml-md ps-0 ps-md-5">
                 <div class="row">
-                    <p class="h4">Product name</p>
-                    <small class="text-success">En stock</small>
+                    <p class="h4 text-break">{{ $product->name }}</p>
+                    @if ($product->stock > 0)
+                        <small class="text-success">En stock</small>
+                    @else
+                        <small class="text-danger">Fuera de Stock</small>
+                    @endif
+                    <p class="text-break">
+                        {{ $product->description }}
+                    </p>
                     <p>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis
-                        optio vel neque, ipsa, eius consectetur explicabo asperiores quis
-                        saepe, incidunt fugiat corporis doloribus aliquid sit nostrum eos
-                        ex tenetur at?
+                        @foreach ($product->categories as $category)
+                            <a class="text-muted fst-italic"
+                                href="{{ route('categories.show', $category->slug) }}">{{ $category->name }}</a>
+                        @endforeach
                     </p>
                 </div>
                 <div class="col">
                     <p>
-                        Valoración global: 185 <span class="fa fa-star checked"></span>
+                        Valoración global: {{ round($product->opinions()->avg('score'), 2) }} / 5 <span
+                            class="fa fa-star checked"></span>
                     </p>
                 </div>
                 <div class="row justify-self-end d-flex justify-content">
-                    <button type="button" class="btn btn-success mx-2 col-5">
+                    <button type="button" id="addCart" data-productid="{{ $product->id }}"
+                        class="btn btn-success mx-2 col-5">
                         Añadir al carrito
                     </button>
                     <button type="button" class="btn btn-secondary mx-2 col-5" data-bs-target="#modalReview"
