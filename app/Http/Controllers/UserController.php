@@ -24,9 +24,9 @@ class UserController extends Controller
         }
         if ($user->id == Auth::user()->id || Auth::user()->hasRole('admin')) {
             $validator = Validator::make($request->all(), [
-                'username' => ['nullable', 'string', 'min:3', 'max:255'],
+                'username' => ['nullable', 'string', 'min_length:3', 'max_length:255'],
                 'email' => ['nullable', 'email'],
-                'password' => ['nullable', 'confirmed', 'string', 'min:3', 'max:255'],
+                'password' => ['nullable', 'confirmed', 'string', 'min_length:3', 'max_length:255'],
                 'phone' => ['nullable', 'numeric', 'digits:9']
             ]);
 

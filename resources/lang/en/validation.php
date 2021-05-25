@@ -121,7 +121,9 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
-
+    'min_length' => 'El campo :attribute no tiene la longitud minima',
+    'max_length' => 'El campo :attribute ha superado la longitud maxima',
+    'without_spaces' => 'El campo :attribute no puede contener espacios',
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
