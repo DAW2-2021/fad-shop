@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use PharIo\Manifest\Author;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -16,6 +17,16 @@ class ProductController extends Controller
     public function index()
     {
         //
+    }
+
+    public function create($shop)
+    {
+        $categories = Category::all();
+        $shop = Shop::where('slug', $shop)->firstOrFail();
+        if (Auth::user()->id == $shop->user_id) {
+            return view('shop.product.create', compact('shop', 'categories'));
+        }
+        return redirect()->route('index');
     }
 
     public function store(Request $request, $shop)

@@ -57,7 +57,7 @@ Route::group(['prefix' => 'shop', 'as' => 'shop.', 'middleware' => 'active_shop'
     Route::group(['prefix' => '{shop}', 'as' => 'product.'], function () {
         Route::get('/{product}', [ProductController::class, 'show'])->name('index');
         //PRODUCT SELLER
-        Route::group(['as' => 'seller.', 'middleware' => ['auth', 'role:seller']], function () {
+        Route::group(['middleware' => ['auth', 'role:seller']], function () {
             Route::get('/product/create', [ProductController::class, 'create'])->name('create');
             Route::post('/product/create', [ProductController::class, 'store'])->name('store');
             Route::put('/{product}/update', [ProductController::class, 'update'])->name('update');

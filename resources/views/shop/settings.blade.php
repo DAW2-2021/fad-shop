@@ -117,7 +117,7 @@
                                         {!! implode('', $errors->all('<span class="invalid-feedback" role="alert" style="display:block !important"> <strong>:message</strong></span><br>')) !!}
                                     @endif
                                     <form id="formProduct" method="post"
-                                        action="{{ route('shop.product.seller.store', $shop->slug) }}"
+                                        action="{{ route('shop.product.store', $shop->slug) }}"
                                         enctype="multipart/form-data">
                                         @csrf
                                         @method('POST')
@@ -266,30 +266,13 @@
 @section('extraFooter')
     <script>
         $(document).ready(function() {
-            $("#product_image").change(function() {
-                previewImage("product_image");
-            });
+            var myModal = document.getElementById('shopSettingsModal')
+            var myInput = document.getElementById('shop_name')
 
+            myModal.addEventListener('shown.bs.modal', function() {
+                myInput.focus()
+            })
         });
-        $('#formProduct').on('submit', function(e) {
-            let valid = true;
-
-            if (!$(".categories-checkbox:checked").length) {
-                alert("¡Tienes que seleccionar al menos una categoria!");
-                valid = false;
-            }
-
-            if (!valid) {
-                e.preventDefault();
-            }
-        });
-
-        var myModal = document.getElementById('shopSettingsModal')
-        var myInput = document.getElementById('shop_name')
-
-        myModal.addEventListener('shown.bs.modal', function() {
-            myInput.focus()
-        })
 
     </script>
 @endsection
