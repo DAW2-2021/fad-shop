@@ -80,20 +80,31 @@ class ShopController extends Controller
     {
         $shop = Shop::where('slug', $shop)->firstOrFail();
 
-        if (Auth::user()->hasRole('admin')) {
-            $validator = Validator::make($request->all(), [
-                'name' => ['nullable', 'string', 'min_length:3', 'max_length:255'],
-                'description' => ['nullable', 'string', 'min_length:3', 'max_length:255'],
-                'logo' => ['nullable', 'file', 'mimes:png,jpg,jpeg', 'max:1024', 'dimensions:width=250,height=70'],
-            ]);
-            if ($validator->fails()) {
-                return redirect()->route('shop.settings', $shop->slug)->withErrors($validator);
-            }
+        $validator = Validator::make($request->all(), [
+            'shop_name' => ['nullable', 'string', 'min_length:3', 'max_length:255'],
+            'shop_description' => ['nullable', 'string', 'min_length:3', 'max_length:255'],
+            'shop_logo' => ['nullable', 'file', 'mimes:png,jpg,jpeg', 'max:1024', 'dimensions:width=250,height=70'],
+        ]);
 
-            $shop->update($request->all());
-            return redirect()->route('shop.settings', $shop->id);
+        if ($validator->fails()) {
+            return redirect()->route('shop.settings', $shop->slug)->withErrors($validator);
         }
-        return redirect()->route('shop.index');
+
+        if ($request->filled('shop_name')) {
+            $shop->name = $request->shop_name;
+        }
+
+        if ($request->filled('shop_description')) {
+            $shop->description = $request->shop_description;
+        }
+
+        if ($request->file('shop_logo')) {
+            unlink(public_path('storage/' . $request->shop_logo));
+            $shop->shop_logo = $request->file('logo')->store('logos', 'public');
+        }
+
+        $shop->save();
+        return redirect()->route('shop.settings', $shop->slug);
     }
 
     public function destroy(Shop $shop)

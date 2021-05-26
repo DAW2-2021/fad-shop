@@ -512,13 +512,5 @@
             })
         })()
 
-        //autofocus on input modal
-        var myModal = document.getElementById('profileModal')
-        var myInput = document.getElementById('validationCustomUsername')
-
-        myModal.addEventListener('shown.bs.modal', function() {
-            myInput.focus()
-        })
-
     </script>
 @endsection

@@ -50,6 +50,7 @@
         <div class="row mt-3">
             <div class="col-md-12">
                 <div class="tab-content about-tab" id="myTabContent">
+
                     <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
                         <div class="row">
                             <div class="col-md-6">
@@ -180,40 +181,42 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="shopSettingsModalLabel">
-                        Edit Shop
+                        Editar Tienda
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form class="row g-3 needs-validation" novalidate>
+                <form action="{{ route('shop.update', $shop->slug) }}" method="POST" class="row g-3">
+                    @csrf
+                    @method("PUT")
                     <div class="modal-body">
+                        @if ($errors->any())
+                            {!! implode('', $errors->all('<span class="invalid-feedback" role="alert" style="display:block !important"> <strong>:message</strong></span><br>')) !!}
+                        @endif
                         <div class="col-md-12">
-                            <label for="validationCustomShopName" class="form-label">Shop Name</label>
+                            <label for="shop_name" class="form-label">Nombre de la tienda</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                <input type="text" class="form-control" id="validationCustomShopName"
-                                    aria-describedby="inputGroupPrepend" required />
+                                <input type="text" class="form-control" placeholder="{{ $shop->name }}" name="shop_name"
+                                    id="shop_name" minlength="3" />
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <label for="validationCustomDescription" class="form-label">Descripción</label>
-                            <div class="input-group has-validation">
-                                <textarea class="form-control" id="validationCustomDescription" rows="3"></textarea>
-                            </div>
+                            <label for="shop_description" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="shop_description" name="shop_description" rows="3"
+                                minlength="20"></textarea>
                         </div>
                         <div class="col-md-12">
-                            <label for="validationCustomLogo" class="form-label">Logo</label>
-                            <div class="input-group has-validation">
-                                <input type="file" class="form-control" id="validationCustomLogo"
-                                    aria-describedby="inputGroupPrepend" required />
-                            </div>
+                            <label for="shop_logo" class="form-label">Logo <span class="text-muted">(250px x
+                                    70px)</span></label>
+                            <input type="file" class="form-control" id="shop_logo" name="shop_logo" />
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            Close
+                            Cerrar
                         </button>
                         <button type="submit" class="btn btn-primary">
-                            Save changes
+                            Guardar cambios
                         </button>
                     </div>
                 </form>
@@ -230,7 +233,7 @@
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form class="row g-3 needs-validation" novalidate>
+                <form action="{{ route('shop.update', $shop->id) }}" method="POST" class="row g-3">
                     <div class="modal-body">
                         <div class="col-md-12">
                             <label for="validationCustomCode" class="form-label">Code</label>
@@ -280,6 +283,13 @@
                 e.preventDefault();
             }
         });
+
+        var myModal = document.getElementById('shopSettingsModal')
+        var myInput = document.getElementById('shop_name')
+
+        myModal.addEventListener('shown.bs.modal', function() {
+            myInput.focus()
+        })
 
     </script>
 @endsection
