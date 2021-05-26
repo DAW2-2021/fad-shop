@@ -111,7 +111,7 @@ class PetitionController extends Controller
 
         $validator = Validator::make($request->all(), [
             'shop_name' => ['nullable', 'unique:petitions', 'string', 'min_length:3', 'max_length:255'],
-            'shop_description' => ['nullable', 'string', 'min_length:3', 'max_length:255'],
+            'shop_description' => ['nullable', 'string', 'min_length:20', 'max_length:255'],
             'shop_logo' => ['nullable', 'file', 'mimes:png,jpg,jpeg', 'max:1024', 'dimensions:width=250,height=70'],
             'status' => ['nullable', 'string', 'min_length:3', 'max_length:255'],
         ]);
