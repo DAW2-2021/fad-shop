@@ -131,8 +131,8 @@
                         @csrf
                         @method('POST')
                         <label for="" class="form-label">{{ __('Nombre') }}</label>
-                        <input type="text" minlength="3" name="username" value="{{ old('name') }}"
-                            class="form-control" />
+                        <input type="text" minlength="3" id="usernameInput" name="username" value="{{ old('name') }}"
+                            class="form-control" autofocus />
                         @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -195,7 +195,7 @@
                         @csrf
                         @method('POST')
                         <label for="" class="form-label mt-2">Email</label>
-                        <input type="text" minlength="3" name="email" class="form-control" />
+                        <input type="text" minlength="3" id="emailInput" name="email" class="form-control" />
                         @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -226,3 +226,22 @@
         </div>
     </div>
 @endif
+<script>
+    //AUTOFOCUS
+    //----- REGISTER
+    var myModal = document.getElementById('registerModal')
+    var myInput = document.getElementById('usernameInput')
+
+    myModal.addEventListener('shown.bs.modal', function() {
+        myInput.focus()
+    })
+
+    //----- LOGIN
+    var myModal2 = document.getElementById('loginModal')
+    var myInput2 = document.getElementById('emailInput')
+
+    myModal2.addEventListener('shown.bs.modal', function() {
+        myInput2.focus()
+    })
+
+</script>

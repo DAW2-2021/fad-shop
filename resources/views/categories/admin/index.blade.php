@@ -64,8 +64,8 @@
                     @method('PUT')
                     <div class="modal-body">
                         <div class="form mb-3">
-                            <label class="form-label h4" for="category_name">Nombre:</label><input class="form-control"
-                                minlength="3" id="category_name" name="name" type="text" />
+                            <label class="form-label h4" for="category_name_input">Nombre:</label><input
+                                class="form-control" minlength="3" id="category_name_input" name="name" type="text" />
                         </div>
                         <div class="form mb-3">
                             <label class="form-label h4" for="category_icon">Icono:</label><input class="form-control"
@@ -85,19 +85,28 @@
 @endsection
 @section('extraFooter')
     <script>
+        //charge old value in input placeholder
         $(document).ready(function() {
             $(".modificarCategoria").on("click", function() {
                 let name = $(this).data("name");
                 let icon = $(this).data("icon");
                 let id = $(this).data("id");
 
-                $('#category_name').attr('placeholder', name);
+                $('#category_name_input').attr('placeholder', name);
                 $('#category_icon').attr('placeholder', icon);
                 let action = "{{ route('categories.admin.update', ['category' => ':id']) }}";
                 action = action.replace(':id', id);
                 $("#category-form-id").attr('action', action);
             });
         });
+
+        //Autofocus
+        var myModal = document.getElementById('CategoryUpdateModal')
+        var myInput = document.getElementById('category_name_input')
+
+        myModal.addEventListener('shown.bs.modal', function() {
+            myInput.focus()
+        })
 
     </script>
 
