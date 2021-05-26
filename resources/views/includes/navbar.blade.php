@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 ps-lg-5 pt-lg-0 py-3 py-md-0 d-flex justify-content-evenly align-items-center ">
-                    @if (!Auth::check())
+                    @if (Auth::guest())
                         <a href="#" class="text-dark text-decoration-none" data-bs-toggle="modal"
                             data-bs-target="#registerModal">Registrarse</a>
                         <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal"
@@ -32,6 +32,32 @@
                             Identificarse
                         </a>
                     @else
+                        @if (Auth::user()->hasRole('seller'))
+                            <div class="nav-item dropdown justify-content-evenly align-items-center">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-store"></i> Tienda
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item"
+                                            href="{{ route('shop.index', Auth::user()->shop->slug) }}">
+                                            Mostrar</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item"
+                                            href="{{ route('shop.product.create', Auth::user()->shop->slug) }}">Añadir
+                                            producto</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item"
+                                            href="{{ route('shop.settings', Auth::user()->shop->slug) }}">Ajustes
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        @endif
                         <div class="nav-item dropdown justify-content-evenly align-items-center">
                             <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -44,7 +70,8 @@
                                 @if (Auth::user()->hasRole('admin'))
                                     <li>
                                         <a class="dropdown-item"
-                                            href="{{ route('petition.admin.index') }}">Administrar Peticiones</a>
+                                            href="{{ route('petition.admin.index') }}">Administrar
+                                            Peticiones</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="{{ route('support.admin.index') }}">Administrar
@@ -52,7 +79,8 @@
                                     </li>
                                     <li>
                                         <a class="dropdown-item"
-                                            href="{{ route('categories.admin.index') }}">Administrar Categorías</a>
+                                            href="{{ route('categories.admin.index') }}">Administrar
+                                            Categorías</a>
                                     </li>
 
                                     {{-- <li>
@@ -60,13 +88,7 @@
                                             Tiendas</a>
                                     </li> EXTRA --}}
                                 @elseif (Auth::user()->petition)
-                                    @if (Auth::user()->petition->status == 'accepted')
-                                        <li>
-                                            <a class="dropdown-item"
-                                                href="{{ route('shop.index', Auth::user()->shop->slug) }}">
-                                                Tienda</a>
-                                        </li>
-                                    @else
+                                    @if (Auth::user()->petition->status != 'accepted')
                                         <li>
                                             <a class="dropdown-item" href="{{ route('petition.index') }}">Estado
                                                 Petición

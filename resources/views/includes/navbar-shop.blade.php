@@ -9,10 +9,6 @@
         data-bs-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
         <span class="fas fa-search"></span>
     </button>
-    @if (Auth::check() && Auth::user()->hasRole('seller'))
-        <a href="{{ route('shop.settings', $shop->slug) }}"
-            class="btn btn-outline-primary rounded-pill ms-2 mt-2 mt-md-0">Administrar tienda</a>
-    @endif
     @if (Auth::check() && Auth::user()->hasRole('admin'))
         <button class="btn btn-outline-danger rounded-pill ms-2 mt-2 mt-md-0" data-bs-toggle="modal"
             data-bs-target="#banModal">Banear la tienda</button>
