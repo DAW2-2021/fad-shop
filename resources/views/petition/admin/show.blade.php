@@ -98,13 +98,13 @@
                                 @method('PUT')
                                 <div class="form mb-3">
                                     <label class="form-label h4" for="shop_name">Nombre de la Tienda:</label><input
-                                        class="form-control" minlength="3" placeholder="{{ $petition->shop_name }}" id="shop_name"
-                                        name="shop_name" type="text" />
+                                        class="form-control" minlength="3" placeholder="{{ $petition->shop_name }}"
+                                        id="shop_name" name="shop_name" type="text" />
                                 </div>
                                 <div class="mb-3">
                                     <label for="shop_description" class="form-label h4">Descripción de la Tienda</label>
                                     <textarea class="form-control" placeholder="Tienda de animales..." id="shop_description"
-                                        name="shop_description" minlength="3" rows="3"></textarea>
+                                        name="shop_description" minlength="20" rows="3"></textarea>
                                 </div>
                                 <div class="form mb-3 row">
                                     <div class="col-md-10">

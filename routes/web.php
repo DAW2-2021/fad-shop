@@ -41,12 +41,12 @@ Route::group(['prefix' => 'shop/admin', 'as' => 'shop.admin.', 'middleware' => [
     Route::put('/{shop}/unban', [ShopController::class, 'unban'])->name('unban');
 
     Route::post('/create', [ShopController::class, 'store'])->name('store');
-    Route::put('/{shop}', [ShopController::class, 'update'])->name('update');
 });
 //SHOP
 // ---- SELLER
 Route::group(['middleware' => ['active_shop', 'auth', 'role:seller']], function () {
     Route::get('shop/settings/{shop}', [ShopController::class, 'showSettings'])->name('shop.settings');
+    Route::put('/shop/setings/{shop}/update', [ShopController::class, 'update'])->name('shop.update');
 });
 //  ---- GENERAL
 Route::group(['prefix' => 'shop', 'as' => 'shop.', 'middleware' => 'active_shop'], function () {
