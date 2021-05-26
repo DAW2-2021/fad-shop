@@ -31,14 +31,14 @@
                                 aria-controls="about" aria-selected="true">Cuenta</a>
                         </li>
                         @if (Auth::user()->role_id != 1)
-                        <li class="nav-item">
-                            <a class="nav-link" id="coupons-tab" data-bs-toggle="tab" href="#coupons" role="tab"
-                                aria-controls="coupons" aria-selected="false">Cupones</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="history-tab" data-bs-toggle="tab" href="#history" role="tab"
-                                aria-controls="history" aria-selected="false">Historial</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="coupons-tab" data-bs-toggle="tab" href="#coupons" role="tab"
+                                    aria-controls="coupons" aria-selected="false">Cupones</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="history-tab" data-bs-toggle="tab" href="#history" role="tab"
+                                    aria-controls="history" aria-selected="false">Historial</a>
+                            </li>
                         @endif
                     </ul>
                 </div>
@@ -92,281 +92,282 @@
                         </div>
                     </div>
                     @if (Auth::user()->role_id != 1)
-                    <div class="tab-pane fade" id="coupons" role="tabpanel" aria-labelledby="coupons-tab">
-                        <div class="row row-cols-1 row-cols-md-3 g-4">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <span>Código: </span>088438
-                                        </h5>
-                                        <p class="card-text">
-                                            <span>Fecha de vencimiento: </span>
-                                            25/03/2021 <br />
-                                            <span>Nombre de la tienda: </span>
-                                            Shopname
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <span>Code: </span>088438
-                                        </h5>
-                                        <p class="card-text">
-                                            <span>Date Due: </span>
-                                            25/03/2021 <br />
-                                            <span>Shop Name: </span>
-                                            Shopname
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <span>Code: </span>088438
-                                        </h5>
-                                        <p class="card-text">
-                                            <span>Date Due: </span>
-                                            25/03/2021 <br />
-                                            <span>Shop Name: </span>
-                                            Shopname
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <span>Code: </span>088438
-                                        </h5>
-                                        <p class="card-text">
-                                            <span>Date Due: </span>
-                                            25/03/2021 <br />
-                                            <span>Shop Name: </span>
-                                            Shopname
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <span>Code: </span>088438
-                                        </h5>
-                                        <p class="card-text">
-                                            <span>Date Due: </span>
-                                            25/03/2021 <br />
-                                            <span>Shop Name: </span>
-                                            Shopname
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <span>Code: </span>088438
-                                        </h5>
-                                        <p class="card-text">
-                                            <span>Date Due: </span>
-                                            25/03/2021 <br />
-                                            <span>Shop Name: </span>
-                                            Shopname
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
-                        <div class="row row-cols-1 row-cols-md-1 g-4">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <h5 class="card-title col-md-8">
-                                                Pedido n.º
-                                                406-3654543-0317946
+                        <div class="tab-pane fade" id="coupons" role="tabpanel" aria-labelledby="coupons-tab">
+                            <div class="row row-cols-1 row-cols-md-3 g-4">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <span>Código: </span>088438
                                             </h5>
-                                            <p class="card-text text-right col-md-4 pb-2">
-                                                Shopname, Total: 300€
+                                            <p class="card-text">
+                                                <span>Fecha de vencimiento: </span>
+                                                25/03/2021 <br />
+                                                <span>Nombre de la tienda: </span>
+                                                Shopname
                                             </p>
                                         </div>
-                                        <div class="row row-cols-1 row-cols-md-3">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row mb-3">
-                                                        <div class="col">
-                                                            <img class="img-thumbnail" src="PC-Gaming.webp" alt="" />
-                                                        </div>
-                                                        <div class="col">
-                                                            <h5 class="card-title">
-                                                                Producto
-                                                            </h5>
-                                                            <p class="card-text">
-                                                                <span>Precio:
-                                                                </span>
-                                                                70€ <br />
-                                                                <span>Cantidad:
-                                                                </span>
-                                                                2
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <button type="button" class="btn btn-warning">
-                                                        Comprar de nuevo
-                                                    </button>
-                                                    <button type="button" class="btn btn-info">
-                                                        Añadir opinión
-                                                    </button>
-                                                </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <span>Code: </span>088438
+                                            </h5>
+                                            <p class="card-text">
+                                                <span>Date Due: </span>
+                                                25/03/2021 <br />
+                                                <span>Shop Name: </span>
+                                                Shopname
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <span>Code: </span>088438
+                                            </h5>
+                                            <p class="card-text">
+                                                <span>Date Due: </span>
+                                                25/03/2021 <br />
+                                                <span>Shop Name: </span>
+                                                Shopname
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <span>Code: </span>088438
+                                            </h5>
+                                            <p class="card-text">
+                                                <span>Date Due: </span>
+                                                25/03/2021 <br />
+                                                <span>Shop Name: </span>
+                                                Shopname
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <span>Code: </span>088438
+                                            </h5>
+                                            <p class="card-text">
+                                                <span>Date Due: </span>
+                                                25/03/2021 <br />
+                                                <span>Shop Name: </span>
+                                                Shopname
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <span>Code: </span>088438
+                                            </h5>
+                                            <p class="card-text">
+                                                <span>Date Due: </span>
+                                                25/03/2021 <br />
+                                                <span>Shop Name: </span>
+                                                Shopname
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+                            <div class="row row-cols-1 row-cols-md-1 g-4">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <h5 class="card-title col-md-8">
+                                                    Pedido n.º
+                                                    406-3654543-0317946
+                                                </h5>
+                                                <p class="card-text text-right col-md-4 pb-2">
+                                                    Shopname, Total: 300€
+                                                </p>
                                             </div>
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row mb-3">
-                                                        <div class="col">
-                                                            <img class="img-thumbnail" src="PC-Gaming.webp" alt="" />
+                                            <div class="row row-cols-1 row-cols-md-3">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row mb-3">
+                                                            <div class="col">
+                                                                <img class="img-thumbnail" src="PC-Gaming.webp" alt="" />
+                                                            </div>
+                                                            <div class="col">
+                                                                <h5 class="card-title">
+                                                                    Producto
+                                                                </h5>
+                                                                <p class="card-text">
+                                                                    <span>Precio:
+                                                                    </span>
+                                                                    70€ <br />
+                                                                    <span>Cantidad:
+                                                                    </span>
+                                                                    2
+                                                                </p>
+                                                            </div>
                                                         </div>
-                                                        <div class="col">
-                                                            <h5 class="card-title">
-                                                                Producto
-                                                            </h5>
-                                                            <p class="card-text">
-                                                                <span>Price:
-                                                                </span>
-                                                                70€ <br />
-                                                                <span>Quantity:
-                                                                </span>
-                                                                2
-                                                            </p>
-                                                        </div>
+                                                        <button type="button" class="btn btn-warning">
+                                                            Comprar de nuevo
+                                                        </button>
+                                                        <button type="button" class="btn btn-info">
+                                                            Añadir opinión
+                                                        </button>
                                                     </div>
-                                                    <button type="button" class="btn btn-warning">
-                                                        Buy again
-                                                    </button>
-                                                    <button type="button" class="btn btn-info">
-                                                        Add Review
-                                                    </button>
                                                 </div>
-                                            </div>
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row mb-3">
-                                                        <div class="col">
-                                                            <img class="img-thumbnail" src="PC-Gaming.webp" alt="" />
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row mb-3">
+                                                            <div class="col">
+                                                                <img class="img-thumbnail" src="PC-Gaming.webp" alt="" />
+                                                            </div>
+                                                            <div class="col">
+                                                                <h5 class="card-title">
+                                                                    Producto
+                                                                </h5>
+                                                                <p class="card-text">
+                                                                    <span>Price:
+                                                                    </span>
+                                                                    70€ <br />
+                                                                    <span>Quantity:
+                                                                    </span>
+                                                                    2
+                                                                </p>
+                                                            </div>
                                                         </div>
-                                                        <div class="col">
-                                                            <h5 class="card-title">
-                                                                Producto
-                                                            </h5>
-                                                            <p class="card-text">
-                                                                <span>Price:
-                                                                </span>
-                                                                70€ <br />
-                                                                <span>Quantity:
-                                                                </span>
-                                                                2
-                                                            </p>
-                                                        </div>
+                                                        <button type="button" class="btn btn-warning">
+                                                            Buy again
+                                                        </button>
+                                                        <button type="button" class="btn btn-info">
+                                                            Add Review
+                                                        </button>
                                                     </div>
-                                                    <button type="button" class="btn btn-warning">
-                                                        Buy again
-                                                    </button>
-                                                    <button type="button" class="btn btn-info">
-                                                        Add Review
-                                                    </button>
                                                 </div>
-                                            </div>
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row mb-3">
-                                                        <div class="col">
-                                                            <img class="img-thumbnail" src="PC-Gaming.webp" alt="" />
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row mb-3">
+                                                            <div class="col">
+                                                                <img class="img-thumbnail" src="PC-Gaming.webp" alt="" />
+                                                            </div>
+                                                            <div class="col">
+                                                                <h5 class="card-title">
+                                                                    Producto
+                                                                </h5>
+                                                                <p class="card-text">
+                                                                    <span>Price:
+                                                                    </span>
+                                                                    70€ <br />
+                                                                    <span>Quantity:
+                                                                    </span>
+                                                                    2
+                                                                </p>
+                                                            </div>
                                                         </div>
-                                                        <div class="col">
-                                                            <h5 class="card-title">
-                                                                Producto
-                                                            </h5>
-                                                            <p class="card-text">
-                                                                <span>Price:
-                                                                </span>
-                                                                70€ <br />
-                                                                <span>Quantity:
-                                                                </span>
-                                                                2
-                                                            </p>
-                                                        </div>
+                                                        <button type="button" class="btn btn-warning">
+                                                            Buy again
+                                                        </button>
+                                                        <button type="button" class="btn btn-info">
+                                                            Add Review
+                                                        </button>
                                                     </div>
-                                                    <button type="button" class="btn btn-warning">
-                                                        Buy again
-                                                    </button>
-                                                    <button type="button" class="btn btn-info">
-                                                        Add Review
-                                                    </button>
                                                 </div>
-                                            </div>
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row mb-3">
-                                                        <div class="col">
-                                                            <img class="img-thumbnail" src="PC-Gaming.webp" alt="" />
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row mb-3">
+                                                            <div class="col">
+                                                                <img class="img-thumbnail" src="PC-Gaming.webp" alt="" />
+                                                            </div>
+                                                            <div class="col">
+                                                                <h5 class="card-title">
+                                                                    Producto
+                                                                </h5>
+                                                                <p class="card-text">
+                                                                    <span>Price:
+                                                                    </span>
+                                                                    70€ <br />
+                                                                    <span>Quantity:
+                                                                    </span>
+                                                                    2
+                                                                </p>
+                                                            </div>
                                                         </div>
-                                                        <div class="col">
-                                                            <h5 class="card-title">
-                                                                Producto
-                                                            </h5>
-                                                            <p class="card-text">
-                                                                <span>Price:
-                                                                </span>
-                                                                70€ <br />
-                                                                <span>Quantity:
-                                                                </span>
-                                                                2
-                                                            </p>
-                                                        </div>
+                                                        <button type="button" class="btn btn-warning">
+                                                            Buy again
+                                                        </button>
+                                                        <button type="button" class="btn btn-info">
+                                                            Add Review
+                                                        </button>
                                                     </div>
-                                                    <button type="button" class="btn btn-warning">
-                                                        Buy again
-                                                    </button>
-                                                    <button type="button" class="btn btn-info">
-                                                        Add Review
-                                                    </button>
                                                 </div>
-                                            </div>
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row mb-3">
-                                                        <div class="col">
-                                                            <img class="img-thumbnail" src="PC-Gaming.webp" alt="" />
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row mb-3">
+                                                            <div class="col">
+                                                                <img class="img-thumbnail" src="PC-Gaming.webp" alt="" />
+                                                            </div>
+                                                            <div class="col">
+                                                                <h5 class="card-title">
+                                                                    Producto
+                                                                </h5>
+                                                                <p class="card-text">
+                                                                    <span>Price:
+                                                                    </span>
+                                                                    70€ <br />
+                                                                    <span>Quantity:
+                                                                    </span>
+                                                                    2
+                                                                </p>
+                                                            </div>
                                                         </div>
-                                                        <div class="col">
-                                                            <h5 class="card-title">
-                                                                Producto
-                                                            </h5>
-                                                            <p class="card-text">
-                                                                <span>Price:
-                                                                </span>
-                                                                70€ <br />
-                                                                <span>Quantity:
-                                                                </span>
-                                                                2
-                                                            </p>
-                                                        </div>
+                                                        <button type="button" class="btn btn-warning">
+                                                            Buy again
+                                                        </button>
+                                                        <button type="button" class="btn btn-info">
+                                                            Add Review
+                                                        </button>
                                                     </div>
-                                                    <button type="button" class="btn btn-warning">
-                                                        Buy again
-                                                    </button>
-                                                    <button type="button" class="btn btn-info">
-                                                        Add Review
-                                                    </button>
+                                                </div>
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row mb-3">
+                                                            <div class="col">
+                                                                <img class="img-thumbnail" src="PC-Gaming.webp" alt="" />
+                                                            </div>
+                                                            <div class="col">
+                                                                <h5 class="card-title">
+                                                                    Producto
+                                                                </h5>
+                                                                <p class="card-text">
+                                                                    <span>Price:
+                                                                    </span>
+                                                                    70€ <br />
+                                                                    <span>Quantity:
+                                                                    </span>
+                                                                    2
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button" class="btn btn-warning">
+                                                            Buy again
+                                                        </button>
+                                                        <button type="button" class="btn btn-info">
+                                                            Add Review
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -374,7 +375,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                     @endif
                 </div>
             </div>
@@ -414,8 +414,9 @@
                         <div class="col-md-12 my-3">
                             <label for="validationCustomEmail" class="form-label">Email</label>
                             <div class="input-group has-validation">
-                                <input type="email" class="form-control" minlength="3" name="email" id="validationCustomEmail"
-                                    aria-describedby="emailHelp" value="{{ Auth::User()->email }}" />
+                                <input type="email" class="form-control" minlength="3" name="email"
+                                    id="validationCustomEmail" aria-describedby="emailHelp"
+                                    value="{{ Auth::User()->email }}" />
                                 <div id="emailHelp" class="form-text">Si tienes una cuenta de google asociada, al cambiar el
                                     email se
                                     desasociará
@@ -432,8 +433,8 @@
                         <div class="col-md-12 my-3">
                             <label for="validationCustomPhone" class="form-label">Teléfono</label>
                             <div class="input-group has-validation">
-                                <input type="number" class="form-control" minlength="3" name="phone" id="validationCustomPhone"
-                                    aria-describedby="inputGroupPrepend" placeholder="611111111"
+                                <input type="number" class="form-control" minlength="3" name="phone"
+                                    id="validationCustomPhone" aria-describedby="inputGroupPrepend" placeholder="611111111"
                                     value="{{ Auth::User()->phone }}" />
                                 <div class="valid-feedback">
                                     Looks good!
@@ -446,8 +447,8 @@
                         <div class="col-md-12 my-3">
                             <label for="validationCustomPassword" class="form-label">Nueva contraseña</label>
                             <div class="input-group has-validation">
-                                <input type="password" class="form-control" minlength="3" name="password" id="validationCustomPassword"
-                                    aria-describedby="inputGroupPrepend" />
+                                <input type="password" class="form-control" minlength="3" name="password"
+                                    id="validationCustomPassword" aria-describedby="inputGroupPrepend" />
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
@@ -460,8 +461,9 @@
                             <label for="validationCustomConfirmPassword" class="form-label">Confirmar nueva
                                 contraseña</label>
                             <div class="input-group has-validation">
-                                <input type="password" class="form-control" minlength="3" id="validationCustomConfirmPassword"
-                                    aria-describedby="inputGroupPrepend" name="password_confirmation" />
+                                <input type="password" class="form-control" minlength="3"
+                                    id="validationCustomConfirmPassword" aria-describedby="inputGroupPrepend"
+                                    name="password_confirmation" />
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
@@ -509,6 +511,14 @@
                 )
             })
         })()
+
+        //autofocus on input modal
+        var myModal = document.getElementById('profileModal')
+        var myInput = document.getElementById('validationCustomUsername')
+
+        myModal.addEventListener('shown.bs.modal', function() {
+            myInput.focus()
+        })
 
     </script>
 @endsection
