@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -35,8 +36,26 @@ class CategoryController extends Controller
         return view('categories.admin.show', compact('category'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => ['nullable', 'unique:categories', 'string', 'min_length:3', 'max_length:255'],
+            'icon' => ['nullable', 'string', 'min_length:3', 'max_length:255'],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('categories.admin.index')->withErrors($validator);
+        }
+
+        if ($request->filled('name')) {
+            $category->name = $request->name;
+        }
+
+        if ($request->filled('icon')) {
+            $category->icon = $request->icon;
+        }
+
+        $category->save();
+        return redirect()->route('categories.admin.index');
     }
 }
