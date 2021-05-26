@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Opinion;
 use Illuminate\Http\Request;
 use App\Models\Shop;
 use App\Models\Product;
@@ -59,7 +60,8 @@ class ProductController extends Controller
     {
         $shop = Shop::where('slug', $shop)->firstOrFail();
         $product = Product::where(['slug' => $product, 'shop_id' => $shop->id])->firstOrFail();
-        return view('shop.product', compact('product', 'shop'));
+        $comments = Opinion::where('product_id', $product->id)->get();
+        return view('shop.product', compact('product', 'shop', 'comments'));
     }
 
     public function update(Request $request, $id)

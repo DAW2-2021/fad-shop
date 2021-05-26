@@ -132,12 +132,12 @@ Route::group(['prefix' => 'opinion', 'as' => 'opinion.'], function () {
     Route::get('/', [OpinionController::class, 'index'])->name('index');
     //USUARIOS
     Route::group(['middleware' => ['auth', 'role:user']], function () {
-        Route::put('/{opinion}', [OpinionController::class, 'update'])->name('update');
-        Route::post('/create', [OpinionController::class, 'store'])->name('store');
+        Route::put('/update/{shop}/{product}/{opinion}', [OpinionController::class, 'update'])->name('update');
+        Route::post('/create/{shop}/{product}', [OpinionController::class, 'store'])->name('store');
     });
     //ADMIN
     Route::group(['middleware' => ['auth', 'role:admin|user']], function () {
-        Route::delete('/delete', [OpinionController::class, 'destroy'])->name('delete');
+        Route::delete('/delete/{shop}/{product}/{comment}', [OpinionController::class, 'destroy'])->name('delete');
     });
 });
 
