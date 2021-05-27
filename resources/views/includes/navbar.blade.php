@@ -69,6 +69,10 @@
                                 </li>
                                 @if (Auth::user()->hasRole('admin'))
                                     <li>
+                                        <a class="dropdown-item" href="{{ route('shop.admin.index') }}">Administrar
+                                            Tiendas</a>
+                                    </li>
+                                    <li>
                                         <a class="dropdown-item"
                                             href="{{ route('petition.admin.index') }}">Administrar
                                             Peticiones</a>
