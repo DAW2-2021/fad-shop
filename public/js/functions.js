@@ -62,3 +62,7 @@ function removeProductCart(productId) {
         updateCookieCart(cart)
     }
 }
+
+function round2decimals(num) {
+    return Math.round(num * 100) / 100
+}
