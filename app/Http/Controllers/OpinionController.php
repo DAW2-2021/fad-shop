@@ -6,50 +6,93 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Opinion;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Shop;
+use App\Models\Product;
 
 class OpinionController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request, $shop, $product)
     {
+
         //user
         $validator = Validator::make($request->all(), [
-            'score' => ['required', 'integer', 'min:0', 'max:10'],
-            'comment' => ['nullable', 'string', 'min:3', 'max:255'],
+            'score' => ['required', 'integer', 'min_length:0', 'max_length:10'],
+            'comment' => ['nullable', 'string', 'min_length:3', 'max_length:255'],
         ]);
+
+        $shop = Shop::where(['slug' => $shop])->first();
+        if ($shop == null) {
+            return redirect()->route('shop.settings', $shop->slug)->withInput()->withErrors(['Error' => 'No existe el producto.']);
+        }
 
         if ($validator->fails()) {
             return redirect()->route('opinion.store')->withErrors($validator);
         }
 
-        Opinion::create($request);
+        $product = Product::where(['slug' => $product, 'shop_id' => $shop->id])->first();
 
-        return redirect()->route('product.index', $request->product_id);
+        if ($product == null) {
+
+            return redirect()->route('shop.settings', $shop->slug)->withInput()->withErrors(['Error' => 'No existe el producto.']);
+        }
+
+        /* $isIn = Opinion::where('user_id', Auth::user()->id);
+
+        if ($isIn) {
+            dd('asd');
+            return redirect()->route('shop.product.index', [$shop->slug, $product->slug])->withInput()->withErrors(['Error' => 'Ya has comentado una vez']);
+        } */
+        Opinion::create(['score' => $request->score, 'comment' => $request->comment, 'product_id' => $request->product_id, 'user_id' => Auth::user()->id]);
+
+        return redirect()->route('shop.product.index', [$shop->slug, $product->slug]);
     }
 
-    public function update(Request $request, $opinion)
+    public function update(Request $request, $shop, $product, $comment)
     {
-        $opinion = Opinion::where('id', $opinion)->firstOrFail();
+        $opinion = Opinion::where('id', $comment)->firstOrFail();
         //user
         if (Auth::user()->id == $opinion->user_id) {
             $validator = Validator::make($request->all(), [
-                'score' => ['nullable', 'integer', 'min:0', 'max:10'],
-                'comment' => ['nullable', 'string', 'min:3', 'max:255'],
+                'score' => ['nullable', 'integer', 'min_length:0', 'max_length:10'],
+                'comment' => ['nullable', 'string', 'min_length:3', 'max_length:255'],
             ]);
+            $shop = Shop::where(['slug' => $shop])->first();
+            if ($shop == null) {
+                return redirect()->route('shop.product.index', [$shop->slug, $product->slug])->withInput()->withErrors(['Error' => 'No existe el producto.']);
+            }
+
             if ($validator->fails()) {
-                return redirect()->route('opinion.update', $opinion->id)->withErrors($validator);
+                return redirect()->route('shop.product.index', [$shop->slug, $product->slug])->withErrors($validator);
+            }
+
+            $product = Product::where(['slug' => $product, 'shop_id' => $shop->id])->first();
+
+            if ($product == null) {
+                return redirect()->route('shop.product.index', [$shop->slug, $product->slug])->withInput()->withErrors(['Error' => 'No existe el producto.']);
             }
             $opinion->update($request->all());
-            return redirect()->route('opinion.update', $opinion->id);
+            return redirect()->route('shop.product.index', [$shop->slug, $product->slug]);
         }
     }
 
-    public function destroy(Opinion $opinion)
+    public function destroy($shop, $product, Opinion $comment)
     {
-        //user | admin
-        if (Auth::user()->id == $opinion->user_id || Auth::user()->role_id == 1) {
-            $opinion->delete();
-            return redirect()->route('product.show', $opinion->product_id);
+        $shop = Shop::where(['slug' => $shop])->first();
+        if ($shop == null) {
+            return redirect()->route('shop.settings', $shop->slug)->withInput()->withErrors(['Error' => 'No existe el producto.']);
         }
-        return redirect()->route('product.show', $opinion->product_id)->withErrors('No tienes permisos para borrar la opinion.');
+
+        $product = Product::where(['slug' => $product, 'shop_id' => $shop->id])->first();
+
+        if ($product == null) {
+            return redirect()->route('shop.settings', $shop->slug)->withInput()->withErrors(['Error' => 'No existe el producto.']);
+        }
+        //user | admin
+        if (Auth::user()->id == $comment->user_id || Auth::user()->role_id == 1) {
+            $opinion = Opinion::where('id', $comment->id)->firstOrFail();
+            $opinion->delete();
+            return redirect()->route('shop.product.index', [$shop->slug, $product->slug]);
+        }
+        return redirect()->route('shop.product.index', [$shop->slug, $product->slug])->withErrors('No tienes permisos para borrar la opinion.');
     }
 }
