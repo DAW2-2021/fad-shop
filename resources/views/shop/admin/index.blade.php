@@ -41,10 +41,14 @@
                             @else
                                 <td>{{ Str::substr($shop->description, 0, 20) . '...' }}</td>
                             @endif
+                            <td> <img src="{{ asset('storage/' . $shop->logo) }}"
+                                    alt="Logo de la tienda {{ $shop->name }}" class="w-25" /></td>
                             @if ($shop->blocked_at == null)
                                 <td>Activada</td>
+                            @else
+                                <td>Desactivada</td>
                             @endif
-                            <td>Desactivada</td>
+
 
                             <td class="text-center"><a href="{{ route('shop.index', $shop->slug) }}"><i
                                         class="far fa-eye"></i></a></td>
