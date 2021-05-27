@@ -7,7 +7,7 @@
     <!-- AJUSTES PROFILE -->
     <div class="container">
         <div class="p-3 pb-md-4 mx-auto text-center">
-            <h1 class="display-4 fw-normal">Mi Perfil</h1>
+            <h1 class="display-4 fw-normal">Perfil</h1>
         </div>
         <div class="row">
             <div class="col-md-12">
