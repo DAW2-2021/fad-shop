@@ -4,58 +4,6 @@
 @endsection
 
 @section('content')
-    <style>
-        @import url(https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
-        @import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
-
-
-
-        .rating {
-            border: none;
-            margin-right: 17.2rem
-        }
-
-        .myratings {
-            font-size: 85px;
-            color: green
-        }
-
-        .rating>[id^="star"] {
-            display: none
-        }
-
-        .rating>label:before {
-            margin: 5px;
-            font-size: 2.25em;
-            font-family: FontAwesome;
-            display: inline-block;
-            content: "\f005"
-        }
-
-        .rating>.half:before {
-            content: "\f089";
-            position: absolute
-        }
-
-        .rating>label {
-            color: #ddd;
-            float: right
-        }
-
-        .rating>[id^="star"]:checked~label,
-        .rating:not(:checked)>label:hover,
-        .rating:not(:checked)>label:hover~label {
-            color: #FFD700
-        }
-
-        .rating>[id^="star"]:checked+label:hover,
-        .rating>[id^="star"]:checked~label:hover,
-        .rating>label:hover~[id^="star"]:checked~label,
-        .rating>[id^="star"]:checked~label:hover~label {
-            color: #FFED85
-        }
-
-    </style>
     @include('includes.navbar-shop')
     <!-- PRODUCT -->
     <div class="container-sm container-fluid mb-3 px-4">
@@ -93,10 +41,12 @@
                         class="btn btn-success mx-2 col-5">
                         Añadir al carrito
                     </button>
+                    @if (Auth::check() && !Auth::user()->hasAnyRole(['seller', 'admin']) && $product->opinions()->where('user_id', Auth::user()->id)->count() == 0)
                     <button type="button" class="btn btn-secondary mx-2 col-5" data-bs-target="#modalReview"
                         data-bs-toggle="modal" data-bs-dismiss="modal">
                         Añadir una review
                     </button>
+                    @endif
                 </div>
             </div>
         </div>
@@ -108,6 +58,151 @@
     <div class="container-fluid p-3">
         <div class="container-md container-fluid">
             <div class="container-md">
+                @if ($comments->count() <3)
+                @foreach ($comments as $comment)
+                <div class="mb-3 text-white bg-secondary rounded p-3">
+                    <div class="col-sm-4 fs-4 row">
+                    <div class="col">
+                        {{ $comment->user->username }} 
+                    </div>
+                        @if (Auth::user()->id == $comment->user_id)
+                            <div class="col-sm-2">
+                                <form method="post" action="{{ route('opinion.delete', [ $shop->slug, $product->slug, $comment]) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn"> <i class="fa fa-trash text-black"></i> </button>
+                                </form>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="button" data-bs-target="#modalReviewUpdate1" data-bs-toggle="modal" 
+                                data-bs-dismiss="modal"  class="btn"> <i class="fa fa-edit text-black"></i></button>
+                            </div>
+                            <!-- ---- UPDATE REVIEW -->
+                            <div class="modal fade" id="modalReviewUpdate1" aria-hidden="true" aria-labelledby="modalReviewUpdate1" tabindex="-1">
+                                <div class="modal-dialog  modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Añade una review</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{ route('opinion.update', [$shop->slug, $product->slug, $comment]) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <h4 class="mt-4 text-center text-dark">Puntuación</h4>
+                                                <fieldset class="rating"> <input type="radio" id="star5" name="score" value="10" /><label
+                                                        class="full" for="star5" title="Awesome - 5 stars"></label> <input type="radio" id="star4half"
+                                                        name="score" value="9" /><label class="half" for="star4half"
+                                                        title="Pretty good - 4.5 stars"></label> <input type="radio" id="star4" name="score"
+                                                        value="8" /><label class="full" for="star4" title="Pretty good - 4 stars"></label> <input
+                                                        type="radio" id="star3half" name="score" value="7" /><label class="half" for="star3half"
+                                                        title="Meh - 3.5 stars"></label> <input type="radio" id="star3" name="score" value="6" /><label
+                                                        class="full" for="star3" title="Meh - 3 stars"></label> <input type="radio" id="star2half"
+                                                        name="score" value="5" /><label class="half" for="star2half"
+                                                        title="Kinda bad - 2.5 stars"></label>
+                                                    <input type="radio" id="star2" name="score" value="4" /><label class="full" for="star2"
+                                                        title="Kinda bad - 2 stars"></label> <input type="radio" id="star1half" name="score"
+                                                        value="3" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label> <input
+                                                        type="radio" id="star1" name="score" value="2" /><label class="full" for="star1"
+                                                        title="Sucks big time - 1 star"></label> <input type="radio" id="starhalf" name="score"
+                                                        value="1" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                                                </fieldset>
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                <br />
+                                                <label for="" class="form-label mt-2 fw-bold text-dark">Opinión</label>
+                                                <input type="text" name="comment" class="form-control" />
+                                                <button type="submit" class="btn btn-secondary align-self-start mt-3">
+                                                    Enviar opinión
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col p-2">
+                            <div class="d-inline ps-1">
+                                @if (round($comment->score) / 2  <= 0.51)
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        @elseif (round($comment->score / 2 ) <= 0.99) <i
+                                                class="fas fa-star-half-alt"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            @elseif (round($comment->score / 2 ) <= 1.49) <i
+                                                    class="fas fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                @elseif (round($comment->score / 2 ) <= 1.99) <i
+                                                        class="fas fa-star"></i>
+                                                        <i class="fas fa-star-half-alt"></i>
+                                                        <i class="far fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                    @elseif (round($comment->score / 2 ) <= 2.49) <i
+                                                            class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="far fa-star"></i>
+                                                            <i class="far fa-star"></i>
+                                                            <i class="far fa-star"></i>
+                                                        @elseif (round($comment->score / 2 ) <= 2.99)
+                                                                <i class="fas fa-star"></i>
+                                                                <i class="fas fa-star"></i>
+                                                                <i class="fas fa-star-half-alt"></i>
+                                                                <i class="far fa-star"></i>
+                                                                <i class="far fa-star"></i>
+                                                            @elseif (round($comment->score / 2 ) <=
+                                                                    3.49) <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                @elseif (round($comment->score / 2 ) <=
+                                                                        3.99) <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star-half-alt"></i>
+                                                                        <i class="far fa-star"></i>
+                                                                    @elseif (round($comment->score / 2 ) <= 4.49) <i class="fas fa-star"></i>
+                                                                            <i class="fas fa-star"></i>
+                                                                            <i class="fas fa-star"></i>
+                                                                            <i class="fas fa-star"></i>
+                                                                            <i class="far fa-star"></i>
+                                                                        @elseif(round($comment->score / 2 ) <= 4.99) <i class="fas fa-star"></i>
+                                                                                <i class="fas fa-star"></i>
+                                                                                <i class="fas fa-star"></i>
+                                                                                <i class="fas fa-star"></i>
+                                                                                <i class="fas fa-star-half-alt"></i>
+                                                                            @elseif(round($comment->score / 2 ) == 5)
+                                                                                <i class="fas fa-star"></i>
+                                                                                <i class="fas fa-star"></i>
+                                                                                <i class="fas fa-star"></i>
+                                                                                <i class="fas fa-star"></i>
+                                                                                <i class="fas fa-star"></i>
+
+                                        @endif
+                            </div>
+                            <span class="m-4">Revisado en {{ $comment->created_at }}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-break">
+                            {{ $comment->comment }}
+                        </p>
+                    </div>
+                </div>
+                @endforeach
+                @else
                 @for ($i=0; $i<2; $i++)
                 <div class="mb-3 text-white bg-secondary rounded p-3">
                     <div class="col-sm-4 fs-4 row">
@@ -292,6 +387,7 @@
                     </div>
                 </div>
                 @endfor
+                @endif
                 <a data-bs-toggle="collapse" role="button" data-bs-target=".multicollapse" aria-expanded="false"
                     aria-controls="collapseExample"><small class="text-info"><u>Ver más</u></small>
                 </a>

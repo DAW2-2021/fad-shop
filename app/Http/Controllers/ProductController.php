@@ -72,7 +72,7 @@ class ProductController extends Controller
         $shop = Shop::where('slug', $shop)->firstOrFail();
         $product = Product::where(['slug' => $product, 'shop_id' => $shop->id])->firstOrFail();
         $comments = Opinion::where('product_id', $product->id)->get();
-        return view('shop.product', compact('product', 'shop', 'comments'));
+        return view('shop.product.index', compact('product', 'shop', 'comments'));
     }
 
     public function update(Request $request, $id)

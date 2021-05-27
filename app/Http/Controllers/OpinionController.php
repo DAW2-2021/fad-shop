@@ -13,7 +13,7 @@ class OpinionController extends Controller
 {
     public function store(Request $request, $shop, $product)
     {
-        /* dd($request); */
+
         //user
         $validator = Validator::make($request->all(), [
             'score' => ['required', 'integer', 'min_length:0', 'max_length:10'],
@@ -32,13 +32,16 @@ class OpinionController extends Controller
         $product = Product::where(['slug' => $product, 'shop_id' => $shop->id])->first();
 
         if ($product == null) {
+
             return redirect()->route('shop.settings', $shop->slug)->withInput()->withErrors(['Error' => 'No existe el producto.']);
         }
 
-        $isIn = Opinion::where('user_id', Auth::user()->id);
+        /* $isIn = Opinion::where('user_id', Auth::user()->id);
+
         if ($isIn) {
-            return redirect()->route('shop.settings', $shop->slug)->withInput()->withErrors(['Error' => 'Ya has comentado una vez']);
-        }
+            dd('asd');
+            return redirect()->route('shop.product.index', [$shop->slug, $product->slug])->withInput()->withErrors(['Error' => 'Ya has comentado una vez']);
+        } */
         Opinion::create(['score' => $request->score, 'comment' => $request->comment, 'product_id' => $request->product_id, 'user_id' => Auth::user()->id]);
 
         return redirect()->route('shop.product.index', [$shop->slug, $product->slug]);
