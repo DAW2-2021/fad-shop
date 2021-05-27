@@ -37,10 +37,14 @@
                     </p>
                 </div>
                 <div class="row justify-self-end d-flex justify-content">
-                    <button type="button" id="addCart" data-productid="{{ $product->id }}"
-                        class="btn btn-success mx-2 col-5">
+                    <button type="button" id="addCart" class="btn btn-success mx-2 col-5">
                         Añadir al carrito
                     </button>
+
+                    <button type="button" id="removeCart" style="display: none" class="btn btn-danger mx-2 col-5">
+                        Quitar del carrito
+                    </button>
+
                     @if (Auth::check() && !Auth::user()->hasAnyRole(['seller', 'admin']) && $product->opinions()->where('user_id', Auth::user()->id)->count() == 0)
                     <button type="button" class="btn btn-secondary mx-2 col-5" data-bs-target="#modalReview"
                         data-bs-toggle="modal" data-bs-dismiss="modal">
@@ -442,7 +446,33 @@
 @section('extraFooter')
     <script>
         $(document).ready(function() {
+            var productId = "{{ $product->id }}"
 
+            //Mirar si ya tiene el producto
+            if (checkProductCart(productId)) {
+                $("#addCart").hide();
+                $("#removeCart").show();
+            } else {
+                $("#removeCart").hide();
+                $("#addCart").show();
+            }
+            //Añadir Carrito
+
+            $("#addCart").on("click", () => {
+                addProductCart(productId);
+
+                $("#addCart").hide();
+                $("#removeCart").show();
+            });
+
+            $("#removeCart").on("click", () => {
+                removeProductCart(productId);
+
+                $("#removeCart").hide();
+                $("#addCart").show();
+            });
+
+            //Estrellas
             $("input[type='radio']").click(function() {
                 var sim = $("input[type='radio']:checked").val();
                 //alert(sim);

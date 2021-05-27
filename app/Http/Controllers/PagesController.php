@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Models\Product;
 
 class PagesController extends Controller
 {
@@ -19,6 +20,10 @@ class PagesController extends Controller
 
     public function cart()
     {
-        return view('shop.cart');
+        $cart = htmlspecialchars($_COOKIE['cart-data']);
+        $cart = trim($cart, '|');
+        $cart = explode('|', $cart);
+        $products = Product::whereIn('id', $cart)->orderBy('shop_id')->get();
+        return view('shop.cart', compact('products'));
     }
 }
