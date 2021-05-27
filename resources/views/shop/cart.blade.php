@@ -7,9 +7,12 @@
     <!-- CART -->
     <div class="container-fluid">
         <div class="col-md text-center p-4">
-            <p class="h3">Order Details</p>
+            <p class="h3">Detalles del Carrito</p>
         </div>
-        <div class="row">
+        <form action="" class="row" method="post">
+            @csrf
+            @method('POST')
+            <!-- DETALLES CARRITO -->
             <aside class="col-lg-9">
                 <div class="card">
                     <div class="table-responsive">
@@ -42,15 +45,18 @@
                                             </figure>
                                         </td>
                                         <td>
+                                            <input type="hidden" name="productId[]" value="{{ $product->id }}">
                                             <input type="number" class="form-control product-quantity" min="1"
-                                                max="{{ $product->stock }}" name="" id=""
+                                                max="{{ $product->stock }}" name="price[]"
+                                                data-productPrice="{{ $product->price }}"
                                                 data-productId="{{ $product->id }}" @if ($product->stock == 0) disabled value="0"
                                                 @else
-            value="1" @endif>
+                                        value="1" @endif>
                                         </td>
                                         <td>
                                             <div class="price-wrap">
                                                 <var class="price"> <span class="product-price"
+                                                        data-productPrice="{{ $product->price }}"
                                                         id="product-price-{{ $product->id }}">{{ $product->price }}</span>
                                                     €</var><br>
                                                 <small class="text-muted">
@@ -71,7 +77,7 @@
                     </div>
                 </div>
             </aside>
-            <!-- aside derecha -->
+            <!-- PRECIO TOTAL -->
             <aside class="col-lg-3">
                 <div class="card">
                     <div class="card-body">
@@ -87,20 +93,43 @@
                     </div>
                 </div>
             </aside>
-        </div>
+        </form>
     </div>
 @endsection
 @section('extraFooter')
     <script>
         $(document).ready(function() {
+            // .product-quantity on change cambia el product price
             // .product-price El precio total de todos foreach
             // #total-price el precio total de tdo
+            reloadTotalPrice();
+
             $(".remove-product").on("click", e => {
-                productId = e.target.getAttribute("data-productId");
+                let productId = e.target.getAttribute("data-productId");
                 $("#product-" + productId).remove();
                 removeProductCart(productId);
             });
 
+            $(".product-quantity").on("change", e => {
+                let productId = e.target.getAttribute("data-productId");
+                let priceUnity = e.target.getAttribute("data-productPrice");
+                let quantity = e.target.value;
+
+                let totalPriceProduct = round2decimals(quantity * priceUnity);
+                let productPrice = $("#product-price-" + productId);
+                productPrice.html(totalPriceProduct);
+                productPrice.attr("data-productPrice", totalPriceProduct);
+
+                reloadTotalPrice();
+            });
+
+            function reloadTotalPrice() {
+                let totalPrice = 0;
+                $(".product-price").each(function() {
+                    totalPrice += parseFloat($(this).attr("data-productPrice"));
+                });
+                $("#total-price").html(round2decimals(totalPrice));
+            }
         });
 
     </script>
