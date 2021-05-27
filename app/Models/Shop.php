@@ -26,6 +26,11 @@ class Shop extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function products_history()
+    {
+        return $this->hasMany(ProductHistory::class);
+    }
+
     public function orders()
     {
         return $this->hasMany(Order::class);

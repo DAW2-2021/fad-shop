@@ -93,6 +93,11 @@ class User extends Authenticatable
         return $this->hasMany(Product::class);
     }
 
+    public function products_history()
+    {
+        return $this->hasMany(ProductHistory::class);
+    }
+
     public function opinions()
     {
         return $this->hasMany(Opinion::class);
