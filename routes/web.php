@@ -26,7 +26,7 @@ Route::group(['middleware' => ['guest']], function () {
 });
 
 Route::get('/', [PagesController::class, 'index'])->name('index');
-Route::get('/cart', [PagesController::class, 'cart'])->name('shop.cart');
+Route::get('/cart', [PagesController::class, 'cart'])->name('cart');
 
 // //SEARCH
 // Route::group(['prefix' => 'search', 'as' => 'search.'], function () {

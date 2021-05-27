@@ -25,8 +25,11 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- JQUERY -->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <!-- JQUERY COOKIES-->
+    <script src="{{ asset('js/jquery-cookies.min.js') }}"></script>
     <!-- FUNCTIONS -->
     <script src="{{ asset('js/functions.js') }}"></script>
+
     @yield('extraHeader')
 </head>
 
@@ -37,6 +40,19 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- Al iniciar -->
+    <script>
+        $(document).ready(function() {
+            if (typeof $.cookie('cart-data') === 'undefined') {
+                $.cookie('cart-data', '|', {
+                    path: '/',
+                    expires: 365
+                });
+            }
+            updateSizeCart();
+        })
+
+    </script>
     @yield('extraFooter')
 </body>
 

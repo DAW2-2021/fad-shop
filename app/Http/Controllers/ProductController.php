@@ -70,7 +70,7 @@ class ProductController extends Controller
     {
         $shop = Shop::where('slug', $shop)->firstOrFail();
         $product = Product::where(['slug' => $product, 'shop_id' => $shop->id])->firstOrFail();
-        return view('shop.product', compact('product', 'shop'));
+        return view('shop.product.index', compact('product', 'shop'));
     }
 
     public function update(Request $request, $id)

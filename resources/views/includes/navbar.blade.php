@@ -122,11 +122,11 @@
                         </div>
                     @endif
                     {{-- CART --}}
-                    <a href="#" class="position-relative">
+                    <a href="{{ route('cart') }}" class="position-relative">
                         <i class="fas fa-shopping-cart fs-4"></i>
                         <span
                             class="position-absolute top-0 start-100 translate-middle badge border border-danger rounded-circle bg-danger p-2">
-                            <span>1</span>
+                            <span id="cartSize"></span>
                         </span>
                     </a>
                 </div>
