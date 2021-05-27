@@ -37,9 +37,9 @@ Route::get('/cart', [PagesController::class, 'cart'])->name('shop.cart');
 //ADMIN SHOP
 //Tiene que ir a fuera de la shop para poder desbloquear, por que abajo mira si esta activa la tienda, así que apovechamos y metemos todo aqui
 Route::group(['prefix' => 'shop/admin', 'as' => 'shop.admin.', 'middleware' => ['auth', 'role:admin']], function () {
+    Route::get('/', [ShopController::class, 'indexAdmin'])->name('index');
     Route::put('/{shop}/ban', [ShopController::class, 'ban'])->name('ban');
     Route::put('/{shop}/unban', [ShopController::class, 'unban'])->name('unban');
-
     Route::post('/create', [ShopController::class, 'store'])->name('store');
 });
 //SHOP

@@ -24,6 +24,17 @@ class ShopController extends Controller
         return view('shop.index', compact('shop', 'productsCarousel', 'products'));
     }
 
+    public function indexAdmin()
+    {
+        $shops = Shop::orderByDesc('id')->paginate(15);
+        return view('shop.admin.index')->with(['shops' => $shops]);
+    }
+
+    public function showAdminShop(Shop $shop)
+    {
+        return view('shop.index')->with(['shop' => $shop]);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
