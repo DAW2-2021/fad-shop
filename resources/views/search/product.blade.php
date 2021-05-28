@@ -18,7 +18,7 @@
             </div>
             <div id="products" class="d-flex flex-wrap justify-content-center align-items-center">
                 @foreach ($prods as $prod)
-                    <a href="{{ route('shop.product.index', [$prod->shop->slug, $prod->slug]) }}"
+                    <a href="{{ route('shop.product.show', [$prod->shop->slug, $prod->slug]) }}"
                         class="card card-product border text-white position-relative mb-5 p-0">
                         <img class="card-image" src="{{ asset('storage/' . $prod->image) }}"
                             alt="Imagen del producto {{ $prod->name }}, de la tienda {{ $prod->shop->name }}" />
