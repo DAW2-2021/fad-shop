@@ -52,34 +52,36 @@
                     </div>
                 </div>
 
+               <div class="row">
                 @if (Auth::check() && Auth::user()->hasAnyRole('seller', 'admin'))
-                    @if (Auth::user()->hasRole('seller'))
-                        <button type="button" data-bs-target="#modalProductUpdate" data-bs-toggle="modal"
-                            data-bs-dismiss="modal" class="btn btn-secondary w-25"> <i class="fa fa-edit text-black"></i>
-                            Modificar
-                        </button>
-                        @if ($errors->any())
-                            {!! implode('', $errors->all('<span class="invalid-feedback" role="alert" style="display:block !important"> <strong>:message</strong></span><br>')) !!}
-                        @endif
-                    @endif
-                @else
-                    @if (!Auth::user()->hasRole('admin'))
-                        <button type="button" id="addCart" class="btn btn-success mx-2 col-5">
-                            Añadir al carrito
-                        </button>
-
-                        <button type="button" id="removeCart" style="display: none" class="btn btn-danger mx-2 col-5">
-                            Quitar del carrito
-                        </button>
+                @if (Auth::user()->hasRole('seller'))
+                    <button type="button" data-bs-target="#modalProductUpdate" data-bs-toggle="modal"
+                        data-bs-dismiss="modal" class="btn btn-secondary w-25"> <i class="fa fa-edit text-black"></i>
+                        Modificar
+                    </button>
+                    @if ($errors->any())
+                        {!! implode('', $errors->all('<span class="invalid-feedback" role="alert" style="display:block !important"> <strong>:message</strong></span><br>')) !!}
                     @endif
                 @endif
-                @if (Auth::check() &&
-        Auth::user()->hasRole('user') &&
-        $product->opinions()->where('user_id', Auth::user()->id)->count() == 0)
-                    <button type="button" data-bs-target="#modalReview" class="btn btn-primary mx-2 col-5" data-bs-toggle="modal" data-bs-dismiss="modal">
-                        Añadir una review
+            @else
+                @if (!Auth::user()->hasRole('admin'))
+                    <button type="button" id="addCart" class="btn btn-success mx-2 col-5">
+                        Añadir al carrito
+                    </button>
+
+                    <button type="button" id="removeCart" style="display: none" class="btn btn-danger mx-2 col-5">
+                        Quitar del carrito
                     </button>
                 @endif
+            @endif
+            @if (Auth::check() &&
+    Auth::user()->hasRole('user') &&
+    $product->opinions()->where('user_id', Auth::user()->id)->count() == 0)
+                <button type="button" data-bs-target="#modalReview" class="btn btn-primary mx-2 col-5" data-bs-toggle="modal" data-bs-dismiss="modal">
+                    Añadir una review
+                </button>
+            @endif
+               </div>
 
             </div>
         </div>
@@ -677,6 +679,29 @@
         $("#ver-menos").on("click", function(){
             $(this).hide()
             $("#ver-mas").show()
-        })
+        });
+
+        $("#product_image").change(function() {
+                previewImage("product_image");
+            });
+
+            @if (Auth::check() && Auth::user()->hasRole('seller'))
+            $('#formProduct').on('submit', function(e) {
+                let valid = true;
+
+                if (!$(".categories-checkbox:checked").length) {
+                    alert("¡Tienes que seleccionar al menos una categoria!");
+                    valid = false;
+                }
+                if ($(".categories-checkbox:checked").length > 5) {
+                    alert("¡Solo puedes seleccionar un máximo de 5 categorías!");
+                    valid = false;
+                }
+
+                if (!valid) {
+                    e.preventDefault();
+                }
+            });
+            @endif
     </script>
 @endsection

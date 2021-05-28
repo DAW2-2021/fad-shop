@@ -80,6 +80,10 @@
                     alert("¡Tienes que seleccionar al menos una categoria!");
                     valid = false;
                 }
+                if ($(".categories-checkbox:checked").length > 5) {
+                    alert("¡Solo puedes seleccionar un máximo de 5 categorías!");
+                    valid = false;
+                }
 
                 if (!valid) {
                     e.preventDefault();

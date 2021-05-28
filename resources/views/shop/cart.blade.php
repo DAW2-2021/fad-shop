@@ -33,7 +33,7 @@
                                         <td>
                                             <figure class="itemside align-items-center">
                                                 <figcaption class="info">
-                                                    <a href="{{ route('shop.product.index', [$product->shop->slug, $product->slug]) }}"
+                                                    <a href="{{ route('shop.product.show', [$product->shop->slug, $product->slug]) }}"
                                                         class="title text-dark" data-abc="true">{{ $product->name }}</a>
                                                     <p class="text-muted small">
                                                         TIENDA: <a

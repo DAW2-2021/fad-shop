@@ -19,7 +19,7 @@ class ProductController extends Controller
     {
         $shop = Shop::where('slug', $shop)->firstOrFail();
         $products = Product::orderByDesc('id')->paginate(15);
-        return view('shop.product.index')->with(['products' => $products, 'shop' => $shop]);
+        return view('shop.product.show')->with(['products' => $products, 'shop' => $shop]);
     }
 
     public function create($shop)
@@ -41,7 +41,7 @@ class ProductController extends Controller
             'description' => ['required', 'string', 'min_length:20', 'max_length:255'],
             'price' => ['required', 'numeric', 'min:0.5'],
             'stock' => ['required', 'integer', 'min:0'],
-            'categories' => ['required', 'array', 'min:1'],
+            'categories' => ['required', 'array', 'min:1', 'max:5'],
             'image' => ['required', 'file', 'mimes:png,jpg,jpeg', 'max:1024', 'dimensions:width=650,height=400'],
         ]);
 
@@ -66,7 +66,7 @@ class ProductController extends Controller
         foreach ($request->categories as $category) {
             $product->categories()->attach($category);
         }
-        return redirect()->route('shop.product.index', [$shop->slug, $product->slug])->withInput()->withErrors(['Coincidence' => 'Ya existe el nombre del producto en la tienda.']);
+        return redirect()->route('shop.product.show', [$shop->slug, $product->slug])->withInput()->withErrors(['Coincidence' => 'Ya existe el nombre del producto en la tienda.']);
     }
 
     public function show($shop, $product)
@@ -89,7 +89,7 @@ class ProductController extends Controller
                 'description' => ['nullable', 'string', 'min_length:20', 'max_length:255'],
                 'price' => ['nullable', 'numeric', 'min:0.5'],
                 'stock' => ['nullable', 'integer', 'min:0'],
-                'categories' => ['nullable', 'array', 'min:1'],
+                'categories' => ['nullable', 'array', 'min:1', 'max:5'],
                 'image' => ['nullable', 'file', 'mimes:png,jpg,jpeg', 'max:1024', 'dimensions:width=650,height=400'],
             ]);
 
@@ -168,9 +168,9 @@ class ProductController extends Controller
 
         if (Auth::user()->id == $shop->user_id || Auth::user()->hasRole('seller')) {
             $product->delete();
-            return redirect()->route('shop.product.index', $shop->slug);
+            return redirect()->route('shop.index', $shop->slug);
         }
 
-        return redirect()->route('shop.product.index', $shop->slug)->withErrors('No tienes permisos para borrar la opinion.');
+        return redirect()->route('shop.product.show', $shop->slug)->withErrors('No tienes permisos para borrar la opinion.');
     }
 }
