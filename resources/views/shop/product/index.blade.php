@@ -73,9 +73,11 @@
                                     <button type="submit" class="btn"> <i class="fa fa-trash"></i> </button>
                                 </form>
                             </td>
-                            <td class="text-center"><a class="btn"
-                                    href="{{ route('shop.product.show', [$shop->slug, $product->slug]) }}"><i
-                                        class="far fa-eye"></i></a></td>
+                            <td class="text-center">
+                                <a class="btn" href="{{ route('shop.product.show', [$shop->slug, $product->slug]) }}">
+                                    <i class="far fa-eye"></i>
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

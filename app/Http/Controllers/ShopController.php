@@ -120,9 +120,12 @@ class ShopController extends Controller
 
     public function destroy(Shop $shop)
     {
-        if ($shop->user_id == Auth::user()->id) {
+        if (Auth::user()->hasRole('admin')) {
+            $user = $shop->user()->firstOrFail();
+            $user->role_id = 3;
+            $user->save();
             $shop->delete();
-            return redirect()->route('shop.index');
+            return redirect()->route('index');
         }
         return redirect()->route('shop.index');
     }

@@ -41,6 +41,7 @@ Route::group(['prefix' => 'shop/admin', 'as' => 'shop.admin.', 'middleware' => [
     Route::put('/{shop}/ban', [ShopController::class, 'ban'])->name('ban');
     Route::put('/{shop}/unban', [ShopController::class, 'unban'])->name('unban');
     Route::post('/create', [ShopController::class, 'store'])->name('store');
+    Route::delete('{shop}/delete', [ShopController::class, 'destroy'])->name('delete');
 });
 //SHOP
 // ---- SELLER

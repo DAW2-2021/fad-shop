@@ -27,7 +27,8 @@
                         <th scope="col">Descripción</th>
                         <th scope="col">Logo</th>
                         <th scope="col">Estado</th>
-                        <th class="text-center" scope="col">Visualizar</th>
+                        <th scope="col">Eliminar</th>
+                        <th scope="col">Visualizar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,10 +49,20 @@
                             @else
                                 <td>Desactivada</td>
                             @endif
-
-
-                            <td class="text-center"><a href="{{ route('shop.index', $shop->slug) }}"><i
-                                        class="far fa-eye"></i></a></td>
+                            <td class="text-center">
+                                <form method="post" action="{{ route('shop.admin.delete', $shop->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                            <td class="text-center">
+                                <a class="btn" href="{{ route('shop.index', $shop->slug) }}">
+                                    <i class="far fa-eye"></i>
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

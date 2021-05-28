@@ -45,8 +45,11 @@
                             @endif
                             <td>{{ $petition->status }}</td>
 
-                            <td class="text-center"><a href="{{ route('petition.admin.show', $petition->id) }}"><i
-                                        class="far fa-eye"></i></a></td>
+                            <td class="text-center">
+                                <a class="btn" href="{{ route('petition.admin.show', $petition->id) }}">
+                                    <i class="far fa-eye"></i>
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
