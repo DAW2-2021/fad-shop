@@ -23,10 +23,14 @@ class Product extends Model
         'user_id'
     ];
 
-    protected static function boot()
+    public static function boot()
     {
         parent::boot();
         Product::observe(ProductObserver::class);
+
+        static::deleting(function ($product) {
+            $product->opinions()->delete();
+        });
     }
 
     public function orders()

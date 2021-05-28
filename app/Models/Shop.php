@@ -21,6 +21,19 @@ class Shop extends Model
         'user_id'
     ];
 
+    // this is a recommended way to declare event handlers
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($shop) {
+            foreach ($shop->products()->get() as $product) {
+                $product->opinions()->delete();
+            }
+            $shop->products()->delete();
+        });
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

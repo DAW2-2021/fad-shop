@@ -23,7 +23,7 @@
                 <div class="mb-3">
                     <label for="shop_description" class="form-label h4">Descripción de la Tienda</label>
                     <textarea class="form-control" placeholder="Tienda de animales..." id="shop_description"
-                        name="shop_description" rows="3"></textarea>
+                        name="shop_description" rows="3" minlength="20"></textarea>
                 </div>
                 <div class="form mb-3 row">
                     <div class="col-md-10">

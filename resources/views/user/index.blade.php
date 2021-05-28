@@ -391,8 +391,7 @@
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('user.update', Auth::User()->id) }}" method="POST" class="row g-3 needs-validation"
-                    novalidate>
+                <form action="{{ route('user.update', Auth::User()->id) }}" method="POST" class="row g-3">
                     @csrf
                     @method("PUT")
                     <div class="modal-body">
@@ -403,12 +402,6 @@
                                 <input type="text" class="form-control" minlength="3" name="username"
                                     value="{{ Auth::User()->username }}" id="validationCustomUsername"
                                     aria-describedby="inputGroupPrepend" />
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please choose a username.
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-12 my-3">
@@ -422,12 +415,6 @@
                                     desasociará
                                     automáticamente.
                                 </div>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please choose a email.
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-12 my-3">
@@ -436,12 +423,6 @@
                                 <input type="number" class="form-control" minlength="3" name="phone"
                                     id="validationCustomPhone" aria-describedby="inputGroupPrepend" placeholder="611111111"
                                     value="{{ Auth::User()->phone }}" />
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please choose a phone.
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-12 my-3">
@@ -449,12 +430,6 @@
                             <div class="input-group has-validation">
                                 <input type="password" class="form-control" minlength="3" name="password"
                                     id="validationCustomPassword" aria-describedby="inputGroupPrepend" />
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please choose a password.
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-12 my-3">
@@ -464,12 +439,6 @@
                                 <input type="password" class="form-control" minlength="3"
                                     id="validationCustomConfirmPassword" aria-describedby="inputGroupPrepend"
                                     name="password_confirmation" />
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please choose a new password.
-                                </div>
                             </div>
                         </div>
                     </div>

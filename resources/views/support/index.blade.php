@@ -44,8 +44,11 @@
                                 <td>{{ Str::substr($support->content, 0, 20) . '...' }}</td>
                             @endif
                             <td>{{ $support->status }}</td>
-                            <td class="text-center"><a href="{{ route('support.admin.show', $support->id) }}"><i
-                                        class="far fa-eye"></i></a></td>
+                            <td class="text-center">
+                                <a class="btn" href="{{ route('support.admin.show', $support->id) }}">
+                                    <i class="far fa-eye"></i>
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
