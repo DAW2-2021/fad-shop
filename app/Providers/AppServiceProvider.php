@@ -28,7 +28,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
-        Product::observe(ProductObserver::class);
 
         Validator::extend('min_length', function ($attribute, $value, $parameters) {
             //Tabulacion a espacio

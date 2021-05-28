@@ -76,9 +76,9 @@
                 @if (Auth::check() &&
         Auth::user()->hasRole('user') &&
         $product->opinions()->where('user_id', Auth::user()->id)->count() == 0)
-                    <a data-bs-target="#modalReview" data-bs-toggle="modal" data-bs-dismiss="modal">
+                    <button type="button" data-bs-target="#modalReview" class="btn btn-primary mx-2 col-5" data-bs-toggle="modal" data-bs-dismiss="modal">
                         Añadir una review
-                    </a>
+                    </button>
                 @endif
 
             </div>
@@ -443,9 +443,15 @@
         @endfor
         @endif
         @if ($product->opinions()->whereNotNull('comment')->count())
-            <a data-bs-toggle="collapse" role="button" data-bs-target=".multicollapse" aria-expanded="false"
-                aria-controls="collapseExample"><small class="text-info"><u>Ver más</u></small>
+            @if ($product->opinions()->count() > 2)
+            <a data-bs-toggle="collapse" id="ver-mas" role="button" data-bs-target=".multicollapse" aria-expanded="false"
+                aria-controls="collapseExample"><small  class="text-info"><u>Ver más</u></small>
             </a>
+
+            <a data-bs-toggle="collapse" role="button" data-bs-target=".multicollapse" aria-expanded="false"
+                aria-controls="collapseExample" id="ver-menos"><small  class="text-info"><u>Ver menos</u></small>
+            </a>
+            @endif
         @else
             <div class="alert alert-warning text-center">No hay opiniones de este producto</div>
         @endif
@@ -663,6 +669,14 @@
                 }
             });
         });
-
+        $("#ver-menos").hide()
+        $("#ver-mas").on("click", function(){
+            $(this).hide()
+            $("#ver-menos").show()
+        })
+        $("#ver-menos").on("click", function(){
+            $(this).hide()
+            $("#ver-mas").show()
+        })
     </script>
 @endsection

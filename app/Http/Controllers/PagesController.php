@@ -35,8 +35,8 @@ class PagesController extends Controller
 
     public function searchShopProduct($name, $shop)
     {
-        $shops = Shop::where('slug', $shop)->firstOrFail();
-        $prods = Product::where('slug', 'like', '%' . $name . '%')->where('shop_id', $shops->id)->orderBy('name')->paginate(9);
-        return view('search.shop.product', compact('prods', 'shops', 'name'));
+        $shop = Shop::where('slug', $shop)->firstOrFail();
+        $prods = Product::where('slug', 'like', '%' . $name . '%')->where('shop_id', $shop->id)->orderBy('name')->paginate(9);
+        return view('search.shop.product', compact('prods', 'shop', 'name'));
     }
 }
