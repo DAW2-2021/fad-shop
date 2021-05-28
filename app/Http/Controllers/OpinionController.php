@@ -44,7 +44,7 @@ class OpinionController extends Controller
         } */
         Opinion::create(['score' => $request->score, 'comment' => $request->comment, 'product_id' => $request->product_id, 'user_id' => Auth::user()->id]);
 
-        return redirect()->route('shop.product.index', [$shop->slug, $product->slug]);
+        return redirect()->route('shop.product.show', [$shop->slug, $product->slug]);
     }
 
     public function update(Request $request, $shop, $product, $comment)
@@ -58,20 +58,20 @@ class OpinionController extends Controller
             ]);
             $shop = Shop::where(['slug' => $shop])->first();
             if ($shop == null) {
-                return redirect()->route('shop.product.index', [$shop->slug, $product->slug])->withInput()->withErrors(['Error' => 'No existe el producto.']);
+                return redirect()->route('shop.product.show', [$shop->slug, $product->slug])->withInput()->withErrors(['Error' => 'No existe el producto.']);
             }
 
             if ($validator->fails()) {
-                return redirect()->route('shop.product.index', [$shop->slug, $product->slug])->withErrors($validator);
+                return redirect()->route('shop.product.show', [$shop->slug, $product->slug])->withErrors($validator);
             }
 
             $product = Product::where(['slug' => $product, 'shop_id' => $shop->id])->first();
 
             if ($product == null) {
-                return redirect()->route('shop.product.index', [$shop->slug, $product->slug])->withInput()->withErrors(['Error' => 'No existe el producto.']);
+                return redirect()->route('shop.product.show', [$shop->slug, $product->slug])->withInput()->withErrors(['Error' => 'No existe el producto.']);
             }
             $opinion->update($request->all());
-            return redirect()->route('shop.product.index', [$shop->slug, $product->slug]);
+            return redirect()->route('shop.product.show', [$shop->slug, $product->slug]);
         }
     }
 
@@ -79,7 +79,7 @@ class OpinionController extends Controller
     {
         $shop = Shop::where(['slug' => $shop])->first();
         if ($shop == null) {
-            return redirect()->route('shop.settings', $shop->slug)->withInput()->withErrors(['Error' => 'No existe el producto.']);
+            return redirect()->route('shop.settings', $shop->slug)->withInput()->withErrors(['Error' => 'No existe la tienda.']);
         }
 
         $product = Product::where(['slug' => $product, 'shop_id' => $shop->id])->first();
@@ -87,12 +87,13 @@ class OpinionController extends Controller
         if ($product == null) {
             return redirect()->route('shop.settings', $shop->slug)->withInput()->withErrors(['Error' => 'No existe el producto.']);
         }
+
         //user | admin
         if (Auth::user()->id == $comment->user_id || Auth::user()->role_id == 1) {
             $opinion = Opinion::where('id', $comment->id)->firstOrFail();
             $opinion->delete();
-            return redirect()->route('shop.product.index', [$shop->slug, $product->slug]);
+            return redirect()->route('shop.product.show', [$shop->slug, $product->slug]);
         }
-        return redirect()->route('shop.product.index', [$shop->slug, $product->slug])->withErrors('No tienes permisos para borrar la opinion.');
+        return redirect()->route('shop.product.show', [$shop->slug, $product->slug])->withErrors('No tienes permisos para borrar la opinion.');
     }
 }

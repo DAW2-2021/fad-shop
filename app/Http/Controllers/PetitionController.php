@@ -122,7 +122,7 @@ class PetitionController extends Controller
 
         if ($request->file('shop_logo')) {
             unlink(public_path('storage/' . $request->shop_logo));
-            $petition->shop_logo = $request->file('logo')->store('logos', 'public');
+            $petition->shop_logo = $request->file('logo')->store('petitions', 'public');
         }
 
         if ($request->filled('shop_name')) {
