@@ -24,74 +24,66 @@
                             alt="Imagen del producto {{ $prod->name }}, de la tienda {{ $prod->shop->name }}" />
                         <div class="card-over"></div>
                         <div class="card-stars text-warning position-absolute top-0 end-0 p-1">
-                            @if (round($prod->opinions()->avg('score'), 2) <= 0.49)
+                            @if (round($prod->opinions()->avg('score'), 2) / 2 <= 0.50)
+                                <i class="fa fa-star-half-alt"></i>
                                 <i class="far fa-star"></i>
                                 <i class="far fa-star"></i>
                                 <i class="far fa-star"></i>
                                 <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                            @elseif (round($prod->opinions()->avg('score'), 2) <= 0.99) <i
-                                    class="fas fa-star-half-alt"></i>
+                            @elseif (round($prod->opinions()->avg('score'), 2) / 2 <= 1) 
+                                    <i class="fas fa-star"></i>
                                     <i class="far fa-star"></i>
                                     <i class="far fa-star"></i>
                                     <i class="far fa-star"></i>
                                     <i class="far fa-star"></i>
-                                @elseif (round($prod->opinions()->avg('score'), 2) <= 1.49) <i
+                                @elseif (round($prod->opinions()->avg('score'), 2) / 2 <= 1.5) <i
                                         class="fas fa-star"></i>
+                                        <i class="fa fa-star-half-alt"></i>
                                         <i class="far fa-star"></i>
                                         <i class="far fa-star"></i>
                                         <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    @elseif (round($prod->opinions()->avg('score'), 2) <= 1.99) <i
+                                    @elseif (round($prod->opinions()->avg('score'), 2) / 2 <= 2) <i
                                             class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
+                                            <i class="fas fa-star"></i>
                                             <i class="far fa-star"></i>
                                             <i class="far fa-star"></i>
                                             <i class="far fa-star"></i>
-                                        @elseif (round($prod->opinions()->avg('score'), 2) <= 2.49) <i
+                                        @elseif (round($prod->opinions()->avg('score'), 2) / 2 <= 2.5) <i
                                                 class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>
+                                                <i class="fa fa-star-half-alt"></i>
                                                 <i class="far fa-star"></i>
                                                 <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            @elseif (round($prod->opinions()->avg('score'), 2) <= 2.99) <i
+                                            @elseif (round($prod->opinions()->avg('score'), 2) / 2 <= 3) <i
                                                     class="fas fa-star"></i>
                                                     <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
+                                                    <i class="fas fa-star"></i>
                                                     <i class="far fa-star"></i>
                                                     <i class="far fa-star"></i>
-                                                @elseif (round($prod->opinions()->avg('score'), 2) <= 3.49) <i
+                                                @elseif (round($prod->opinions()->avg('score'), 2) / 2 <= 3.5) <i
                                                         class="fas fa-star"></i>
                                                         <i class="fas fa-star"></i>
                                                         <i class="fas fa-star"></i>
+                                                        <i class="fa fa-star-half-alt"></i>
                                                         <i class="far fa-star"></i>
-                                                        <i class="far fa-star"></i>
-                                                    @elseif (round($prod->opinions()->avg('score'), 2) <= 3.99)
+                                                    @elseif (round($prod->opinions()->avg('score'), 2) / 2 <= 4)
                                                             <i class="fas fa-star"></i>
                                                             <i class="fas fa-star"></i>
                                                             <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star-half-alt"></i>
+                                                            <i class="fas fa-star"></i>
                                                             <i class="far fa-star"></i>
                                                         @elseif (round($prod->opinions()->avg('score'),
-                                                            2) <= 4.49) <i class="fas fa-star"></i>
+                                                            2) / 2 <= 4.5) <i class="fas fa-star"></i>
                                                                 <i class="fas fa-star"></i>
                                                                 <i class="fas fa-star"></i>
                                                                 <i class="fas fa-star"></i>
-                                                                <i class="far fa-star"></i>
+                                                                <i class="fa fa-star-half-alt"></i>
                                                             @elseif(round($prod->opinions()->avg('score'),
-                                                                2) <= 4.99) <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star-half-alt"></i>
-                                                                @elseif(round($prod->opinions()->avg('score'),
-                                                                    2) == 5)
+                                                                2) / 2 <= 5) <i class="fas fa-star"></i>
                                                                     <i class="fas fa-star"></i>
                                                                     <i class="fas fa-star"></i>
                                                                     <i class="fas fa-star"></i>
                                                                     <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-
                             @endif
                         </div>
                         <h5

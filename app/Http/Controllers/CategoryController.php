@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -27,7 +28,8 @@ class CategoryController extends Controller
     public function show($category)
     {
         $category = Category::where('slug', $category)->firstOrFail();
-        return view('categories.show', compact('category'));
+        $products = $category->products()->paginate(9);
+        return view('categories.show', compact('category', 'products'));
     }
 
     public function showAdmin(Category $category)
