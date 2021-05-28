@@ -19,7 +19,7 @@
                         <input id="search-input" class="form-control me-2 search rounded-pill bg-primary ps-5 py-2 my-2 my-md-0"
                             type="search" placeholder="Buscar" aria-label="Search" />
                         <span class="position-absolute top-50 start-0 translate-middle-y ms-4 text-black-50">
-                            <i class="fas fa-search" id="search-button"></i>
+                            <i class="fas fa-search" style="cursor: pointer" id="search-button"></i>
                         </span>
                     </div>
                 </div>

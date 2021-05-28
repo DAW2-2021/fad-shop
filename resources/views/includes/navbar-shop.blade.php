@@ -49,7 +49,7 @@
                     placeholder="Buscar" id="search-shop-input" aria-label="Search" />
                     <input type="hidden" id="search-shop" value="{{ $shop->slug }}">
                 <span class="position-absolute top-50 start-0 translate-middle-y ms-4 text-black-50">
-                    <i class="fas fa-search" id="search-shop-button"></i>
+                    <i class="fas fa-search" style="cursor: pointer" id="search-shop-button"></i>
                 </span>
             </div>
         </div>
