@@ -20,7 +20,7 @@
                     <div class="owl-carousel owl-theme" id="slider">
                         @foreach ($productsCarousel as $product)
                             <div class="item">
-                                <a href="{{ route('shop.product.index', [$shop->slug, $product->slug]) }}"
+                                <a href="{{ route('shop.product.show', [$shop->slug, $product->slug]) }}"
                                     class="card card-product border text-white position-relative mb-5 p-0">
                                     <img class="card-image" src="{{ asset('storage/' . $product->image) }}"
                                         alt="Imagen del producto {{ $product->name }}, de la tienda {{ $shop->name }}" />
@@ -131,7 +131,7 @@
                 </div>
                 <div id="products" class="d-flex flex-wrap justify-content-center align-items-center">
                     @foreach ($products as $product)
-                        <a href="{{ route('shop.product.index', [$shop->slug, $product->slug]) }}"
+                        <a href="{{ route('shop.product.show', [$shop->slug, $product->slug]) }}"
                             class="card card-product border text-white position-relative mb-5 p-0">
                             <img class="card-image" src="{{ asset('storage/' . $product->image) }}"
                                 alt="Imagen del producto {{ $product->name }}, de la tienda {{ $shop->name }}" />
