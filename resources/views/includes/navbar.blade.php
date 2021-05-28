@@ -46,8 +46,7 @@
                                     </li>
                                     <li>
                                         <a class="dropdown-item"
-                                            href="{{ route('shop.product.create', Auth::user()->shop->slug) }}">Añadir
-                                            producto</a>
+                                            href="{{ route('shop.product.index', Auth::user()->shop->slug) }}">Productos</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item"
@@ -126,13 +125,16 @@
                         </div>
                     @endif
                     {{-- CART --}}
-                    <a href="{{ route('cart') }}" class="position-relative">
-                        <i class="fas fa-shopping-cart fs-4"></i>
-                        <span
-                            class="position-absolute top-0 start-100 translate-middle badge border border-danger rounded-circle bg-danger p-2">
-                            <span id="cartSize"></span>
-                        </span>
-                    </a>
+                    @if (Auth::check() && Auth::user()->hasRole('user'))
+                        <a href="{{ route('cart') }}" class="position-relative">
+                            <i class="fas fa-shopping-cart fs-4"></i>
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge border border-danger rounded-circle bg-danger p-2">
+                                <span id="cartSize"></span>
+                            </span>
+                        </a>
+                    @endif
+
                 </div>
             </div>
         </div>

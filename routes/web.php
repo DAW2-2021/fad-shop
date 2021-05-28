@@ -45,8 +45,10 @@ Route::group(['prefix' => 'shop/admin', 'as' => 'shop.admin.', 'middleware' => [
 //SHOP
 // ---- SELLER
 Route::group(['middleware' => ['active_shop', 'auth', 'role:seller']], function () {
-    Route::get('shop/settings/{shop}', [ShopController::class, 'showSettings'])->name('shop.settings');
+    Route::get('/shop/settings/{shop}', [ShopController::class, 'showSettings'])->name('shop.settings');
     Route::put('/shop/setings/{shop}/update', [ShopController::class, 'update'])->name('shop.update');
+    Route::get('/shop/{shop}/products', [ProductController::class, 'index'])->name('shop.product.index'); //la ruta ¿?
+
 });
 //  ---- GENERAL
 Route::group(['prefix' => 'shop', 'as' => 'shop.', 'middleware' => 'active_shop'], function () {
@@ -55,17 +57,20 @@ Route::group(['prefix' => 'shop', 'as' => 'shop.', 'middleware' => 'active_shop'
 
     // PRODUCT
     Route::group(['prefix' => '{shop}', 'as' => 'product.'], function () {
-        Route::get('/{product}', [ProductController::class, 'show'])->name('index');
-        //PRODUCT SELLER
+        Route::get('/{product}', [ProductController::class, 'show'])->name('show');
+        //PRODUCT
         Route::group(['middleware' => ['auth', 'role:seller']], function () {
             Route::get('/product/create', [ProductController::class, 'create'])->name('create');
             Route::post('/product/create', [ProductController::class, 'store'])->name('store');
             Route::put('/{product}/update', [ProductController::class, 'update'])->name('update');
+            Route::delete('{product}/delete', [ProductController::class, 'destroy'])->name('delete');
+            Route::put('/{product}/updateStock', [ProductController::class, 'updateStock'])->name('updateStock');
 
             //El delete funciona con el soft, así que se puede hacer un delete normal que en la bd seguira existiendo
         });
     });
 });
+
 
 //LOGGED
 Route::group(['middleware' => ['auth']], function () {
@@ -135,9 +140,9 @@ Route::group(['prefix' => 'opinion', 'as' => 'opinion.'], function () {
         Route::put('/update/{shop}/{product}/{opinion}', [OpinionController::class, 'update'])->name('update');
         Route::post('/create/{shop}/{product}', [OpinionController::class, 'store'])->name('store');
     });
-    //ADMIN
+    //ADMIN||USER
     Route::group(['middleware' => ['auth', 'role:admin|user']], function () {
-        Route::delete('/delete/{shop}/{product}/{comment}', [OpinionController::class, 'destroy'])->name('delete');
+        Route::delete('/{shop}/{product}/{comment}/delete', [OpinionController::class, 'destroy'])->name('delete');
     });
 });
 
