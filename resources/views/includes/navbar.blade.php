@@ -46,6 +46,11 @@
                                     </li>
                                     <li>
                                         <a class="dropdown-item"
+                                            href="{{ route('history.index') }}">
+                                            Historial de Productos</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item"
                                             href="{{ route('shop.product.index', Auth::user()->shop->slug) }}">Productos</a>
                                     </li>
                                     <li>
