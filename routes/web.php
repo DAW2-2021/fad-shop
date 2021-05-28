@@ -28,11 +28,11 @@ Route::group(['middleware' => ['guest']], function () {
 Route::get('/', [PagesController::class, 'index'])->name('index');
 Route::get('/cart', [PagesController::class, 'cart'])->name('cart');
 
-// //SEARCH
-// Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
-//     Route::get('/product/{searchProduct}', [PagesController::class, 'searchProduct'])->name('product');
-//     Route::get('/product/{shop}/{searchProduct}', [PagesController::class, 'searchShopProduct'])->name('shop.product');
-// });
+//SEARCH
+Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
+    Route::get('/product/{product}', [PagesController::class, 'searchProduct'])->name('product');
+    Route::get('/product/{shop}/{searchProduct}', [PagesController::class, 'searchShopProduct'])->name('shop.product');
+});
 
 //ADMIN SHOP
 //Tiene que ir a fuera de la shop para poder desbloquear, por que abajo mira si esta activa la tienda, así que apovechamos y metemos todo aqui
