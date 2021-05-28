@@ -18,7 +18,7 @@
                 </div>
                 <div class="d-flex flex-wrap justify-content-center align-items-center">
                 @foreach ($products as $product)
-                    <a href="{{ route('shop.product.index', [$product->shop->slug, $product->slug]) }}" class="card card-product border text-white position-relative mb-5 p-0">
+                    <a href="{{ route('shop.product.show', [$product->shop->slug, $product->slug]) }}" class="card card-product border text-white position-relative mb-5 p-0">
                         <img class="card-image" src="{{ asset('storage/'.$product->image) }}" alt="Card image" />
                         <div class="card-over"></div>
                         <div class="card-stars text-warning position-absolute top-0 end-0 p-1">

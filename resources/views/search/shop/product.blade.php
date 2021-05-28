@@ -4,6 +4,7 @@
 @endsection
 
 @section('content')
+@include('includes.navbar-shop')
 @if ($prods->count() == 0)
     <div class="alert alert-warning text-center mt-4 w-100 w-md-50 mx-auto">No hay productos similares a lo que buscaste</div>
 @else
@@ -13,7 +14,7 @@
         <div class="row justify-content-center align-content-center">
             <div class="col mb-4">
                 <h1 class="text-center h2">
-                    Todos los productos parecidos a '{{ $name }}' de la tienda '{{ $shops->name }}'
+                    Todos los productos parecidos a '{{ $name }}' de la tienda '{{ $shop->name }}'
                 </h1>
             </div>
             <div id="products" class="d-flex flex-wrap justify-content-center align-items-center">

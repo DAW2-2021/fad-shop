@@ -73,7 +73,7 @@ class ProductObserver
     {
         ProductHistory::create([
             'action' => 'forceDeleted', 'id' => $product->id, 'name' => $product->name, 'description' => $product->description, 'price' => $product->price, 'stock' => $product->stock,
-            'image' => $product->image, 'slug' => $product->slug, 'shop_id' => $product->shop->id, 'user_id' => $product->user_id
+            'image' => $product->image, 'slug' => $product->slug, 'shop_id' => $product->shop->id, 'user_id' => $product->user_id, 'deleted_at' => $product->deleted_at
         ]);
     }
 }
