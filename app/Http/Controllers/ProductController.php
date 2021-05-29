@@ -20,7 +20,7 @@ class ProductController extends Controller
         $shop = Shop::where('slug', $shop)->firstOrFail();
 
         $products = $shop->products()->orderByDesc('id')->paginate(15);
-        return view('shop.product.show')->with(['products' => $products, 'shop' => $shop]);
+        return view('shop.product.index')->with(['products' => $products, 'shop' => $shop]);
     }
 
     public function create($shop)
