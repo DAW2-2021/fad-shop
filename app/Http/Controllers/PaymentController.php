@@ -88,6 +88,6 @@ class PaymentController extends Controller
         }
 
         //AÑADIR VISTA CON AUTO REDIRECCION A INDEX A LOS SEGUNDOS
-        return redirect()->route('cart');
+        return redirect()->route('user.index');
     }
 }
