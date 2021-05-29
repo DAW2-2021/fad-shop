@@ -237,6 +237,11 @@
                                                                         <a href="#" type="button" class="btn btn-secondary">
                                                                             Producto eliminado
                                                                         </a>
+                                                                    @elseif ($product->shop->blocked_at)
+                                                                        <a href="{{ route('shop.product.show', [$product->shop->slug, $product->slug]) }}"
+                                                                            type="button" class="btn btn-danger">
+                                                                            Tienda Bloqueada
+                                                                        </a>
                                                                     @else
                                                                         <a href="{{ route('shop.product.show', [$product->shop->slug, $product->slug]) }}"
                                                                             type="button" class="btn btn-warning">
