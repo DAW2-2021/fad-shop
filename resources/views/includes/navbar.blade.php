@@ -16,7 +16,8 @@
                 id="navbarSupportedContent">
                 <div class="col-sm-8">
                     <div class="position-relative">
-                        <input id="search-input" class="form-control me-2 search rounded-pill bg-primary ps-5 py-2 my-2 my-md-0"
+                        <input id="search-input"
+                            class="form-control me-2 search rounded-pill bg-primary ps-5 py-2 my-2 my-md-0"
                             type="search" placeholder="Buscar" aria-label="Search" />
                         <span class="position-absolute top-50 start-0 translate-middle-y ms-4 text-black-50">
                             <i class="fas fa-search" style="cursor: pointer" id="search-button"></i>
@@ -45,8 +46,7 @@
                                             Mostrar</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item"
-                                            href="{{ route('history.index') }}">
+                                        <a class="dropdown-item" href="{{ route('history.index') }}">
                                             Historial de Productos</a>
                                     </li>
                                     <li>
@@ -282,12 +282,24 @@
 <script>
     var searchText = document.getElementById("search-input");
     var searchButton = document.getElementById("search-button");
-    searchButton.addEventListener("click", function () {
-        let value = searchText.value.trim();
-        if (value != '') {
-            let url = "{{route('search.product', ':value')}}";
-            url = url.replace(':value',value);
-            window.location.href = url;
+
+    searchButton.addEventListener("click", function() {
+        searchProduct();
+    });
+
+    searchText.addEventListener('keyup', function(event) {
+        if (event.keyCode === 13) {
+            searchProduct();
         }
     });
+
+    function searchProduct() {
+        let value = searchText.value.trim();
+        if (value != '') {
+            let url = "{{ route('search.product', ':value') }}";
+            url = url.replace(':value', value);
+            window.location.href = url;
+        }
+    }
+
 </script>
