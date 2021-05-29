@@ -259,26 +259,27 @@
         </div>
     </div>
 @endif
-<script>
-    //AUTOFOCUS
-    //----- REGISTER
-    var myModal = document.getElementById('registerModal')
-    var myInput = document.getElementById('usernameInput')
+@if (Auth::guest())
+    <script>
+        //AUTOFOCUS
+        //----- REGISTER
+        var myModal = document.getElementById('registerModal')
+        var myInput = document.getElementById('usernameInput')
 
-    myModal.addEventListener('shown.bs.modal', function() {
-        myInput.focus()
-    })
+        myModal.addEventListener('shown.bs.modal', function() {
+            myInput.focus()
+        })
 
-    //----- LOGIN
-    var myModal2 = document.getElementById('loginModal')
-    var myInput2 = document.getElementById('emailInput')
+        //----- LOGIN
+        var myModal2 = document.getElementById('loginModal')
+        var myInput2 = document.getElementById('emailInput')
 
-    myModal2.addEventListener('shown.bs.modal', function() {
-        myInput2.focus()
-    })
+        myModal2.addEventListener('shown.bs.modal', function() {
+            myInput2.focus()
+        })
 
-</script>
-
+    </script>
+@endif
 <script>
     var searchText = document.getElementById("search-input");
     var searchButton = document.getElementById("search-button");

@@ -56,22 +56,21 @@
                                             </figure>
                                         </td>
                                         <td>
-                                            <input type="hidden" name="id[]" value="{{ $product->id }}" @if ($product->stock == 0 || $product->shop->blocked_at) disabled @endif>
+                                            <input type="hidden" name="id[]" @if ($product->stock == 0 || $product->shop->blocked_at) disabled @else value="{{ $product->id }}" @endif>
                                             <input type="number" class="form-control product-quantity" min="1"
-                                                max="{{ $product->stock }}" name="quantity[]"
-                                                data-productPrice="{{ $product->price }}"
-                                                data-productId="{{ $product->id }}" @if ($product->stock == 0 || $product->shop->blocked_at) disabled value="0"
+                                                max="{{ $product->stock }}" name="quantity[]" @if ($product->stock == 0 || $product->shop->blocked_at) disabled value="0"
                                                 @else
-                                                                    value="1" @endif>
+                                                                                                data-productPrice="{{ $product->price }}"
+                                                                                                data-productId="{{ $product->id }}"
+                                                                                                value="1" @endif>
                                         </td>
                                         <td>
                                             <div class="price-wrap">
-                                                <var class="price"> <span class="product-price"
-                                                        data-productPrice="{{ $product->price }}"
-                                                        data-unityPrice="{{ $product->price }}"
-                                                        data-name="{{ $product->name }}"
-                                                        data-shop="{{ $product->shop->name }}" data-quantity=""
-                                                        id="product-price-{{ $product->id }}">{{ $product->price }}</span>
+                                                <var class="price"> <span class="product-price" @if ($product->stock != 0 && !$product->shop->blocked_at) data-productPrice="{{ $product->price }}"
+                                                                                            data-unityPrice="{{ $product->price }}"
+                                                                                            data-name="{{ $product->name }}"
+                                                                                            data-shop="{{ $product->shop->name }}" data-quantity=""
+                                                                                            id="product-price-{{ $product->id }}" @endif>{{ $product->price }}</span>
                                                     €</var><br>
                                                 <small class="text-muted">
                                                     {{ $product->price }} € por unidad
@@ -126,42 +125,43 @@
     </script>
     <script>
         $(document).ready(function() {
-            // PAYPAL
-            function initPayPalButton() {
+            @if (Auth::check() && Auth::user()->hasRole('user'))
+                // PAYPAL
+                function initPayPalButton() {
                 paypal.Buttons({
-                    style: {
-                        shape: 'pill',
-                        color: 'blue',
-                        layout: 'vertical',
-                        label: 'pay',
+                style: {
+                shape: 'pill',
+                color: 'blue',
+                layout: 'vertical',
+                label: 'pay',
 
-                    },
+                },
 
-                    createOrder: function(data, actions) {
-                        return actions.order.create({
-                            purchase_units: [{
-                                "description": getAllDescriptions(),
-                                "amount": {
-                                    "currency_code": "EUR",
-                                    "value": getTotalPrice()
-                                }
-                            }]
-                        });
-                    },
+                createOrder: function(data, actions) {
+                return actions.order.create({
+                purchase_units: [{
+                "description": getAllDescriptions(),
+                "amount": {
+                "currency_code": "EUR",
+                "value": getTotalPrice()
+                }
+                }]
+                });
+                },
 
-                    onApprove: function(data, actions) {
-                        return actions.order.capture().then(function(details) {
-                            $("#formCart").submit();
-                        });
-                    },
+                onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                $("#formCart").submit();
+                });
+                },
 
-                    onError: function(err) {
-                        console.log(err);
-                    }
+                onError: function(err) {
+                console.log(err);
+                }
                 }).render('#paypal-button-container');
-            }
-            initPayPalButton();
-
+                }
+                initPayPalButton();
+            @endif
             //CARRITO
             reloadTotalPrice();
 
@@ -212,7 +212,8 @@
                 $(".product-price").each(function() {
                     totalPrice += parseFloat($(this).attr("data-productPrice"));
                 });
-                return round2decimals(totalPrice);
+
+                return (!isNaN(totalPrice)) ? round2decimals(totalPrice) : 0;
             }
 
             function reloadTotalPrice() {
