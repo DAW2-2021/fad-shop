@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\ProductHistory;
 
-class ProductHistoryController extends Controller
+class ProducHistoryController extends Controller
 {
     public function index()
     {
-        /* $prod_history = ProductHistory::where('user_id', Auth::user()->id)->get(); */
+        $prod_history = ProductHistory::where('user_id', Auth::user()->id)->paginate(15);
+        return view('history.index', compact('prod_history'));
     }
 
     /**

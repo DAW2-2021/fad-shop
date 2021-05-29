@@ -8,13 +8,13 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\FormController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PetitionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\OpinionController;
+use App\Http\Controllers\ProducHistoryController;
 
 //NORMAL LOGIN & REGISTER
 Auth::routes();
@@ -118,6 +118,11 @@ Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
         Route::put('/{category}', [CategoryController::class, 'update'])->name('update');
         Route::post('/create', [CategoryController::class, 'store'])->name('store');
     });
+});
+
+//HISTORY
+Route::group(['prefix' => 'history', 'as' => 'history.', 'middleware' => ['auth', 'role:admin|seller']], function () {
+    Route::get('/', [ProducHistoryController::class, 'index'])->name('index');
 });
 
 //SUPPORT

@@ -52,34 +52,36 @@
                     </div>
                 </div>
 
+               <div class="row">
                 @if (Auth::check() && Auth::user()->hasAnyRole('seller', 'admin'))
-                    @if (Auth::user()->hasRole('seller'))
-                        <button type="button" data-bs-target="#modalProductUpdate" data-bs-toggle="modal"
-                            data-bs-dismiss="modal" class="btn btn-secondary w-25"> <i class="fa fa-edit text-black"></i>
-                            Modificar
-                        </button>
-                        @if ($errors->any())
-                            {!! implode('', $errors->all('<span class="invalid-feedback" role="alert" style="display:block !important"> <strong>:message</strong></span><br>')) !!}
-                        @endif
+                @if (Auth::user()->hasRole('seller'))
+                    <button type="button" data-bs-target="#modalProductUpdate" data-bs-toggle="modal"
+                        data-bs-dismiss="modal" class="btn btn-secondary w-25"> <i class="fa fa-edit text-black"></i>
+                        Modificar
+                    </button>
+                    @if ($errors->any())
+                        {!! implode('', $errors->all('<span class="invalid-feedback" role="alert" style="display:block !important"> <strong>:message</strong></span><br>')) !!}
                     @endif
-                @else
-                    @if (!Auth::user()->hasRole('admin'))
-                        <button type="button" id="addCart" class="btn btn-success mx-2 col-5">
-                            Añadir al carrito
-                        </button>
+                @endif
+            @else
+                @if (!Auth::user()->hasRole('admin'))
+                    <button type="button" id="addCart" class="btn btn-success mx-2 col-5">
+                        Añadir al carrito
+                    </button>
 
-                        <button type="button" id="removeCart" style="display: none" class="btn btn-danger mx-2 col-5">
-                            Quitar del carrito
-                        </button>
-                    @endif
+                    <button type="button" id="removeCart" style="display: none" class="btn btn-danger mx-2 col-5">
+                        Quitar del carrito
+                    </button>
                 @endif
-                @if (Auth::check() &&
-        Auth::user()->hasRole('user') &&
-        $product->opinions()->where('user_id', Auth::user()->id)->count() == 0)
-                    <a data-bs-target="#modalReview" data-bs-toggle="modal" data-bs-dismiss="modal">
-                        Añadir una review
-                    </a>
-                @endif
+            @endif
+            @if (Auth::check() &&
+    Auth::user()->hasRole('user') &&
+    $product->opinions()->where('user_id', Auth::user()->id)->count() == 0)
+                <button type="button" data-bs-target="#modalReview" class="btn btn-primary mx-2 col-5" data-bs-toggle="modal" data-bs-dismiss="modal">
+                    Añadir una review
+                </button>
+            @endif
+               </div>
 
             </div>
         </div>
@@ -443,9 +445,15 @@
         @endfor
         @endif
         @if ($product->opinions()->whereNotNull('comment')->count())
-            <a data-bs-toggle="collapse" role="button" data-bs-target=".multicollapse" aria-expanded="false"
-                aria-controls="collapseExample"><small class="text-info"><u>Ver más</u></small>
+            @if ($product->opinions()->count() > 2)
+            <a data-bs-toggle="collapse" id="ver-mas" role="button" data-bs-target=".multicollapse" aria-expanded="false"
+                aria-controls="collapseExample"><small  class="text-info"><u>Ver más</u></small>
             </a>
+
+            <a data-bs-toggle="collapse" role="button" data-bs-target=".multicollapse" aria-expanded="false"
+                aria-controls="collapseExample" id="ver-menos"><small  class="text-info"><u>Ver menos</u></small>
+            </a>
+            @endif
         @else
             <div class="alert alert-warning text-center">No hay opiniones de este producto</div>
         @endif
@@ -663,6 +671,37 @@
                 }
             });
         });
+        $("#ver-menos").hide()
+        $("#ver-mas").on("click", function(){
+            $(this).hide()
+            $("#ver-menos").show()
+        })
+        $("#ver-menos").on("click", function(){
+            $(this).hide()
+            $("#ver-mas").show()
+        });
 
+        $("#product_image").change(function() {
+                previewImage("product_image");
+            });
+
+            @if (Auth::check() && Auth::user()->hasRole('seller'))
+            $('#formProduct').on('submit', function(e) {
+                let valid = true;
+
+                if (!$(".categories-checkbox:checked").length) {
+                    alert("¡Tienes que seleccionar al menos una categoria!");
+                    valid = false;
+                }
+                if ($(".categories-checkbox:checked").length > 5) {
+                    alert("¡Solo puedes seleccionar un máximo de 5 categorías!");
+                    valid = false;
+                }
+
+                if (!valid) {
+                    e.preventDefault();
+                }
+            });
+            @endif
     </script>
 @endsection

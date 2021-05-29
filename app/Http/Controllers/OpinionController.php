@@ -35,13 +35,6 @@ class OpinionController extends Controller
 
             return redirect()->route('shop.settings', $shop->slug)->withInput()->withErrors(['Error' => 'No existe el producto.']);
         }
-
-        /* $isIn = Opinion::where('user_id', Auth::user()->id);
-
-        if ($isIn) {
-            dd('asd');
-            return redirect()->route('shop.product.index', [$shop->slug, $product->slug])->withInput()->withErrors(['Error' => 'Ya has comentado una vez']);
-        } */
         Opinion::create(['score' => $request->score, 'comment' => $request->comment, 'product_id' => $request->product_id, 'user_id' => Auth::user()->id]);
 
         return redirect()->route('shop.product.show', [$shop->slug, $product->slug]);
