@@ -13,7 +13,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PetitionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupportController;
-use App\Http\Controllers\PayPalController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\OpinionController;
 
 //NORMAL LOGIN & REGISTER
@@ -27,6 +27,12 @@ Route::group(['middleware' => ['guest']], function () {
 
 Route::get('/', [PagesController::class, 'index'])->name('index');
 Route::get('/cart', [PagesController::class, 'cart'])->name('cart');
+//PAYMENT
+Route::group(['prefix' => 'payment', 'as' => 'payment.', 'middleware' => ['auth', 'role:user']], function () {
+    //USUARIOS
+    Route::get('/cancel', [PaymentController::class, 'cancel'])->name('cancel');
+    Route::post('/success', [PaymentController::class, 'success'])->name('success');
+});
 
 //SEARCH
 Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
@@ -145,13 +151,4 @@ Route::group(['prefix' => 'opinion', 'as' => 'opinion.'], function () {
     Route::group(['middleware' => ['auth', 'role:admin|user']], function () {
         Route::delete('/{shop}/{product}/{comment}/delete', [OpinionController::class, 'destroy'])->name('delete');
     });
-});
-
-//PAYPAL
-Route::group(['prefix' => 'payment', 'as' => 'payment.'], function () {
-
-    //USUARIOS
-    Route::get('/payment', [PayPalController::class, 'payment'])->name('payment');
-    Route::get('/cancel', [PayPalController::class, 'cancel'])->name('cancel');
-    Route::get('/success', [PayPalController::class, 'success'])->name('success');
 });
