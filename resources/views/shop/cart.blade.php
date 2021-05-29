@@ -9,7 +9,13 @@
         <div class="col-md text-center p-4">
             <p class="h3">Detalles del Carrito</p>
         </div>
-        <form action="" class="row" method="post">
+        @if ($errors->any())
+            <div class="col-md text-center alert alert-danger">
+                {!! implode('', $errors->all(':message')) !!}
+            </div>
+        @endif
+
+        <form action="{{ route('payment.success') }}" id="formCart" class="row" method="post">
             @csrf
             @method('POST')
             <!-- DETALLES CARRITO -->
@@ -45,18 +51,21 @@
                                             </figure>
                                         </td>
                                         <td>
-                                            <input type="hidden" name="productId[]" value="{{ $product->id }}">
+                                            <input type="hidden" name="id[]" value="{{ $product->id }}">
                                             <input type="number" class="form-control product-quantity" min="1"
-                                                max="{{ $product->stock }}" name="price[]"
+                                                max="{{ $product->stock }}" name="quantity[]"
                                                 data-productPrice="{{ $product->price }}"
                                                 data-productId="{{ $product->id }}" @if ($product->stock == 0) disabled value="0"
                                                 @else
-                                        value="1" @endif>
+                                                                                        value="1" @endif>
                                         </td>
                                         <td>
                                             <div class="price-wrap">
                                                 <var class="price"> <span class="product-price"
                                                         data-productPrice="{{ $product->price }}"
+                                                        data-unityPrice="{{ $product->price }}"
+                                                        data-name="{{ $product->name }}"
+                                                        data-shop="{{ $product->shop->name }}" data-quantity=""
                                                         id="product-price-{{ $product->id }}">{{ $product->price }}</span>
                                                     €</var><br>
                                                 <small class="text-muted">
@@ -86,10 +95,19 @@
                             <dd class="text-right ml-3"> <span id="total-price"></span> €</dd>
                         </dl>
                         <hr />
-                        <a @if (Auth::guest()) href="#" data-bs-target="#loginModal" data-bs-toggle="modal" data-bs-dismiss="modal" @endif href="#enlacePasarela" class="btn btn-out btn-primary btn-square btn-main"
-                            data-abc="true">
-                            Tramitar Pedido
-                        </a>
+                        @if (Auth::check())
+                            <div id="smart-button-container">
+                                <div style="text-align: center;">
+                                    <div id="paypal-button-container"></div>
+                                </div>
+                            </div>
+                        @else
+                            <a href="#" data-bs-target="#loginModal" data-bs-toggle="modal" data-bs-dismiss="modal"
+                                class="btn btn-out btn-primary btn-square btn-main">
+                                Iniciar Sesión
+                            </a>
+                        @endif
+
                     </div>
                 </div>
             </aside>
@@ -97,17 +115,56 @@
     </div>
 @endsection
 @section('extraFooter')
+    <script
+        src="https://www.paypal.com/sdk/js?client-id=AT0Hpfk0QGek7NzXuqU9hXRtuYJk0YtwRx1oRB0FA1LswjPdxpRatlYb9rV3yS-JsNZhgfh-iIKnUUva&currency=EUR"
+        data-sdk-integration-source="button-factory">
+    </script>
     <script>
         $(document).ready(function() {
-            // .product-quantity on change cambia el product price
-            // .product-price El precio total de todos foreach
-            // #total-price el precio total de tdo
+            // PAYPAL
+            function initPayPalButton() {
+                paypal.Buttons({
+                    style: {
+                        shape: 'pill',
+                        color: 'blue',
+                        layout: 'vertical',
+                        label: 'pay',
+
+                    },
+
+                    createOrder: function(data, actions) {
+                        return actions.order.create({
+                            purchase_units: [{
+                                "description": getAllDescriptions(),
+                                "amount": {
+                                    "currency_code": "EUR",
+                                    "value": getTotalPrice()
+                                }
+                            }]
+                        });
+                    },
+
+                    onApprove: function(data, actions) {
+                        return actions.order.capture().then(function(details) {
+                            $("#formCart").submit();
+                        });
+                    },
+
+                    onError: function(err) {
+                        console.log(err);
+                    }
+                }).render('#paypal-button-container');
+            }
+            initPayPalButton();
+
+            //CARRITO
             reloadTotalPrice();
 
             $(".remove-product").on("click", e => {
                 let productId = e.target.getAttribute("data-productId");
                 $("#product-" + productId).remove();
                 removeProductCart(productId);
+                reloadTotalPrice();
             });
 
             $(".product-quantity").on("change", e => {
@@ -119,16 +176,42 @@
                 let productPrice = $("#product-price-" + productId);
                 productPrice.html(totalPriceProduct);
                 productPrice.attr("data-productPrice", totalPriceProduct);
-
+                productPrice.attr("data-quantity", quantity);
                 reloadTotalPrice();
             });
 
-            function reloadTotalPrice() {
+
+            function getAllDescriptions() {
+                let result = "";
+                let totalPrice;
+                let unityPrice;
+                let quantity;
+                let product;
+                let shop;
+
+                $(".product-price").each(function() {
+                    totalPrice = $(this).attr("data-productPrice");
+                    unityPrice = $(this).attr("data-unityPrice");
+                    product = $(this).attr("data-name");
+                    shop = $(this).attr("data-shop");
+                    quantity = $(this).attr("data-quantity");
+                    result += product + "(" + shop + ") " + quantity + "x " + totalPrice + "€ " +
+                        unityPrice + "€/u || ";
+                    "Producto(tienda) 4x 251.21€ 12€/u"
+                });
+                return result.substring(0, result.length - 3);
+            }
+
+            function getTotalPrice() {
                 let totalPrice = 0;
                 $(".product-price").each(function() {
                     totalPrice += parseFloat($(this).attr("data-productPrice"));
                 });
-                $("#total-price").html(round2decimals(totalPrice));
+                return round2decimals(totalPrice);
+            }
+
+            function reloadTotalPrice() {
+                $("#total-price").html(getTotalPrice());
             }
         });
 

@@ -18,7 +18,8 @@ class ProductController extends Controller
     public function index($shop)
     {
         $shop = Shop::where('slug', $shop)->firstOrFail();
-        $products = Product::orderByDesc('id')->paginate(15);
+
+        $products = $shop->products()->orderByDesc('id')->paginate(15);
         return view('shop.product.show')->with(['products' => $products, 'shop' => $shop]);
     }
 
