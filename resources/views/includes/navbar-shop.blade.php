@@ -1,5 +1,3 @@
-
-
 <!-- NAV TIENDA -->
 <div class="text-center container-fluid container-md my-3 d-flex justify-content-center align-items-center flex-wrap">
     <a href="{{ route('shop.index', $shop->slug) }}"><img class="img me-3"
@@ -47,7 +45,7 @@
             <div class="position-relative">
                 <input class="form-control me-2 search rounded-pill bg-secondary ps-5 py-2 my-2 my-md-0" type="search"
                     placeholder="Buscar" id="search-shop-input" aria-label="Search" />
-                    <input type="hidden" id="search-shop" value="{{ $shop->slug }}">
+                <input type="hidden" id="search-shop" value="{{ $shop->slug }}">
                 <span class="position-absolute top-50 start-0 translate-middle-y ms-4 text-black-50">
                     <i class="fas fa-search" style="cursor: pointer" id="search-shop-button"></i>
                 </span>
@@ -60,15 +58,27 @@
     var searchShopText = document.getElementById("search-shop-input");
     var searchShop = document.getElementById("search-shop")
     var searchShopButton = document.getElementById("search-shop-button");
-    searchShopButton.addEventListener("click", function () {
+
+    searchShopButton.addEventListener("click", function() {
+        searchShopProduct();
+    });
+
+    searchShopText.addEventListener('keyup', function(event) {
+        if (event.keyCode === 13) {
+            searchShopProduct();
+        }
+    });
+
+    function searchShopProduct() {
         let value = searchShopText.value.trim();
         let shop = searchShop.value.trim();
+
         if (value != '' && shop != '') {
-            let url = "{{route('search.shop.product', [':value', ':shop'])}}";
-            url = url.replace(':value',value);
+            let url = "{{ route('search.shop.product', [':value', ':shop']) }}";
+            url = url.replace(':value', value);
             url = url.replace(':shop', shop);
             window.location.href = url;
         }
-    })
-</script>
+    }
 
+</script>
