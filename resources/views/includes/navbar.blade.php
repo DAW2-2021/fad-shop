@@ -130,7 +130,7 @@
                         </div>
                     @endif
                     {{-- CART --}}
-                    @if (Auth::check() && Auth::user()->hasRole('user'))
+                    @if (Auth::guest() || (Auth::check() && Auth::user()->hasRole('user')))
                         <a href="{{ route('cart') }}" class="position-relative">
                             <i class="fas fa-shopping-cart fs-4"></i>
                             <span

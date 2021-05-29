@@ -91,7 +91,8 @@
                             </div>
                         </div>
                     </div>
-                    @if (Auth::user()->role_id != 1)
+                    @if (Auth::user()->hasRole('user'))
+                        {{-- CUPONES --}}
                         <div class="tab-pane fade" id="coupons" role="tabpanel" aria-labelledby="coupons-tab">
                             <div class="row row-cols-1 row-cols-md-3 g-4">
                                 <div class="col">
@@ -186,192 +187,73 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- HISTORIAL --}}
                         <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
                             <div class="row row-cols-1 row-cols-md-1 g-4">
                                 <div class="col">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <h5 class="card-title col-md-8">
-                                                    Pedido n.º
-                                                    406-3654543-0317946
-                                                </h5>
-                                                <p class="card-text text-right col-md-4 pb-2">
-                                                    Shopname, Total: 300€
-                                                </p>
-                                            </div>
-                                            <div class="row row-cols-1 row-cols-md-3">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="row mb-3">
-                                                            <div class="col">
-                                                                <img class="img-thumbnail" src="PC-Gaming.webp" alt="" />
-                                                            </div>
-                                                            <div class="col">
-                                                                <h5 class="card-title">
-                                                                    Producto
-                                                                </h5>
-                                                                <p class="card-text">
-                                                                    <span>Precio:
-                                                                    </span>
-                                                                    70€ <br />
-                                                                    <span>Cantidad:
-                                                                    </span>
-                                                                    2
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <button type="button" class="btn btn-warning">
-                                                            Comprar de nuevo
-                                                        </button>
-                                                        <button type="button" class="btn btn-info">
-                                                            Añadir opinión
-                                                        </button>
+                                    @if (Auth::user()->orders()->count())
+                                        @foreach (Auth::user()->orders()->orderByDesc('id')->get()
+        as $order)
+                                            {{-- ORDER --}}
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <h5 class="card-title col-md-8">
+                                                            Pedido n.º {{ $order->id }}
+
+                                                        </h5>
+                                                        <p class="card-text text-right col-md-4 pb-2">
+                                                            Total:
+                                                            {{ $order->products()->withTrashed()->selectRaw('SUM(order_product.quantity * order_product.price) as total')->pluck('total')[0] }}€
+                                                        </p>
                                                     </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="row mb-3">
-                                                            <div class="col">
-                                                                <img class="img-thumbnail" src="PC-Gaming.webp" alt="" />
+                                                    <div class="row row-cols-1 row-cols-md-3">
+                                                        {{-- ITEM --}}
+                                                        @foreach ($order->products()->withTrashed()->get()
+        as $product)
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <div class="row mb-3">
+                                                                        <div class="col">
+                                                                            <img class="img-thumbnail"
+                                                                                src="{{ asset('storage/' . $product->image) }}"
+                                                                                alt="Producto {{ $product->name }} de la tienda {{ $product->shop->name }}" />
+                                                                        </div>
+                                                                        <div class="col">
+                                                                            <h5 class="card-title">
+                                                                                {{ $product->name }}
+                                                                            </h5>
+                                                                            <p class="card-text">
+                                                                                <span>Precio Unidad:
+                                                                                </span>
+                                                                                {{ $product->pivot->price }}€ <br />
+                                                                                <span>Cantidad:
+                                                                                </span>
+                                                                                {{ $product->pivot->quantity }}
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                    @if ($product->deleted_at)
+                                                                        <a href="#" type="button" class="btn btn-secondary">
+                                                                            Producto eliminado
+                                                                        </a>
+                                                                    @else
+                                                                        <a href="{{ route('shop.product.show', [$product->shop->slug, $product->slug]) }}"
+                                                                            type="button" class="btn btn-warning">
+                                                                            Comprar de nuevo
+                                                                        </a>
+                                                                    @endif
+                                                                </div>
                                                             </div>
-                                                            <div class="col">
-                                                                <h5 class="card-title">
-                                                                    Producto
-                                                                </h5>
-                                                                <p class="card-text">
-                                                                    <span>Price:
-                                                                    </span>
-                                                                    70€ <br />
-                                                                    <span>Quantity:
-                                                                    </span>
-                                                                    2
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <button type="button" class="btn btn-warning">
-                                                            Buy again
-                                                        </button>
-                                                        <button type="button" class="btn btn-info">
-                                                            Add Review
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="row mb-3">
-                                                            <div class="col">
-                                                                <img class="img-thumbnail" src="PC-Gaming.webp" alt="" />
-                                                            </div>
-                                                            <div class="col">
-                                                                <h5 class="card-title">
-                                                                    Producto
-                                                                </h5>
-                                                                <p class="card-text">
-                                                                    <span>Price:
-                                                                    </span>
-                                                                    70€ <br />
-                                                                    <span>Quantity:
-                                                                    </span>
-                                                                    2
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <button type="button" class="btn btn-warning">
-                                                            Buy again
-                                                        </button>
-                                                        <button type="button" class="btn btn-info">
-                                                            Add Review
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="row mb-3">
-                                                            <div class="col">
-                                                                <img class="img-thumbnail" src="PC-Gaming.webp" alt="" />
-                                                            </div>
-                                                            <div class="col">
-                                                                <h5 class="card-title">
-                                                                    Producto
-                                                                </h5>
-                                                                <p class="card-text">
-                                                                    <span>Price:
-                                                                    </span>
-                                                                    70€ <br />
-                                                                    <span>Quantity:
-                                                                    </span>
-                                                                    2
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <button type="button" class="btn btn-warning">
-                                                            Buy again
-                                                        </button>
-                                                        <button type="button" class="btn btn-info">
-                                                            Add Review
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="row mb-3">
-                                                            <div class="col">
-                                                                <img class="img-thumbnail" src="PC-Gaming.webp" alt="" />
-                                                            </div>
-                                                            <div class="col">
-                                                                <h5 class="card-title">
-                                                                    Producto
-                                                                </h5>
-                                                                <p class="card-text">
-                                                                    <span>Price:
-                                                                    </span>
-                                                                    70€ <br />
-                                                                    <span>Quantity:
-                                                                    </span>
-                                                                    2
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <button type="button" class="btn btn-warning">
-                                                            Buy again
-                                                        </button>
-                                                        <button type="button" class="btn btn-info">
-                                                            Add Review
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="row mb-3">
-                                                            <div class="col">
-                                                                <img class="img-thumbnail" src="PC-Gaming.webp" alt="" />
-                                                            </div>
-                                                            <div class="col">
-                                                                <h5 class="card-title">
-                                                                    Producto
-                                                                </h5>
-                                                                <p class="card-text">
-                                                                    <span>Price:
-                                                                    </span>
-                                                                    70€ <br />
-                                                                    <span>Quantity:
-                                                                    </span>
-                                                                    2
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <button type="button" class="btn btn-warning">
-                                                            Buy again
-                                                        </button>
-                                                        <button type="button" class="btn btn-info">
-                                                            Add Review
-                                                        </button>
+                                                        @endforeach
                                                     </div>
                                                 </div>
                                             </div>
+                                        @endforeach
+                                    @else
+                                        <div class="alert alert-info text-center">No has realizado ninguna compra todavía
                                         </div>
-                                    </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

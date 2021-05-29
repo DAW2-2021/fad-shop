@@ -12,6 +12,8 @@ class PagesController extends Controller
 {
     public function index()
     {
+        $this->checkIfExistsProducts();
+
         $categories = Category::all();
         $shops = Shop::inRandomOrder()->limit(7)->get();
         return view('index', compact('categories', 'shops'));
@@ -20,10 +22,14 @@ class PagesController extends Controller
 
     public function cart()
     {
-        $cart = htmlspecialchars($_COOKIE['cart-data']);
-        $cart = trim($cart, '|');
-        $cart = explode('|', $cart);
-        $products = Product::whereIn('id', $cart)->orderBy('shop_id')->get();
+        $this->checkIfExistsProducts();
+        $products = [];
+        if (isset($_COOKIE['cart-data'])) {
+            $cart = htmlspecialchars($_COOKIE['cart-data']);
+            $cart = trim($cart, '|');
+            $cart = explode('|', $cart);
+            $products = Product::whereIn('id', $cart)->orderBy('shop_id')->get();
+        }
         return view('shop.cart', compact('products'));
     }
 
@@ -38,5 +44,21 @@ class PagesController extends Controller
         $shop = Shop::where('slug', $shop)->firstOrFail();
         $prods = Product::where('slug', 'like', '%' . $name . '%')->where('shop_id', $shop->id)->orderBy('name')->paginate(9);
         return view('search.shop.product', compact('prods', 'shop', 'name'));
+    }
+
+    private function checkIfExistsProducts()
+    {
+        //Mirar que el producto exista y si no lo quita del carrito
+        if (isset($_COOKIE['cart-data'])) {
+            $productCookie = htmlspecialchars($_COOKIE['cart-data']);
+            $products = trim($productCookie, '|');
+            $products = explode('|', $products);
+            foreach ($products as $product) {
+                if (!Product::find($product)) {
+                    $productCookie = str_replace('|' . $product . '|', '|', $productCookie);
+                }
+            }
+            setcookie('cart-data', $productCookie, time() + (86400 * 365), "/");
+        }
     }
 }

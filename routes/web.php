@@ -32,6 +32,7 @@ Route::group(['prefix' => 'payment', 'as' => 'payment.', 'middleware' => ['auth'
     //USUARIOS
     Route::get('/cancel', [PaymentController::class, 'cancel'])->name('cancel');
     Route::post('/success', [PaymentController::class, 'success'])->name('success');
+    Route::get('/success', [PaymentController::class, 'success'])->name('success');
 });
 
 //SEARCH
@@ -54,8 +55,7 @@ Route::group(['prefix' => 'shop/admin', 'as' => 'shop.admin.', 'middleware' => [
 Route::group(['middleware' => ['active_shop', 'auth', 'role:seller']], function () {
     Route::get('/shop/settings/{shop}', [ShopController::class, 'showSettings'])->name('shop.settings');
     Route::put('/shop/setings/{shop}/update', [ShopController::class, 'update'])->name('shop.update');
-    Route::get('/shop/{shop}/products', [ProductController::class, 'index'])->name('shop.product.index'); //la ruta ¿?
-
+    Route::get('/shop/{shop}/products', [ProductController::class, 'index'])->name('shop.product.index');
 });
 //  ---- GENERAL
 Route::group(['prefix' => 'shop', 'as' => 'shop.', 'middleware' => 'active_shop'], function () {

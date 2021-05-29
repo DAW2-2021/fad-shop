@@ -42,22 +42,27 @@
                                                     <a href="{{ route('shop.product.show', [$product->shop->slug, $product->slug]) }}"
                                                         class="title text-dark" data-abc="true">{{ $product->name }}</a>
                                                     <p class="text-muted small">
-                                                        TIENDA: <a
+                                                        @if ($product->shop->blocked_at)
+                                                            <span class="text-danger">TIENDA BLOQUEADA:</span>
+                                                        @else
+                                                            TIENDA:
+                                                        @endif <a
                                                             href="{{ route('shop.index', $product->shop->slug) }}">{{ $product->shop->name }}
-                                                        </a><br />
+                                                        </a>
+                                                        <br />
                                                         STOCK ACTUAL: {{ $product->stock }}
                                                     </p>
                                                 </figcaption>
                                             </figure>
                                         </td>
                                         <td>
-                                            <input type="hidden" name="id[]" value="{{ $product->id }}">
+                                            <input type="hidden" name="id[]" value="{{ $product->id }}" @if ($product->stock == 0 || $product->shop->blocked_at) disabled @endif>
                                             <input type="number" class="form-control product-quantity" min="1"
                                                 max="{{ $product->stock }}" name="quantity[]"
                                                 data-productPrice="{{ $product->price }}"
-                                                data-productId="{{ $product->id }}" @if ($product->stock == 0) disabled value="0"
+                                                data-productId="{{ $product->id }}" @if ($product->stock == 0 || $product->shop->blocked_at) disabled value="0"
                                                 @else
-                                                                                        value="1" @endif>
+                                                                    value="1" @endif>
                                         </td>
                                         <td>
                                             <div class="price-wrap">
