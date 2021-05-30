@@ -24,7 +24,8 @@ button,
 input,
 td,
 span,
-p {
+p,
+li {
   font-family: "Roboto", sans-serif;
 }
 
@@ -6948,7 +6949,7 @@ textarea.form-control-lg {
   margin-top: 0.25rem !important;
 }
 
-.mt-2 {
+.mt-2, .categories .category h5, .categories .category .h5 {
   margin-top: 0.5rem !important;
 }
 
@@ -7280,7 +7281,7 @@ textarea.form-control-lg {
   font-weight: 400 !important;
 }
 
-.fw-bold {
+.fw-bold, .categories .category h5, .categories .category .h5 {
   font-weight: 700 !important;
 }
 

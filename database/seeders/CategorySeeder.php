@@ -28,8 +28,8 @@ class CategorySeeder extends Seeder
         $category->save();
 
         $category = new Category();
-        $category->name = "Videojuegos";
-        $category->slug = "videojuegos";
+        $category->name = "Juegos";
+        $category->slug = "juegos";
         $category->icon = "fas fa-gamepad";
         $category->save();
 

@@ -60,17 +60,17 @@
                                             <input type="number" class="form-control product-quantity" min="1"
                                                 max="{{ $product->stock }}" name="quantity[]" @if ($product->stock == 0 || $product->shop->blocked_at) disabled value="0"
                                                 @else
-                                                                                                data-productPrice="{{ $product->price }}"
-                                                                                                data-productId="{{ $product->id }}"
-                                                                                                value="1" @endif>
+                                                    data-productPrice="{{ $product->price }}"
+                                                    data-productId="{{ $product->id }}"
+                                                    value="1" @endif>
                                         </td>
                                         <td>
                                             <div class="price-wrap">
                                                 <var class="price"> <span class="product-price" @if ($product->stock != 0 && !$product->shop->blocked_at) data-productPrice="{{ $product->price }}"
-                                                                                            data-unityPrice="{{ $product->price }}"
-                                                                                            data-name="{{ $product->name }}"
-                                                                                            data-shop="{{ $product->shop->name }}" data-quantity=""
-                                                                                            id="product-price-{{ $product->id }}" @endif>{{ $product->price }}</span>
+                                                        data-unityPrice="{{ $product->price }}"
+                                                        data-name="{{ $product->name }}"
+                                                        data-shop="{{ $product->shop->name }}" data-quantity=""
+                                                        id="product-price-{{ $product->id }}" @endif>{{ $product->price }}</span>
                                                     €</var><br>
                                                 <small class="text-muted">
                                                     {{ $product->price }} € por unidad
@@ -204,7 +204,8 @@
                         unityPrice + "€/u || ";
                     "Producto(tienda) 4x 251.21€ 12€/u"
                 });
-                return result.substring(0, result.length - 3);
+                resutl = result.substring(0, result.length - 3)
+                return (resutl.length <= 127) ? result : result.substring(0, 124) + "...";
             }
 
             function getTotalPrice() {

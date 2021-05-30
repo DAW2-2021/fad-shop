@@ -25,6 +25,7 @@ class PagesController extends Controller
             ->whereDate('orders.created_at', '>', $month)
             ->selectRaw('products.*, COUNT(*) AS total')
             ->orderByDesc('total')
+            ->limit(8)
             ->get();
 
         $popularShopsWeek = Product::leftJoin('order_product', 'products.id', '=', 'order_product.product_id')
