@@ -27,9 +27,10 @@ class CategoryController extends Controller
 
     public function show($category)
     {
+        $categories = Category::all();
         $category = Category::where('slug', $category)->firstOrFail();
         $products = $category->products()->paginate(9);
-        return view('categories.show', compact('category', 'products'));
+        return view('categories.show', compact('category', 'products', 'categories'));
     }
 
     public function showAdmin(Category $category)
