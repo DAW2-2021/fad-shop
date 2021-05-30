@@ -11,7 +11,7 @@ class ShopSeeder extends Seeder
     public function run()
     {
         $shop = new Shop();
-        $shop->user_id = 3;
+        $shop->user_id = 2;
         $shop->name = "BeautyShirts";
         $shop->description = "La tienda que engloba todo tipo de productos de moda, camisetas principalmente.";
         $shop->logo = "/logos/BeautyShirts.png";
@@ -19,7 +19,7 @@ class ShopSeeder extends Seeder
         $shop->save();
 
         $shop = new Shop();
-        $shop->user_id = 4;
+        $shop->user_id = 3;
         $shop->name = "Delicious";
         $shop->description = "La tienda que engloba todo tipo de productos de comida.";
         $shop->logo = "/logos/Delicious.png";
@@ -27,7 +27,7 @@ class ShopSeeder extends Seeder
         $shop->save();
 
         $shop = new Shop();
-        $shop->user_id = 5;
+        $shop->user_id = 4;
         $shop->name = "FantasyLand";
         $shop->description = "La tienda que engloba todo tipo de juguetes.";
         $shop->logo = "/logos/fantasyLand.png";
@@ -35,7 +35,7 @@ class ShopSeeder extends Seeder
         $shop->save();
 
         $shop = new Shop();
-        $shop->user_id = 6;
+        $shop->user_id = 5;
         $shop->name = "Nukids";
         $shop->description = "La tienda que engloba todo tipo de productos infantiles.";
         $shop->logo = "/logos/nukids.png";
@@ -43,7 +43,7 @@ class ShopSeeder extends Seeder
         $shop->save();
 
         $shop = new Shop();
-        $shop->user_id = 7;
+        $shop->user_id = 6;
         $shop->name = "Tecnonautas";
         $shop->description = "La tienda que engloba todo tipo de productos tecnológicos.";
         $shop->logo = "/logos/tecnonautas.png";
@@ -51,7 +51,7 @@ class ShopSeeder extends Seeder
         $shop->save();
 
         $shop = new Shop();
-        $shop->user_id = 8;
+        $shop->user_id = 7;
         $shop->name = "TheGames";
         $shop->description = "La tienda que engloba todo tipo de videojuegos.";
         $shop->logo = "/logos/TheGames.png";
