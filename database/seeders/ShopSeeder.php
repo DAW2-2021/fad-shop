@@ -11,14 +11,6 @@ class ShopSeeder extends Seeder
     public function run()
     {
         $shop = new Shop();
-        $shop->user_id = 2;
-        $shop->name = "Seller Shop";
-        $shop->description = "La tienda del seller engloba todo tipo de productos deportivos.";
-        $shop->logo = "/logos/shop_seller.png";
-        $shop->slug = "seller-shop";
-        $shop->save();
-
-        $shop = new Shop();
         $shop->user_id = 3;
         $shop->name = "BeautyShirts";
         $shop->description = "La tienda que engloba todo tipo de productos de moda, camisetas principalmente.";
