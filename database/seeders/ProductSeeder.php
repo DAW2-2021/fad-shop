@@ -22,6 +22,54 @@ class ProductSeeder extends Seeder
         $product->categories()->attach(1);
 
         $product = new Product();
+        $product->name = "Trípode";
+        $product->description = "Trípode ligero completo (bolsa, cabezal panorámico de 3 posiciones, zapata rápida), color negro.";
+        $product->price = 23;
+        $product->image = "products/tripode.png";
+        $product->slug = "tripode";
+        $product->stock = 10;
+        $product->shop_id = 5;
+        $product->user_id = 6;
+        $product->save();
+        $product->categories()->attach(1);
+
+        $product = new Product();
+        $product->name = "Blink Mini";
+        $product->description = "Cámara de seguridad inteligente, compacta, para interiores, con enchufe, resolución de vídeo HD 1080p, detección de movimiento y compatible con Alexa – 1 Cámara.";
+        $product->price = 39.99;
+        $product->image = "products/mini.png";
+        $product->slug = "blink-mini";
+        $product->stock = 10;
+        $product->shop_id = 5;
+        $product->user_id = 6;
+        $product->save();
+        $product->categories()->attach(1);
+
+        $product = new Product();
+        $product->name = "Echo Studio";
+        $product->description = "Altavoz inteligente con sonido de alta fidelidad y Alexa.";
+        $product->price = 199.99;
+        $product->image = "products/studio.png";
+        $product->slug = "echo-studio";
+        $product->stock = 10;
+        $product->shop_id = 5;
+        $product->user_id = 6;
+        $product->save();
+        $product->categories()->attach(1);
+
+        $product = new Product();
+        $product->name = "Echo Auto";
+        $product->description = "Dispositivo para colocar Alexa en tu coche.";
+        $product->price = 59.99;
+        $product->image = "products/auto.png";
+        $product->slug = "echo-auto";
+        $product->stock = 10;
+        $product->shop_id = 5;
+        $product->user_id = 6;
+        $product->save();
+        $product->categories()->attach(1);
+
+        $product = new Product();
         $product->name = "Echo dot";
         $product->description = "Echo dot inteligente para el hogar.";
         $product->price = 59.99;

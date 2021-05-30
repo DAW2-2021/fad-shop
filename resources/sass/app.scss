@@ -7,6 +7,35 @@ $color1: #a5a6f6;
 $color1_dark: darken($color1, 5%);
 $color2: #e6eaee;
 $border: #7e7e7e;
+
+////////////////////////////////////
+/// Tipografía
+////////////////////////////////////
+//-- Import
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300&family=Roboto:wght@300&family=Scada&display=swap');
+
+h1 {
+    font-family: 'Scada', sans-serif;
+}
+
+h2,
+h3,
+h4,
+h5,
+th,
+h6 {
+    font-family: 'Prompt', sans-serif;
+}
+
+a,
+button,
+input,
+td,
+span,
+p {
+    font-family: 'Roboto', sans-serif;
+}
+
 ////////////////////////////////////
 /// Modificaciones Variables Bootstrap
 ////////////////////////////////////
@@ -16,6 +45,11 @@ $dropdown-border-color: $border;
 $dropdown-bg: lighten(#e8e8e8, 5%);
 
 //IMPORT'S Librerias
+
+// font-family: 'Prompt', sans-serif;
+// font-family: 'Roboto', sans-serif;
+// font-family: 'Scada', sans-serif;
+
 //-- Boostrap
 @import '~bootstrap/scss/bootstrap';
 //-- Owl Carousel

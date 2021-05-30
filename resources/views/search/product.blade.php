@@ -8,8 +8,40 @@
         <div class="alert alert-warning text-center mt-4 w-100 w-md-50 mx-auto">No hay productos similares a lo que buscaste
         </div>
     @else
+        <!-- Categorias -->
+        <div class="container-fluid container-md my-5 p-2 p-sm-5 overflow-hidden">
+            <div class="row mt-2 ">
+                <div class="col ">
+                    <h1 class="text-center h2 ">
+                        Categorías
+                    </h1>
+                </div>
+            </div>
+            <div class="row d-sm-none d-flex justify-content-center align-items-center mt-3">
+                <button class="btn btn-primary rounded-pill w-50" data-bs-toggle="modal" data-bs-target="#categoriesModal">
+                    Ver todas las Categorías
+                </button>
+            </div>
+            <div class="row d-sm-flex d-none categories justify-content-center align-items-center mt-2">
+                @for ($i = 0; $i < 6; $i++)
+                    <a href="{{ route('categories.show', $categories[$i]->slug) }}"
+                        class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
+                        <i class="{{ $categories[$i]->icon }} text-center"></i>
+                        <h5 class="text-center mt-1">{{ $categories[$i]->name }}</h5>
+                        <div class="row"></div>
+                    </a>
+                @endfor
+                <a href="#"
+                    class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center"
+                    data-bs-toggle="modal" data-bs-target="#categoriesModal">
+                    <i class="fas text-center fa-ellipsis-h"></i>
+                    <h5 class="text-center mt-1">Más</h5>
+                    <div class="row"></div>
+                </a>
+            </div>
+        </div>
         <!-- CONTENEDOR TARJETAS -->
-        <div class="container-fluid py-5">
+        <div class="container-fluid py-5 background-2">
             <div class="container-fluid container-md">
                 <div class="row justify-content-center align-content-center">
                     <div class="col mb-4">
@@ -110,7 +142,34 @@
             </div>
         </div>
     @endif
-
+    <!-- MODALS -->
+    <div class="modal fade" id="categoriesModal" tabindex="-1" aria-labelledby="categoriesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="categoriesModalLabel">
+                        Todas las Categorías
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body categories d-flex justify-content-center flex-wrap align-content-center">
+                    @foreach ($categories as $category)
+                        <a href="{{ route('categories.show', $category->slug) }}"
+                            class="category row text-decoration-none m-2 px-1 py-4 rounded flex-column justify-content-center align-items-center">
+                            <i class="text-center {{ $category->icon }}"></i>
+                            <h5 class="text-center">{{ $category->name }}</h5>
+                            <div class="row"></div>
+                        </a>
+                    @endforeach
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('extraFooter')
 
