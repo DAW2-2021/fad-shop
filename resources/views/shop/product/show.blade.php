@@ -73,7 +73,8 @@
                     @endif
                     @if (Auth::check() &&
         Auth::user()->hasRole('user') &&
-        $product->opinions()->where('user_id', Auth::user()->id)->count() == 0)
+        $product->opinions()->where('user_id', Auth::user()->id)->count() == 0 &&
+        $product->orders()->where('user_id', Auth::user()->id)->count())
                         <button type="button" data-bs-target="#modalReview" class="btn btn-primary mx-2 col-5"
                             data-bs-toggle="modal" data-bs-dismiss="modal">
                             Añadir una review
