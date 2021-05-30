@@ -16,9 +16,9 @@ class ProductSeeder extends Seeder
         $product->image = "products/alfombrilla_tecnologia.png";
         $product->slug = "alfombrilla";
         $product->stock = 10;
-        $product->shop_id = 7;
+        $product->shop_id = 6;
         $product->user_id = 7;
-        // $product->categories()->atach(1);
         $product->save();
+        $product->categories()->attach(1);
     }
 }
