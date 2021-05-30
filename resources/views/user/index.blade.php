@@ -26,20 +26,18 @@
                     </div>
 
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="about-tab" data-bs-toggle="tab" href="#about" role="tab"
-                                aria-controls="about" aria-selected="true">Cuenta</a>
-                        </li>
-                        @if (Auth::user()->role_id != 1)
+                        @if (Auth::user()->hasRole('user'))
                             <li class="nav-item">
-                                <a class="nav-link" id="coupons-tab" data-bs-toggle="tab" href="#coupons" role="tab"
-                                    aria-controls="coupons" aria-selected="false">Cupones</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="history-tab" data-bs-toggle="tab" href="#history" role="tab"
+                                <a class="nav-link  @if (Auth::user()->hasRole('user')) active @endif" id="history-tab" data-bs-toggle="tab"
+                                    href="#history" role="tab"
                                     aria-controls="history" aria-selected="false">Historial</a>
                             </li>
                         @endif
+                        <li class="nav-item">
+                            <a class="nav-link @if (!Auth::user()->hasRole('user')) active @endif" id="about-tab" data-bs-toggle="tab" href="#about"
+                                role="tab"
+                                aria-controls="about" aria-selected="true">Cuenta</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -47,155 +45,17 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="tab-content about-tab" id="myTabContent">
-                    <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Nombre</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{ Auth::User()->username }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Email</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{ Auth::User()->email }}</p>
-                            </div>
-                        </div>
-                        @if (Auth::User()->phone)
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Teléfono</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ Auth::User()->phone }}</p>
-                                </div>
-                            </div>
-                        @endif
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Fecha de creación</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{ Auth::User()->created_at }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Fecha de modificación</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{ Auth::User()->updated_at }}</p>
-                            </div>
-                        </div>
-                    </div>
                     @if (Auth::user()->hasRole('user'))
-                        {{-- CUPONES --}}
-                        <div class="tab-pane fade" id="coupons" role="tabpanel" aria-labelledby="coupons-tab">
-                            <div class="row row-cols-1 row-cols-md-3 g-4">
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <span>Código: </span>088438
-                                            </h5>
-                                            <p class="card-text">
-                                                <span>Fecha de vencimiento: </span>
-                                                25/03/2021 <br />
-                                                <span>Nombre de la tienda: </span>
-                                                Shopname
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <span>Code: </span>088438
-                                            </h5>
-                                            <p class="card-text">
-                                                <span>Date Due: </span>
-                                                25/03/2021 <br />
-                                                <span>Shop Name: </span>
-                                                Shopname
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <span>Code: </span>088438
-                                            </h5>
-                                            <p class="card-text">
-                                                <span>Date Due: </span>
-                                                25/03/2021 <br />
-                                                <span>Shop Name: </span>
-                                                Shopname
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <span>Code: </span>088438
-                                            </h5>
-                                            <p class="card-text">
-                                                <span>Date Due: </span>
-                                                25/03/2021 <br />
-                                                <span>Shop Name: </span>
-                                                Shopname
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <span>Code: </span>088438
-                                            </h5>
-                                            <p class="card-text">
-                                                <span>Date Due: </span>
-                                                25/03/2021 <br />
-                                                <span>Shop Name: </span>
-                                                Shopname
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <span>Code: </span>088438
-                                            </h5>
-                                            <p class="card-text">
-                                                <span>Date Due: </span>
-                                                25/03/2021 <br />
-                                                <span>Shop Name: </span>
-                                                Shopname
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         {{-- HISTORIAL --}}
-                        <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+                        <div class="tab-pane fade @if (Auth::user()->hasRole('user')) show
+                            active @endif" id="history" role="tabpanel" aria-labelledby="history-tab">
                             <div class="row row-cols-1 row-cols-md-1 g-4">
                                 <div class="col">
                                     @if (Auth::user()->orders()->count())
                                         @foreach (Auth::user()->orders()->orderByDesc('id')->get()
         as $order)
                                             {{-- ORDER --}}
-                                            <div class="card">
+                                            <div class="card mt-2 ">
                                                 <div class="card-body">
                                                     <div class="row">
                                                         <h5 class="card-title col-md-8">
@@ -211,7 +71,7 @@
                                                         {{-- ITEM --}}
                                                         @foreach ($order->products()->withTrashed()->get()
         as $product)
-                                                            <div class="card">
+                                                            <div class="card background-2 rounded-0 ">
                                                                 <div class="card-body">
                                                                     <div class="row mb-3">
                                                                         <div class="col">
@@ -263,6 +123,52 @@
                             </div>
                         </div>
                     @endif
+                    <div class="tab-pane fade @if (!Auth::user()->hasRole('user')) show
+                        active @endif" id="about" role="tabpanel" aria-labelledby="about-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Nombre</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ Auth::User()->username }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ Auth::User()->email }}</p>
+                            </div>
+                        </div>
+                        @if (Auth::User()->phone)
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Teléfono</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{ Auth::User()->phone }}</p>
+                                </div>
+                            </div>
+                        @endif
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Fecha de creación</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ Auth::User()->created_at }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Fecha de modificación</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ Auth::User()->updated_at }}</p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
