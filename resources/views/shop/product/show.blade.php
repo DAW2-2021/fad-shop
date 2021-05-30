@@ -24,17 +24,13 @@
                         @endif
                     </div>
                     <div class="col-md-12 my-2">
-                        @if (Auth::check() && Auth::user()->hasRole('seller'))
+                        @if (Auth::check() && Auth::user()->hasRole('seller') && Auth::user()->shop->id == $product->shop_id)
                             <button type="button" data-bs-target="#modalStockUpdate" data-bs-toggle="modal"
-                                data-bs-dismiss="modal" class="btn btn-secondary w-25"> <i
-                                    class="fa fa-edit text-black"></i>
-                                Actualizar
+                                data-bs-dismiss="modal" class="btn btn-primary w-25"> <i class="fa fa-edit text-black"></i>
+                                Añadir Stock
                             </button>
                         @endif
                     </div>
-
-
-
                     <p class="text-break">
                         {{ $product->description }}
                     </p>
@@ -51,23 +47,22 @@
                         </p>
                     </div>
                 </div>
-
-                <div class="row">
-                    @if (Auth::check() && Auth::user()->hasAnyRole('seller', 'admin'))
-                        @if (Auth::user()->hasRole('seller'))
+                <div class="col">
+                    @if (Auth::check() && Auth::user()->hasAnyRole(['seller', 'admin']))
+                        @if (Auth::user()->hasRole('seller') && Auth::user()->shop->id == $product->shop_id)
                             <button type="button" data-bs-target="#modalProductUpdate" data-bs-toggle="modal"
-                                data-bs-dismiss="modal" class="btn btn-secondary w-25"> <i
-                                    class="fa fa-edit text-black"></i>
+                                data-bs-dismiss="modal" class="btn btn-primary w-25"> <i class="fa fa-edit text-black"></i>
                                 Modificar
                             </button>
-                            <a href="{{ route('history.show', [$shop->slug, $product->slug]) }}" class="btn btn-secondary w-25 ms-2">Historial</a>
-                            @if ($errors->any())
-                                {!! implode('', $errors->all('<span class="invalid-feedback" role="alert" style="display:block !important"> <strong>:message</strong></span><br>')) !!}
-                            @endif
+                        @endif
+                        <a href="{{ route('history.show', [$shop->slug, $product->slug]) }}"
+                            class="btn btn-info w-25 ms-2">Historial</a>
+                        @if ($errors->any())
+                            {!! implode('', $errors->all('<span class="invalid-feedback" role="alert" style="display:block !important"> <strong>:message</strong></span><br>')) !!}
                         @endif
                     @else
                         @if (Auth::guest() || (Auth::check() && !Auth::user()->hasRole('admin')))
-                            <button type="button" id="addCart" class="btn btn-success mx-2 col-5">
+                            <button type="button" id="addCart" class="btn btn-success col-5">
                                 Añadir al carrito
                             </button>
 
