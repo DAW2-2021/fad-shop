@@ -33,7 +33,7 @@
                             Identificarse
                         </a>
                     @else
-                        @if (Auth::user()->hasRole('seller'))
+                        @if (Auth::check() && Auth::user()->hasRole('seller'))
                             <div class="nav-item dropdown justify-content-evenly align-items-center">
                                 <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -44,10 +44,6 @@
                                         <a class="dropdown-item"
                                             href="{{ route('shop.index', Auth::user()->shop->slug) }}">
                                             Mostrar</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('history.index') }}">
-                                            Historial de Productos</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item"
@@ -71,7 +67,7 @@
                                 <li>
                                     <a class="dropdown-item" href="{{ route('user.index') }}">Perfil</a>
                                 </li>
-                                @if (Auth::user()->hasRole('admin'))
+                                @if (Auth::check() && Auth::user()->hasRole('admin'))
                                     <li>
                                         <a class="dropdown-item" href="{{ route('shop.admin.index') }}">Administrar
                                             Tiendas</a>
@@ -84,6 +80,10 @@
                                     <li>
                                         <a class="dropdown-item" href="{{ route('support.admin.index') }}">Administrar
                                             Soportes</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('history.index') }}">
+                                            Historial de Productos</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item"
