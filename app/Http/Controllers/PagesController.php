@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Shop;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use App\Models\Category;
+use App\Models\Shop;
 use App\Models\Product;
 
 class PagesController extends Controller
@@ -14,9 +17,29 @@ class PagesController extends Controller
     {
         $this->checkIfExistsProducts();
 
+        $week = Carbon::now()->subDays(7);
+        $month = Carbon::now()->subDays(30);
+        $popularProductsMonth = Product::leftJoin('order_product', 'products.id', '=', 'order_product.product_id')
+            ->leftJoin('orders', 'orders.id', '=', 'order_product.order_id')
+            ->groupBy('order_product.product_id')
+            ->whereDate('orders.created_at', '>', $month)
+            ->selectRaw('products.*, COUNT(*) AS total')
+            ->orderByDesc('total')
+            ->get();
+
+        $popularShopsWeek = Product::leftJoin('order_product', 'products.id', '=', 'order_product.product_id')
+            ->leftJoin('orders', 'orders.id', '=', 'order_product.order_id')
+            ->leftJoin('shops', 'shops.id', '=', 'products.shop_id')
+            ->groupBy('products.shop_id')
+            ->whereDate('orders.created_at', '>', $week)
+            ->selectRaw('shops.*, COUNT(*) AS total')
+            ->orderByDesc('total')
+            ->limit(3)
+            ->get();
+
         $categories = Category::all();
         $shops = Shop::inRandomOrder()->limit(7)->get();
-        return view('index', compact('categories', 'shops'));
+        return view('index', compact('categories', 'shops', 'popularProductsMonth', 'popularShopsWeek'));
     }
 
 
