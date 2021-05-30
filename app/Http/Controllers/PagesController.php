@@ -58,8 +58,9 @@ class PagesController extends Controller
 
     public function searchProduct($name)
     {
+        $categories = Category::all();
         $prods = Product::where('slug', 'like', '%' . $name . '%')->orderBy('name')->paginate(9);
-        return view('search.product', compact('prods', 'name'));
+        return view('search.product', compact('prods', 'name', 'categories'));
     }
 
     public function searchShopProduct($name, $shop)
