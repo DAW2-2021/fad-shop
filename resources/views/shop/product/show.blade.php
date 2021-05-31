@@ -99,7 +99,7 @@
                     <div class="col">
                     {{ $comment->user->username }}
                     </div>
-                    @if (Auth::user()->id == $comment->user_id)
+                    @if (Auth::check() && Auth::user()->id == $comment->user_id)
                         <div class="col-sm-2">
                         <form method="post"
                         action="{{ route('opinion.delete', [$shop->slug, $product->slug, $comment]) }}">
