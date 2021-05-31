@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -15,14 +16,29 @@ class CategoryController extends Controller
         return view('categories.admin.index', compact('categories'));
     }
 
-    public function create()
-    {
-        return view('form.category');
-    }
-
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'unique:categories', 'string', 'min_length:3', 'max_length:255'],
+            'icon' => ['required', 'string', 'min_length:3', 'max_length:255'],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('categories.admin.index')->withErrors($validator);
+        }
+
+
+        $slug = Str::slug($request->name);
+        $dbSlug = Category::where(['slug' => $slug])->first();
+
+        if ($dbSlug) {
+            return redirect()->route('categories.admin.index')->withInput()->withErrors(['Coincidence' => 'Ya existe el nombre del producto en la tienda.']);
+        }
+
+        $category = Category::create([
+            'name' => $request->name, 'icon' => $request->icon,  'slug' => $slug
+        ]);
+        return redirect()->route('categories.admin.index');
     }
 
     public function show($category)

@@ -12,9 +12,13 @@
             <div class="col-md-12">
                 <div class="profile-head">
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-11">
                             <h5>
                                 Todas las categorías: </h5>
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#createCategoryModal">Añadir</button>
                         </div>
                     </div>
                 </div>
@@ -62,6 +66,38 @@
                 <form method="post" id="category-form-id" action="#">
                     @csrf
                     @method('PUT')
+                    <div class="modal-body">
+                        <div class="form mb-3">
+                            <label class="form-label h4" for="category_name_input">Nombre:</label><input
+                                class="form-control" minlength="3" id="category_name_input" name="name" type="text" />
+                        </div>
+                        <div class="form mb-3">
+                            <label class="form-label h4" for="category_icon">Icono:</label><input class="form-control"
+                                minlength="3" id="category_icon" name="icon" type="text" />
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+                        <input type="submit" class="btn btn-primary" value="Actualizar">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Create Category -->
+    <div class="modal fade" id="createCategoryModal" tabindex="-1" role="dialog" aria-labelledby="CategoryModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="UserModalLabel">Crear Categoría</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+                </div>
+                <form method="post" id="category-form-id" action="{{ route('categories.admin.store') }}">
+                    @csrf
+                    @method('POST')
                     <div class="modal-body">
                         <div class="form mb-3">
                             <label class="form-label h4" for="category_name_input">Nombre:</label><input

@@ -18,8 +18,7 @@
                         </div>
                         <div class="col-md-1">
                             <a href="{{ route('shop.product.create', Auth::user()->shop->slug) }}">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#profileModal">
+                                <button type="button" class="btn btn-primary">
                                     Añadir
                                 </button></a>
 
