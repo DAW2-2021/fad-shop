@@ -120,9 +120,9 @@ Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
 });
 
 //HISTORY
-Route::group(['prefix' => 'history', 'as' => 'history.', 'middleware' => ['auth', 'role:admin|seller']], function () {
-    Route::get('/', [ProducHistoryController::class, 'index'])->middleware('role:admin')->name('index');
-    Route::get('/{shop}/{product}', [ProducHistoryController::class, 'show'])->name('show');
+Route::group(['as' => 'history.', 'middleware' => ['auth', 'role:admin|seller']], function () {
+    Route::get('/history', [ProducHistoryController::class, 'index'])->middleware('role:admin')->name('index');
+    Route::get('/shop/{shop}/{product}/history', [ProducHistoryController::class, 'show'])->name('show');
 });
 
 //SUPPORT
