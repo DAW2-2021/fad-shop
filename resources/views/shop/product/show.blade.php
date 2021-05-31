@@ -26,7 +26,7 @@
                     <div class="col-md-12 my-2">
                         @if (Auth::check() && Auth::user()->hasRole('seller') && Auth::user()->shop->id == $product->shop_id)
                             <button type="button" data-bs-target="#modalStockUpdate" data-bs-toggle="modal"
-                                data-bs-dismiss="modal" class="btn btn-primary w-25"> <i class="fa fa-edit text-black"></i>
+                                data-bs-dismiss="modal" class="btn btn-primary"> <i class="fa fa-edit text-black"></i>
                                 Añadir Stock
                             </button>
                         @endif
@@ -66,7 +66,7 @@
                                 Añadir al carrito
                             </button>
 
-                            <button type="button" id="removeCart" style="display: none" class="btn btn-danger mx-2 col-5">
+                            <button type="button" id="removeCart" style="display: none" class="btn btn-danger col-5">
                                 Quitar del carrito
                             </button>
                         @endif

@@ -150,7 +150,7 @@
                     @foreach ($popularShopsWeek as $shop)
                         <a href="{{ route('shop.index', $shop->slug) }}"
                             class="shop p-4 m-2 text-dark text-decoration-none rounded">
-                            <div class="image bg-dark d-flex justify-content-center align-items-center">
+                            <div class="image bg-white d-flex justify-content-center align-items-center">
                                 <img src="{{ asset('storage/' . $shop->logo) }}"
                                     alt="Logo de la tienda {{ $shop->name }}" class="cover-image" />
                             </div>
@@ -182,7 +182,7 @@
                 <div class="d-flex flex-wrap justify-content-center align-items-center">
                     @foreach ($shops as $shop)
                         <a href="{{ route('shop.index', $shop->slug) }}"
-                            class="bg-dark rounded-circle border m-3 rounded-shop">
+                            class="bg-white rounded-circle border m-3 rounded-shop">
                             <img src="{{ asset('storage/' . $shop->logo) }}" class="cover-image rounded-circle"
                                 alt="Logo de la tienda {{ $shop->name }}" />
                         </a>
