@@ -27,9 +27,20 @@ class PaymentController extends Controller
         if ($validator->fails()) {
             return redirect()->route('cart')->withErrors($validator);
         }
+
         $order = Auth::user()->orders()->create();
         //BODY DEL EMAIL
-        $bodyEmail = '';
+        $bodyEmail = '<h3>Detalles de Compra:</h3>
+        <table style="border-collapse: collapse;">
+                <caption><strong>Pedido nº :NUMERO_PEDIDO_ORDER</strong></caption>
+            <tr>
+                <th style="border: 1px solid #dddddd;padding:8px;">Producto</th>
+                <th style="border: 1px solid #dddddd;padding:8px;">Tienda</th>
+                <th style="border: 1px solid #dddddd;padding:8px;">Cantidad</th>
+                <th style="border: 1px solid #dddddd;padding:8px;">Precio Unidad</th>
+                <th style="border: 1px solid #dddddd;padding:8px;">Precio Total</th>
+            </tr>';
+        $errorMessage = '';
         $productCookie = htmlspecialchars($_COOKIE['cart-data']);
 
         for ($i = 0; $i < count($request->id); $i++) {
@@ -39,23 +50,23 @@ class PaymentController extends Controller
             $quantityForm = $request->quantity[$i];
 
             if ($product->shop->blocked_at) {
-                $bodyEmail .= '<p>No se ha podido comprar el producto <strong>' . $product->name . '</strong> porque <strong>la tienda ' . $product->shop->name . ' esta bloqueada</strong></p>';
+                $errorMessage .= '<p>No se ha podido comprar el producto <strong>' . $product->name . '</strong> porque <strong>la tienda ' . $product->shop->name . ' esta bloqueada</strong></p>';
             } else if ($stock < $quantityForm) {
-                $stock = 0;
                 $quantity = $stock - $quantityForm;
                 $quantityForm = $quantity + $quantityForm;
+                $stock = 0;
                 //Generar body email
-                if ($quantityForm != 0) {
-                    $bodyEmail .= '<p>Del producto <strong>' . $product->name . '</strong> solo se ha podido comprar <strong>' . $quantityForm . '</strong>.</p>';
+                if ($quantityForm) {
+                    $errorMessage .= '<p>El producto <strong>' . $product->name . '</strong> de la tiena <strong>' . $product->shop->name . '</strong>, solo se ha podido comprar <strong>' . $quantityForm . '</strong>.</p>';
                 } else {
-                    $bodyEmail .= '<p>Del producto <strong>' . $product->name . '</strong> no se ha podido comprar ninguno, no queda stock.</p>';
+                    $errorMessage .= '<p>El producto <strong>' . $product->name . '</strong> de la tiena <strong>' . $product->shop->name . '</strong>, no se ha podido comprar ninguno, no queda stock.</p>';
                 }
             } else {
                 $stock = $stock - $quantityForm;
             }
 
             //Mirar si ha podido comprar alguno
-            if ($quantityForm != 0) {
+            if ($quantityForm > 0) {
                 $product->stock = $stock;
                 $product->save();
                 $order->products()->attach(
@@ -65,7 +76,13 @@ class PaymentController extends Controller
                         'price' => $product->price
                     ]
                 );
-
+                $bodyEmail .= '<tr>
+                                    <td  style="border: 1px solid #dddddd;padding:8px;">' . $product->name . '</td>
+                                    <td  style="border: 1px solid #dddddd;padding:8px;">' . $product->shop->name . '</td>
+                                    <td  style="border: 1px solid #dddddd;padding:8px;">' . $quantityForm . '</td>
+                                    <td  style="border: 1px solid #dddddd;padding:8px;">' . $product->price . '€</td>
+                                    <td  style="border: 1px solid #dddddd;padding:8px;">' . $quantityForm * $product->price . '€</td>
+                                </tr>';
                 //Quitar de la cookie el producto si se ha comprado
                 $productCookie = str_replace('|' . $product->id . '|', '|', $productCookie);
             }
@@ -75,17 +92,29 @@ class PaymentController extends Controller
         //Eliminar el order si no tiene productos
         if (!$order->products()->count()) {
             $order->delete();
-        }
-
-        if ($bodyEmail != '') {
             $details = [
-                'title' => 'No se ha podido comprar la cantidad que desebas de el/los producto/s siguiente/s:',
-                'body' => $bodyEmail,
+                'title' => 'No se ha podido realizar la compra por el/los siguiente/s motivo/s:',
+                'body' => $errorMessage,
                 'view' => 'emails.generic'
             ];
-            \Mail::to(Auth::user()->email)->send(new MailSender($details));
-            # ENVIAR EMAIL CONFORME NO SE HA PODIDO COMPRAR TODO EL STOCK QUE QUERIA
+        } else {
+            $bodyEmail .= '     <tr>
+                                    <th colspan="5" style="text-align:right">PRECIO TOTAL: ' . $order->products()->withTrashed()->selectRaw('SUM(order_product.quantity * order_product.price) as total')->pluck('total')[0] . '€</th>
+                                </tr>
+                            </table>';
+
+            if ($errorMessage != '') {
+                $errorMessage = '<h3>Error al comprar la cantidad desdeada de los siguientes productos:</h3>' . $errorMessage;
+            }
+
+            $details = [
+                'title' => 'Compra realizada corractemente',
+                'body' => $errorMessage . str_replace(':NUMERO_PEDIDO_ORDER', $order->id, $bodyEmail),
+                'view' => 'emails.generic'
+            ];
         }
+
+        \Mail::to(Auth::user()->email)->send(new MailSender($details));
 
         //AÑADIR VISTA CON AUTO REDIRECCION A INDEX A LOS SEGUNDOS
         return redirect()->route('user.index');
