@@ -49,8 +49,6 @@
                             <td>{{ $product->created_at }}</td>
                             @if ($product->created_at != $product->updated_at)
                                 <td>{{ $product->updated_at }}</td>
-                            @else
-                                <td>&nbsp;</td>
                             @endif
                         </tr>
                     @endforeach
