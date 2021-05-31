@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use App\Models\Category;
 use App\Models\Shop;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class PagesController extends Controller
 {
@@ -46,6 +47,9 @@ class PagesController extends Controller
 
     public function cart()
     {
+        if (Auth::check() && Auth::user()->hasAnyRole(['admin', 'seller'])) {
+            abort(403, "Non authorized");
+        }
         $this->checkIfExistsProducts();
         $products = [];
         if (isset($_COOKIE['cart-data'])) {

@@ -30,9 +30,7 @@ Route::get('/cart', [PagesController::class, 'cart'])->name('cart');
 //PAYMENT
 Route::group(['prefix' => 'payment', 'as' => 'payment.', 'middleware' => ['auth', 'role:user']], function () {
     //USUARIOS
-    Route::get('/cancel', [PaymentController::class, 'cancel'])->name('cancel');
     Route::post('/success', [PaymentController::class, 'success'])->name('success');
-    Route::get('/success', [PaymentController::class, 'success'])->name('success');
 });
 
 //SEARCH
@@ -145,8 +143,6 @@ Route::group(['prefix' => 'support', 'as' => 'support.'], function () {
 
 //OPINIONS
 Route::group(['prefix' => 'opinion', 'as' => 'opinion.'], function () {
-    //COMUNES
-    Route::get('/', [OpinionController::class, 'index'])->name('index');
     //USUARIOS
     Route::group(['middleware' => ['auth', 'role:user']], function () {
         Route::put('/update/{shop}/{product}/{opinion}', [OpinionController::class, 'update'])->name('update');

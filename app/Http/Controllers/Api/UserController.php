@@ -26,9 +26,7 @@ class UserController extends BaseController
 
         return response()->json(['token' => $token], 200);
     }
-    /**
-     * User Login
-     */
+
     public function login(Request $request)
     {
         $credentials = [
@@ -45,85 +43,12 @@ class UserController extends BaseController
             return $this->sendError('Unauthorized', ['error' => 'Unauthorized']);
         }
     }
-    /**
-     * Returns Authenticated User Details
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
 
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return User::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    /* public function show($id)
-    {
-        $property = auth()->user()->book()->find($id);
-
-        if (!$property) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Property with id ' . $id . ' not found'
-            ], 400);
-        }
-
-        return response()->json([
-            'success' => true,
-            'data' => $property->toArray()
-        ], 200);
-    } */
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         if (User::where('id', $id)->exists()) {
@@ -141,12 +66,6 @@ class UserController extends BaseController
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         if (User::where('id', $id)->exists()) {
