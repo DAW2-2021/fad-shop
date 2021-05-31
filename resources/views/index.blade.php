@@ -155,15 +155,15 @@
                             </div>
 
                             <div class="text mt-4 mb-3">
-                                {{--  <h4 class="h3 text-center text-break">
+                                {{-- <h4 class="h3 text-center text-break">
                                     @if (Str::length($shop->name) <= 10)
                                         {{ $shop->name }}
                                     @else
                                         {{ Str::substr($shop->name, 0, 10) . '...' }}
                                     @endif
-                                    
-                                </h4>  --}}
-                                <p class="fw-bold text-break text-justify">{{ $shop->description }}</p>
+
+                                </h4> --}}
+                                <p class="fw-bold text-break">{{ $shop->description }}</p>
                             </div>
                         </a>
                     @endforeach
