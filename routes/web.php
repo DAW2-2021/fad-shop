@@ -42,7 +42,6 @@ Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
 });
 
 //ADMIN SHOP
-//Tiene que ir a fuera de la shop para poder desbloquear, por que abajo mira si esta activa la tienda, así que apovechamos y metemos todo aqui
 Route::group(['prefix' => 'shop/admin', 'as' => 'shop.admin.', 'middleware' => ['auth', 'role:admin']], function () {
     Route::get('/', [ShopController::class, 'indexAdmin'])->name('index');
     Route::put('/{shop}/ban', [ShopController::class, 'ban'])->name('ban');
@@ -122,7 +121,7 @@ Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
 
 //HISTORY
 Route::group(['prefix' => 'history', 'as' => 'history.', 'middleware' => ['auth', 'role:admin|seller']], function () {
-    Route::get('/', [ProducHistoryController::class, 'index'])->name('index');
+    Route::get('/', [ProducHistoryController::class, 'index'])->middleware('role:admin')->name('index');
     Route::get('/{shop}/{product}', [ProducHistoryController::class, 'show'])->name('show');
 });
 
