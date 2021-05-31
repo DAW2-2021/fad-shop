@@ -6,7 +6,7 @@
 @section('content')
     <div class="container">
         <div class="p-3 pb-md-4 mx-auto text-center">
-            <h1 class="display-4 fw-normal">Productos</h1>
+            <h1 class="display-4 fw-normal">Historial de Productos</h1>
         </div>
         <div class="row">
             <div class="col-md-12">
