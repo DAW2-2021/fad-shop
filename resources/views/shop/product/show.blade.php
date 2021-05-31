@@ -29,6 +29,8 @@
                                 data-bs-dismiss="modal" class="btn btn-primary"> <i class="fa fa-edit text-black"></i>
                                 Añadir Stock
                             </button>
+                            <a href="{{ route('history.show', [$shop->slug, $product->slug]) }}"
+                                class="btn btn-info w-25 ms-2">Historial</a>
                         @endif
                     </div>
                     <p class="text-break">
@@ -55,8 +57,7 @@
                                 Modificar
                             </button>
                         @endif
-                        <a href="{{ route('history.show', [$shop->slug, $product->slug]) }}"
-                            class="btn btn-info w-25 ms-2">Historial</a>
+                        
                         @if ($errors->any())
                             {!! implode('', $errors->all('<span class="invalid-feedback" role="alert" style="display:block !important"> <strong>:message</strong></span><br>')) !!}
                         @endif
