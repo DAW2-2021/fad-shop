@@ -11,14 +11,20 @@ class ProducHistoryController extends Controller
 {
     public function index()
     {
-        $prod_history = ProductHistory::paginate(15);
+        $prod_history = ProductHistory::orderByDesc('updated_at')->paginate(15);
         return view('history.index', compact('prod_history'));
     }
 
     public function show($shop, $product)
     {
-        $shop = Shop::where('slug', $shop)->get();
-        $prod_history = ProductHistory::where('slug', $product)->paginate(15);
+
+        $shop = Shop::where('slug', $shop)->firstOrFail();
+
+        if (Auth::user()->hasRole('seller') && $shop->user_id != Auth::user()->id) {
+            return redirect()->route('index');
+        }
+
+        $prod_history = ProductHistory::where('slug', $product)->orderByDesc('updated_at')->paginate(15);
         return view('history.show', compact('prod_history'));
     }
 }

@@ -13,6 +13,13 @@ class OpinionController extends Controller
 {
     public function store(Request $request, $shop, $product)
     {
+        //Salir si no tiene el producto comprado o si tiene un comentario
+        if (
+            !$product->orders()->where('user_id', Auth::user()->id)->count() &&
+            $product->opinions()->where('user_id', Auth::user()->id)->count() != 0
+        ) {
+            return redirect()->route('shop.product.show', [$shop->slug, $product->slug]);
+        }
 
         //user
         $validator = Validator::make($request->all(), [
