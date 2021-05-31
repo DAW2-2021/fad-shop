@@ -13,14 +13,6 @@ class OpinionController extends Controller
 {
     public function store(Request $request, $shop, $product)
     {
-        //Salir si no tiene el producto comprado o si tiene un comentario
-        if (
-            !$product->orders()->where('user_id', Auth::user()->id)->count() &&
-            $product->opinions()->where('user_id', Auth::user()->id)->count() != 0
-        ) {
-            return redirect()->route('shop.product.show', [$shop->slug, $product->slug]);
-        }
-
         //user
         $validator = Validator::make($request->all(), [
             'score' => ['required', 'integer', 'min_length:0', 'max_length:10'],
@@ -41,6 +33,13 @@ class OpinionController extends Controller
         if ($product == null) {
 
             return redirect()->route('shop.settings', $shop->slug)->withInput()->withErrors(['Error' => 'No existe el producto.']);
+        }
+
+        if (
+            !$product->orders()->where('user_id', Auth::user()->id)->count() &&
+            $product->opinions()->where('user_id', Auth::user()->id)->count() != 0
+        ) {
+            return redirect()->route('shop.product.show', [$shop->slug, $product->slug]);
         }
         Opinion::create(['score' => $request->score, 'comment' => $request->comment, 'product_id' => $request->product_id, 'user_id' => Auth::user()->id]);
 

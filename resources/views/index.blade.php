@@ -151,18 +151,19 @@
                         <a href="{{ route('shop.index', $shop->slug) }}"
                             class="shop p-4 m-2 text-dark text-decoration-none rounded">
                             <div class="image bg-white d-flex justify-content-center align-items-center">
-                                <img src="{{ asset('storage/' . $shop->logo) }}"
-                                    alt="Logo de la tienda {{ $shop->name }}" class="cover-image" />
+                                <h4>{{ $shop->name }}</h4>
                             </div>
 
                             <div class="text mt-4 mb-3">
-                                <h4 class="h3 text-center text-break">
+                                {{--  <h4 class="h3 text-center text-break">
                                     @if (Str::length($shop->name) <= 10)
                                         {{ $shop->name }}
                                     @else
                                         {{ Str::substr($shop->name, 0, 10) . '...' }}
                                     @endif
-                                </h4>
+                                    
+                                </h4>  --}}
+                                <p class="fw-bold">{{ $shop->description }}</p>
                             </div>
                         </a>
                     @endforeach
