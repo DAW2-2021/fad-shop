@@ -17309,6 +17309,7 @@ body {
 
 .top-shop-container .shop {
   background-color: #a5a6f6;
+  min-height: 20rem;
 }
 .top-shop-container .shop .image {
   width: 10rem;

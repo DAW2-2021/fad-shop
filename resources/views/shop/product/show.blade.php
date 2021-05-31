@@ -170,7 +170,7 @@
                         <br />
                         <label for="" class="form-label mt-2 fw-bold
                         text-dark">Opinión</label>
-                        <input type="text" name="comment" class="form-control" />
+                        <input type="text" name="comment" value="{{ $comment->comment }}" class="form-control" />
                         <button type="submit" class="btn btn-secondary align-self-start mt-3">
                         Enviar opinión
                         </button>
@@ -436,7 +436,7 @@
             </div>
         @endfor
         @endif
-        @if ($product->opinions()->whereNotNull('comment')->count())
+        @if ($product->opinions()->whereNotNull('score')->count())
             @if ($product->opinions()->count() > 2)
                 <a data-bs-toggle="collapse" id="ver-mas" role="button" data-bs-target=".multicollapse"
                     aria-expanded="false" aria-controls="collapseExample"><small class="text-info"><u>Ver más</u></small>
