@@ -10,6 +10,7 @@
     <meta name="description" content="FAD Shop, la tienda para los MDLR" />
     <meta name="keywords" content="MDLR,calle, flowtt" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcat icon" href="/storage/logos/fad_shop.mdj.png"> 
 
     <!-- Google Font -->
     {{-- <link

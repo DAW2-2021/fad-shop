@@ -150,8 +150,8 @@
                     @foreach ($popularShopsWeek as $shop)
                         <a href="{{ route('shop.index', $shop->slug) }}"
                             class="shop p-4 m-2 text-dark text-decoration-none rounded">
-                            <div class="image bg-white d-flex justify-content-center align-items-center">
-                                <h4>{{ $shop->name }}</h4>
+                            <div class="image text-white bg-dark d-flex justify-content-center align-items-center">
+                                <h4 class="fw-bold">{{ $shop->name }}</h4>
                             </div>
 
                             <div class="text mt-4 mb-3">
@@ -163,7 +163,7 @@
                                     @endif
                                     
                                 </h4>  --}}
-                                <p class="fw-bold">{{ $shop->description }}</p>
+                                <p class="fw-bold text-break text-justify">{{ $shop->description }}</p>
                             </div>
                         </a>
                     @endforeach
