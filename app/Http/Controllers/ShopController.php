@@ -20,7 +20,7 @@ class ShopController extends Controller
     {
         $shop = Shop::where('slug', $shop)->firstOrFail();
         $productsCarousel = $shop->products()->orderByDesc('id')->limit(8)->get();
-        $products = $shop->products()->orderBy('name')->paginate(9)->fragment('products');
+        $products = $shop->products()->orderBy('name')->paginate(8)->fragment('products');
         return view('shop.index', compact('shop', 'productsCarousel', 'products'));
     }
 
