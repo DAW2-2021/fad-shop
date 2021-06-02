@@ -9,8 +9,8 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use PharIo\Manifest\Author;
 use App\Models\Category;
+use Carbon\Carbon;
 
 class ProductController extends Controller
 {
@@ -76,8 +76,9 @@ class ProductController extends Controller
         $shop = Shop::where('slug', $shop)->firstOrFail();
         $product = Product::where(['slug' => $product, 'shop_id' => $shop->id])->firstOrFail();
         $comments = Opinion::where('product_id', $product->id)->get();
+        $currentTime = Carbon::now();
 
-        return view('shop.product.show', compact('product', 'shop', 'comments', 'categories'));
+        return view('shop.product.show', compact('product', 'shop', 'comments', 'categories', 'currentTime'));
     }
 
     public function update(Request $request, $shop, $product)
