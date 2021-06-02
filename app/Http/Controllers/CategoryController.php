@@ -12,7 +12,7 @@ class CategoryController extends Controller
 {
     public function indexAdmin()
     {
-        $categories = Category::orderByDesc('id')->paginate(15);
+        $categories = Category::orderByDesc('id')->get();
         return view('categories.admin.index', compact('categories'));
     }
 
@@ -45,7 +45,7 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
         $category = Category::where('slug', $category)->firstOrFail();
-        $products = $category->products()->paginate(9);
+        $products = $category->products()->paginate(8);
         return view('categories.show', compact('category', 'products', 'categories'));
     }
 
