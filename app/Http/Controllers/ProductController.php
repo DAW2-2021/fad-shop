@@ -67,7 +67,8 @@ class ProductController extends Controller
         foreach ($request->categories as $category) {
             $product->categories()->attach($category);
         }
-        return redirect()->route('shop.product.show', [$shop->slug, $product->slug])->withInput()->withErrors(['Coincidence' => 'Ya existe el nombre del producto en la tienda.']);
+
+        return redirect()->route('shop.product.show', [$shop->slug, $product->slug]);
     }
 
     public function show($shop, $product)
