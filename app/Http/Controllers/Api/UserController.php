@@ -13,7 +13,7 @@ class UserController extends BaseController
     public function register(Request $request)
     {
         $dataValidated = $request->validate([
-            'username' => 'required|min:3|unique:users',
+            'username' => 'required|min:3',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
             'phone' => 'required'
