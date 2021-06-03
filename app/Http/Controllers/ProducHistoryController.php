@@ -7,12 +7,17 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\ProductHistory;
 use App\Models\Shop;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class ProducHistoryController extends Controller
 {
     public function index()
     {
-        $prod_history = ProductHistory::orderByDesc('updated_at')->paginate(15);
+        $prod_history = ProductHistory::leftJoin('users', 'users.id', '=', 'product_histories.user_id')
+		    ->leftJoin('shops', 'shops.id', '=', 'product_histories.shop_id')
+		    ->orderByDesc('updated_at')
+		    ->selectRaw('product_histories.*, users.email AS email, shops.name AS shop')
+		    ->paginate(15);
         return view('history.index', compact('prod_history'));
     }
 
