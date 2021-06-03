@@ -43,7 +43,7 @@ class PagesController extends Controller
             ->get();
 
         $categories = Category::all();
-        $shops = Shop::inRandomOrder()->limit(7)->get();
+        $shops = Shop::whereNull('shops.blocked_at')->inRandomOrder()->limit(7)->get();
         return view('index', compact('categories', 'shops', 'popularProductsMonth', 'popularShopsWeek'));
     }
 
