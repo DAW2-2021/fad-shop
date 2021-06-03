@@ -84,9 +84,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="modalModifyPetitionTitle">Modificar petición</h5>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             @if ($errors->any())
@@ -97,8 +95,8 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="form mb-3">
-                                    <label class="form-label h4" for="shop_name">Nombre de la Tienda:</label><input
-                                        class="form-control" minlength="3" placeholder="{{ $petition->shop_name }}"
+                                    <label class="form-label h4" for="shop_name">Nombre de la Tienda:</label>
+                                    <input class="form-control" minlength="3" placeholder="{{ $petition->shop_name }}"
                                         id="shop_name" name="shop_name" type="text" />
                                 </div>
                                 <div class="mb-3">
@@ -113,7 +111,8 @@
                                             class="form-control" id="shop_logo" name="shop_logo" type="file" />
                                     </div>
                                     <div class="col-md-2">
-                                        <img src="#" id="shop_logo-show" alt="Logo" class="img-thumbnail" />
+                                        <img src="{{ asset('img/exampleLogo.png') }}" id="shop_logo-show" alt="Logo"
+                                            class="img-thumbnail" />
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mt-2">
@@ -132,6 +131,14 @@
 @section('extraFooter')
     <script>
         $(document).ready(function() {
+            //autofocus
+            var myModal = document.getElementById('modalModifyPetition')
+            var myInput = document.getElementById('shop_name')
+
+            myModal.addEventListener('shown.bs.modal', function() {
+                myInput.focus()
+            })
+            //preview
             $("#shop_logo").change(function() {
                 previewImage("shop_logo");
             });
