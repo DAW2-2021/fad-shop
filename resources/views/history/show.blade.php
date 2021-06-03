@@ -41,9 +41,9 @@
                             @if (Str::length($product->description) <= 20)
                                 <td>{{ $product->description }}</td>
                             @else
-                                <td>{{ Str::substr($product->description, 0, 20) . '...' }}</td>
+                                <td>{{ Str::substr($product->description, 0, 25) . '...' }}</td>
                             @endif
-                            <td>{{ $product->price }}</td>
+                            <td>{{ $product->price }}€</td>
                             <td>{{ $product->stock }}</td>
                             <td>{{ $product->action }}</td>
                             <td>{{ $product->created_at }}</td>

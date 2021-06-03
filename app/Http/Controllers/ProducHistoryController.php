@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ProductHistory;
 use App\Models\Shop;
+use App\Models\Product;
 
 class ProducHistoryController extends Controller
 {
@@ -23,8 +24,10 @@ class ProducHistoryController extends Controller
         if (Auth::user()->hasRole('seller') && $shop->user_id != Auth::user()->id) {
             return redirect()->route('index');
         }
+        //Comprueba que exista el producto
+        $product = Product::where(['slug' => $product, 'shop_id' => $shop->id])->firstOrFail();
 
-        $prod_history = ProductHistory::where('slug', $product)->orderByDesc('updated_at')->paginate(15);
-        return view('history.show', compact('prod_history'));
+        $prod_history = ProductHistory::where('slug', $product->slug)->orderByDesc('updated_at')->paginate(15);
+        return view('history.show', compact('prod_history', 'product'));
     }
 }
