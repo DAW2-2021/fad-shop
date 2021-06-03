@@ -76,7 +76,7 @@ class ProductController extends Controller
         $categories = Category::all();
         $shop = Shop::where('slug', $shop)->firstOrFail();
         $product = Product::where(['slug' => $product, 'shop_id' => $shop->id])->firstOrFail();
-        $comments = Opinion::where('product_id', $product->id)->get();
+        $comments = Opinion::where('product_id', $product->id)->orderByDesc('id')->get();
         $currentTime = Carbon::now();
 
         return view('shop.product.show', compact('product', 'shop', 'comments', 'categories', 'currentTime'));

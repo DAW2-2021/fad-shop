@@ -51,6 +51,10 @@
                                     </li>
                                     <li>
                                         <a class="dropdown-item"
+                                            href="{{ route('shop.sellings', Auth::user()->shop->slug) }}">Historial de productos vendidos</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item"
                                             href="{{ route('shop.settings', Auth::user()->shop->slug) }}">Ajustes
                                         </a>
                                     </li>

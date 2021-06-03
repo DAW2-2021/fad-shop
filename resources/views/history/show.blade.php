@@ -6,19 +6,15 @@
 @section('content')
     <div class="container">
         <div class="p-3 pb-md-4 mx-auto text-center">
-            @foreach ($prod_history as $product)
             <h1 class="display-4 fw-normal">{{ $product->name }}</h1>
-            @endforeach
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="profile-head">
                     <div class="row">
                         <div class="col-md-11">
-                            @foreach ($prod_history as $product)
                             <h5>
-                               Historial de {{ $product->name }} </h5>
-                            @endforeach
+                                Historial de {{ $product->name }} </h5>
                         </div>
                     </div>
                 </div>

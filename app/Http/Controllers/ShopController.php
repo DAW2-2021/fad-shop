@@ -12,6 +12,7 @@ use App\Models\Petition;
 use App\Models\User;
 use App\Models\Category;
 use App\Mail\MailSender;
+use Illuminate\Support\Facades\DB;
 
 class ShopController extends Controller
 {
@@ -82,9 +83,25 @@ class ShopController extends Controller
         if ($shop->user_id != Auth::user()->id) {
             return redirect()->route('shop.index', compact('shop'));
         }
-
         $categories = Category::orderBy('name')->get();
         return view('shop.settings', compact('shop', 'categories'));
+    }
+
+    public function shopSellings($shop)
+    {
+        $shop = Shop::where('slug', $shop)->firstOrFail();
+
+        if ($shop->user_id != Auth::user()->id) {
+            return redirect()->route('shop.index', compact('shop'));
+        }
+        $orders = Product::leftJoin('order_product', 'products.id', '=', 'order_product.product_id')
+            ->leftJoin('orders', 'orders.id', '=', 'order_product.order_id')
+            ->leftJoin('users', 'users.id', '=', 'orders.user_id')
+            ->where('products.shop_id', $shop->id)
+            ->whereNotNull('orders.id')
+            ->orderByDesc('orders.created_at')
+            ->selectRaw('products.name AS name, products.description AS descrip ,users.email AS email ,order_product.price AS price, order_product.quantity AS quantity, orders.created_at AS comprado')->paginate(15);
+        return view('shop.sellings', compact('orders'));
     }
 
     public function update(Request $request, $shop)
