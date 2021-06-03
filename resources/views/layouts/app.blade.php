@@ -10,7 +10,7 @@
     <meta name="description" content="La aplicación compra venta líder en escoles Nuria" />
     <meta name="keywords" content="compra,venta,escolesnuria,nuria,compraventa,barato" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="shortcat icon" href="/storage/logos/logo_small_icon_only_inverted.png">
+    <link rel="shortcat icon" href="{{ asset('favicon.png') }}">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BKHN6YTB14"></script>
@@ -23,6 +23,7 @@
         gtag('js', new Date());
 
         gtag('config', 'G-BKHN6YTB14');
+
     </script>
 
     <!-- Css Styles -->
@@ -54,6 +55,7 @@
             }
             updateSizeCart();
         })
+
     </script>
     @yield('extraFooter')
 </body>
