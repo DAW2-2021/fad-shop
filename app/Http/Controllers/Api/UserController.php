@@ -27,6 +27,22 @@ class UserController extends BaseController
         return response()->json(['token' => $token], 200);
     }
 
+    public function show($id)
+    {
+        if (User::where('id', $id)->exists()) {
+            $user = User::find($id);
+            return response()->json([
+                'success' => true,
+                'data' => $user->toArray()
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Property with id ' . $id . ' not found'
+            ], 400);
+        }
+    }
+
     public function login(Request $request)
     {
         $credentials = [
