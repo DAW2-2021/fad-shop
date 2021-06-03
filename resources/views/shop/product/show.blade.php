@@ -273,7 +273,7 @@
                     <div class="col">
                         {{ $comments[$i]->user->username }}
                     </div>
-                    @if (Auth::user()->id == $comments[$i]->user_id)
+                    @if (Auth::check() && Auth::user()->id == $comments[$i]->user_id)
                         <div class="col-sm-2">
                             <form method="post"
                                 action="{{ route('opinion.delete', [$shop->slug, $product->slug, $comments[$i]]) }}">
@@ -348,124 +348,155 @@
                             <span class="fa fa-star"></span>
                             <span class="fa fa-star"></span>
                         </div>
-                        <span class="m-4">Revisado en {{ $comments[$i]->created_at }}</span>
+                        <span class="m-4">
+                            @if ($currentTime->diffInMinutes($comment->created_at) < 60)
+                                hace {{ $currentTime->diffInMinutes($comment->created_at) }}
+                                @if ($currentTime->diffInMinutes($comment->created_at) == 1) minuto
+                            @else
+                                minutos @endif
+                            @elseif($currentTime->diffInHours($comment->created_at) < 24) hace
+                                    {{ $currentTime->diffInHours($comment->created_at) }} @if ($currentTime->diffInHours($comment->created_at) == 1) hora
+                    @else
+                        horas @endif @else hace {{ $currentTime->diffInDays($comment->created_at) }}
+                                    @if ($currentTime->diffInDays($comment->created_at) == 1)
+                                    día
+                                @else
+                                    días
+                            @endif
+        @endif</span>
+    </div>
+    </div>
+    <div>
+        <p class="text-break">
+            {{ $comments[$i]->comment }}
+        </p>
+    </div>
+    </div>
+
+    @endfor
+    @for ($i = 2; $i < $comments->count(); $i++)
+        <div class="mb-3 text-white bg-secondary multicollapse rounded p-3 collapse">
+            <div class="col-sm-4 fs-4 row">
+                <div class="col">
+                    {{ $comments[$i]->user->username }}
+                </div>
+                @if (Auth::check() && Auth::user()->id == $comments[$i]->user_id)
+                    <div class="col-sm-2">
+                        <form method="post"
+                            action="{{ route('opinion.delete', [$shop->slug, $product->slug, $comments[$i]]) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn"> <i class="fa fa-trash text-black"></i> </button>
+                        </form>
                     </div>
-                </div>
-                <div>
-                    <p class="text-break">
-                        {{ $comments[$i]->comment }}
-                    </p>
-                </div>
+                    <div class="col-sm-2">
+                        <button type="button" data-bs-target="#modalReviewUpdate" data-bs-toggle="modal"
+                            data-bs-dismiss="modal" class="btn"> <i class="fa fa-edit text-black"></i></button>
+                    </div>
+
+                @endif
             </div>
 
-        @endfor
-        @for ($i = 2; $i < $comments->count(); $i++)
-            <div class="mb-3 text-white bg-secondary multicollapse rounded p-3 collapse">
-                <div class="col-sm-4 fs-4 row">
-                    <div class="col">
-                        {{ $comments[$i]->user->username }}
-                    </div>
-                    @if (Auth::user()->id == $comments[$i]->user_id)
-                        <div class="col-sm-2">
-                            <form method="post"
-                                action="{{ route('opinion.delete', [$shop->slug, $product->slug, $comments[$i]]) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn"> <i class="fa fa-trash text-black"></i> </button>
-                            </form>
-                        </div>
-                        <div class="col-sm-2">
-                            <button type="button" data-bs-target="#modalReviewUpdate" data-bs-toggle="modal"
-                                data-bs-dismiss="modal" class="btn"> <i class="fa fa-edit text-black"></i></button>
-                        </div>
-
-                    @endif
-                </div>
-
-                <div class="row">
-                    <div class="col p-2">
-                        <div class="d-inline ps-1">
-                            @if (round($comments[$i]->score, 2) / 2 <= 0.5)
-                                <i class="fa fa-star-half-alt"></i>
+            <div class="row">
+                <div class="col p-2">
+                    <div class="d-inline ps-1">
+                        @if (round($comments[$i]->score, 2) / 2 <= 0.5)
+                            <i class="fa fa-star-half-alt"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        @elseif (round($comments[$i]->score,2) / 2 <= 1) <i class="fas fa-star"></i>
                                 <i class="far fa-star"></i>
                                 <i class="far fa-star"></i>
                                 <i class="far fa-star"></i>
                                 <i class="far fa-star"></i>
-                            @elseif (round($comments[$i]->score,2) / 2 <= 1) <i class="fas fa-star"></i>
+                            @elseif (round($comments[$i]->score,2) / 2 <= 1.5) <i class="fas fa-star"></i>
+                                    <i class="fa fa-star-half-alt"></i>
                                     <i class="far fa-star"></i>
                                     <i class="far fa-star"></i>
                                     <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                @elseif (round($comments[$i]->score,2) / 2 <= 1.5) <i class="fas fa-star"></i>
-                                        <i class="fa fa-star-half-alt"></i>
+                                @elseif (round($comments[$i]->score,2) / 2 <= 2) <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
                                         <i class="far fa-star"></i>
                                         <i class="far fa-star"></i>
                                         <i class="far fa-star"></i>
-                                    @elseif (round($comments[$i]->score,2) / 2 <= 2) <i class="fas fa-star"></i>
+                                    @elseif (round($comments[$i]->score,2) / 2 <= 2.5) <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
+                                            <i class="fa fa-star-half-alt"></i>
                                             <i class="far fa-star"></i>
                                             <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                        @elseif (round($comments[$i]->score,2) / 2 <= 2.5) <i class="fas fa-star"></i>
+                                        @elseif (round($comments[$i]->score,2) / 2 <= 3) <i class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>
-                                                <i class="fa fa-star-half-alt"></i>
+                                                <i class="fas fa-star"></i>
                                                 <i class="far fa-star"></i>
                                                 <i class="far fa-star"></i>
-                                            @elseif (round($comments[$i]->score,2) / 2 <= 3) <i class="fas fa-star"></i>
+                                            @elseif (round($comments[$i]->score,2) / 2 <= 3.5) <i class="fas fa-star">
+                                                    </i>
                                                     <i class="fas fa-star"></i>
                                                     <i class="fas fa-star"></i>
+                                                    <i class="fa fa-star-half-alt"></i>
                                                     <i class="far fa-star"></i>
-                                                    <i class="far fa-star"></i>
-                                                @elseif (round($comments[$i]->score,2) / 2 <= 3.5) <i
-                                                        class="fas fa-star"></i>
+                                                @elseif (round($comments[$i]->score,2) / 2 <= 4) <i class="fas fa-star">
+                                                        </i>
                                                         <i class="fas fa-star"></i>
                                                         <i class="fas fa-star"></i>
-                                                        <i class="fa fa-star-half-alt"></i>
+                                                        <i class="fas fa-star"></i>
                                                         <i class="far fa-star"></i>
-                                                    @elseif (round($comments[$i]->score,2) / 2 <= 4) <i
+                                                    @elseif (round($comments[$i]->score,2) / 2 <= 4.5) <i
                                                             class="fas fa-star"></i>
                                                             <i class="fas fa-star"></i>
                                                             <i class="fas fa-star"></i>
                                                             <i class="fas fa-star"></i>
-                                                            <i class="far fa-star"></i>
-                                                        @elseif (round($comments[$i]->score,2) / 2 <= 4.5) <i
+                                                            <i class="fa fa-star-half-alt"></i>
+                                                        @elseif(round($comments[$i]->score,2) / 2 <= 5) <i
                                                                 class="fas fa-star"></i>
                                                                 <i class="fas fa-star"></i>
                                                                 <i class="fas fa-star"></i>
                                                                 <i class="fas fa-star"></i>
-                                                                <i class="fa fa-star-half-alt"></i>
-                                                            @elseif(round($comments[$i]->score,2) / 2 <= 5) <i
-                                                                    class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                            @endif
-                        </div>
-                        <span class="m-4">Revisado en {{ $comments[$i]->created_at }}</span>
+                                                                <i class="fas fa-star"></i>
+                        @endif
                     </div>
-                </div>
-                <div>
-                    <p class="text-break">
-                        {{ $comments[$i]->comment }}
-                    </p>
-                </div>
-            </div>
-        @endfor
-        @endif
-        @if ($product->opinions()->whereNotNull('score')->count())
-            @if ($product->opinions()->count() > 2)
-                <a data-bs-toggle="collapse" id="ver-mas" role="button" data-bs-target=".multicollapse"
-                    aria-expanded="false" aria-controls="collapseExample"><small class="text-info"><u>Ver más</u></small>
-                </a>
+                    <span class="m-4">
+                        @if ($currentTime->diffInMinutes($comment->created_at) < 60)
+                            hace {{ $currentTime->diffInMinutes($comment->created_at) }}
+                            @if ($currentTime->diffInMinutes($comment->created_at) == 1) minuto
+                        @else
+                            minutos @endif
+                        @elseif($currentTime->diffInHours($comment->created_at) < 24) hace
+                                {{ $currentTime->diffInHours($comment->created_at) }} @if ($currentTime->diffInHours($comment->created_at) == 1) hora
+                @else
+                    horas @endif @else hace {{ $currentTime->diffInDays($comment->created_at) }}
+                                @if ($currentTime->diffInDays($comment->created_at) == 1)
+                                día
+                            @else
+                                días
+                        @endif
+    @endif
+    </span>
+    </div>
+    </div>
+    <div>
+        <p class="text-break">
+            {{ $comments[$i]->comment }}
+        </p>
+    </div>
+    </div>
+    @endfor
+    @endif
+    @if ($product->opinions()->whereNotNull('score')->count())
+        @if ($product->opinions()->count() > 2)
+            <a data-bs-toggle="collapse" id="ver-mas" role="button" data-bs-target=".multicollapse" aria-expanded="false"
+                aria-controls="collapseExample"><small class="text-info"><u>Ver más</u></small>
+            </a>
 
-                <a data-bs-toggle="collapse" role="button" data-bs-target=".multicollapse" aria-expanded="false"
-                    aria-controls="collapseExample" id="ver-menos"><small class="text-info"><u>Ver menos</u></small>
-                </a>
-            @endif
-        @else
-            <div class="alert alert-warning text-center">No hay opiniones de este producto</div>
+            <a data-bs-toggle="collapse" role="button" data-bs-target=".multicollapse" aria-expanded="false"
+                aria-controls="collapseExample" id="ver-menos"><small class="text-info"><u>Ver menos</u></small>
+            </a>
         @endif
+    @else
+        <div class="alert alert-warning text-center">No hay opiniones de este producto</div>
+    @endif
 
     </div>
     </div>
