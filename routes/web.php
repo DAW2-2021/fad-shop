@@ -53,6 +53,7 @@ Route::group(['middleware' => ['active_shop', 'auth', 'role:seller']], function 
     Route::get('/shop/settings/{shop}', [ShopController::class, 'showSettings'])->name('shop.settings');
     Route::put('/shop/setings/{shop}/update', [ShopController::class, 'update'])->name('shop.update');
     Route::get('/shop/{shop}/products', [ProductController::class, 'index'])->name('shop.product.index');
+    Route::get('/shop/{shop}/sellings', [ShopController::class, 'shopSellings'])->name('shop.sellings');
 });
 //  ---- GENERAL
 Route::group(['prefix' => 'shop', 'as' => 'shop.', 'middleware' => 'active_shop'], function () {
