@@ -25,18 +25,20 @@
                 <thead>
                     <tr>
                         <th scope="col">Creador/Modificador</th>
+                        <th scope="col">Tienda</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Descripción</th>
                         <th scope="col">Precio</th>
                         <th scope="col">Stock</th>
                         <th scope="col">Acción</th>
-                        <th scope="col">Fecha creación</th>
+                        <th scope="col">Fecha modificación</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($prod_history as $product)
                         <tr>
-                            <td>{{ $product->shop->user->username }}</td>
+                            <td>{{ $product->email }}</td>
+                            <td>{{ $product->shop }}</td>
                             <td>{{ $product->name }}</td>
                             @if (Str::length($product->description) <= 20)
                                 <td>{{ $product->description }}</td>
