@@ -349,16 +349,16 @@
                             <span class="fa fa-star"></span>
                         </div>
                         <span class="m-4">
-                            @if ($currentTime->diffInMinutes($comment->created_at) < 60)
-                                hace {{ $currentTime->diffInMinutes($comment->created_at) }}
-                                @if ($currentTime->diffInMinutes($comment->created_at) == 1) minuto
+                            @if ($currentTime->diffInMinutes($comments[$i]->created_at) < 60)
+                                hace {{ $currentTime->diffInMinutes($comments[$i]->created_at) }}
+                                @if ($currentTime->diffInMinutes($comments[$i]->created_at) == 1) minuto
                             @else
                                 minutos @endif
-                            @elseif($currentTime->diffInHours($comment->created_at) < 24) hace
-                                    {{ $currentTime->diffInHours($comment->created_at) }} @if ($currentTime->diffInHours($comment->created_at) == 1) hora
+                            @elseif($currentTime->diffInHours($comments[$i]->created_at) < 24) hace
+                                    {{ $currentTime->diffInHours($comments[$i]->created_at) }} @if ($currentTime->diffInHours($comments[$i]->created_at) == 1) hora
                     @else
-                        horas @endif @else hace {{ $currentTime->diffInDays($comment->created_at) }}
-                                    @if ($currentTime->diffInDays($comment->created_at) == 1)
+                        horas @endif @else hace
+                                    {{ $currentTime->diffInDays($comments[$i]->created_at) }} @if ($currentTime->diffInDays($comments[$i]->created_at) == 1)
                                     día
                                 @else
                                     días
@@ -458,16 +458,16 @@
                         @endif
                     </div>
                     <span class="m-4">
-                        @if ($currentTime->diffInMinutes($comment->created_at) < 60)
-                            hace {{ $currentTime->diffInMinutes($comment->created_at) }}
-                            @if ($currentTime->diffInMinutes($comment->created_at) == 1) minuto
+                        @if ($currentTime->diffInMinutes($comments[$i]->created_at) < 60)
+                            hace {{ $currentTime->diffInMinutes($comments[$i]->created_at) }}
+                            @if ($currentTime->diffInMinutes($comments[$i]->created_at) == 1) minuto
                         @else
                             minutos @endif
-                        @elseif($currentTime->diffInHours($comment->created_at) < 24) hace
-                                {{ $currentTime->diffInHours($comment->created_at) }} @if ($currentTime->diffInHours($comment->created_at) == 1) hora
+                        @elseif($currentTime->diffInHours($comments[$i]->created_at) < 24) hace
+                                {{ $currentTime->diffInHours($comments[$i]->created_at) }} @if ($currentTime->diffInHours($comments[$i]->created_at) == 1) hora
                 @else
-                    horas @endif @else hace {{ $currentTime->diffInDays($comment->created_at) }}
-                                @if ($currentTime->diffInDays($comment->created_at) == 1)
+                    horas @endif @else hace {{ $currentTime->diffInDays($comments[$i]->created_at) }}
+                                @if ($currentTime->diffInDays($comments[$i]->created_at) == 1)
                                 día
                             @else
                                 días
