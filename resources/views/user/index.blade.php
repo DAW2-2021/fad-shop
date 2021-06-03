@@ -193,7 +193,7 @@
                             <div class="input-group has-validation">
                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
                                 <input type="text" class="form-control" minlength="3" name="username"
-                                    value="{{ Auth::User()->username }}" id="validationCustomUsername"
+                                    placeholder="{{ Auth::User()->username }}" id="validationCustomUsername"
                                     aria-describedby="inputGroupPrepend" />
                             </div>
                         </div>
@@ -202,7 +202,7 @@
                             <div class="input-group has-validation">
                                 <input type="email" class="form-control" minlength="3" name="email"
                                     id="validationCustomEmail" aria-describedby="emailHelp"
-                                    value="{{ Auth::User()->email }}" />
+                                    placeholder="{{ Auth::User()->email }}" />
                                 <div id="emailHelp" class="form-text">Si tienes una cuenta de google asociada, al cambiar el
                                     email se
                                     desasociará
@@ -214,8 +214,8 @@
                             <label for="validationCustomPhone" class="form-label">Teléfono</label>
                             <div class="input-group has-validation">
                                 <input type="number" class="form-control" minlength="3" name="phone"
-                                    id="validationCustomPhone" aria-describedby="inputGroupPrepend" placeholder="611111111"
-                                    value="{{ Auth::User()->phone }}" />
+                                    id="validationCustomPhone" aria-describedby="inputGroupPrepend"
+                                    placeholder="{{ Auth::User()->phone ?? 'Ej: 611111111' }}" />
                             </div>
                         </div>
                         <div class="col-md-12 my-3">

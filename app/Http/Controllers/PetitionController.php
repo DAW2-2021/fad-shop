@@ -17,6 +17,7 @@ class PetitionController extends Controller
         if (!Auth::user()->petition()) {
             return redirect()->route('index');
         }
+
         return view('petition.index');
     }
 
@@ -39,6 +40,7 @@ class PetitionController extends Controller
         if (Auth::user()->petition) {
             return redirect()->route('petition.index');
         }
+
         $validator = Validator::make($request->all(), [
             'shop_name' => ['required', 'unique:petitions', 'string', 'min_length:3', 'max_length:255'],
             'shop_description' => ['required', 'string', 'min_length:20', 'max_length:255'],
@@ -57,10 +59,11 @@ class PetitionController extends Controller
 
         $data = array_merge(request(['shop_name', 'shop_description']), ['shop_logo' => $pathLogo, 'dni_back' => $pathDniBack, 'dni_front' => $pathDniFront]);
         $petition = Auth::user()->petition()->create($data);
+
         $details = [
             'title' => 'Tu petición ha sido enviada',
             'body' => 'Revisaremos tu petición de creación de tienda lo antes posible. Muchas gracias por confiar en nosotros',
-            'view' => 'emails.rejectPetition'
+            'view' => 'emails.generic'
         ];
         \Mail::to(Auth::user()->email)->send(new MailSender($details));
 
@@ -94,7 +97,7 @@ class PetitionController extends Controller
         $details = [
             'title' => 'Tu petición ha sido rechazada',
             'body' => 'Si quieres que se revise tu petición contacta con soporte y dános algunos datos para saber que la petición de tienda es tuya ',
-            'view' => 'emails.rejectPetition'
+            'view' => 'emails.generic'
         ];
         \Mail::to($petition->user->email)->send(new MailSender($details));
         $petition->status = "rejected";
