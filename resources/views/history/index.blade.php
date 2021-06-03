@@ -45,7 +45,7 @@
                             @else
                                 <td>{{ Str::substr($product->description, 0, 20) . '...' }}</td>
                             @endif
-                            <td>{{ $product->price }}</td>
+                            <td>{{ $product->price }}€</td>
                             <td>{{ $product->stock }}</td>
                             <td>{{ $product->action }}</td>
                             <td>{{ $product->created_at }}</td>
