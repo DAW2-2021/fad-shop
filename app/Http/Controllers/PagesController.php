@@ -22,8 +22,10 @@ class PagesController extends Controller
         $month = Carbon::now()->subDays(30);
         $popularProductsMonth = Product::leftJoin('order_product', 'products.id', '=', 'order_product.product_id')
             ->leftJoin('orders', 'orders.id', '=', 'order_product.order_id')
+            ->leftJoin('shops', 'shops.id', '=', 'products.shop_id')
             ->groupBy('order_product.product_id')
             ->whereDate('orders.created_at', '>', $month)
+            ->whereNull('shops.blocked_at')
             ->selectRaw('products.*, COUNT(*) AS total')
             ->orderByDesc('total')
             ->limit(8)
@@ -34,13 +36,14 @@ class PagesController extends Controller
             ->leftJoin('shops', 'shops.id', '=', 'products.shop_id')
             ->groupBy('products.shop_id')
             ->whereDate('orders.created_at', '>', $week)
+            ->whereNull('shops.blocked_at')
             ->selectRaw('shops.*, COUNT(*) AS total')
             ->orderByDesc('total')
             ->limit(3)
             ->get();
 
         $categories = Category::all();
-        $shops = Shop::inRandomOrder()->limit(7)->get();
+        $shops = Shop::whereNull('shops.blocked_at')->inRandomOrder()->limit(7)->get();
         return view('index', compact('categories', 'shops', 'popularProductsMonth', 'popularShopsWeek'));
     }
 
@@ -64,7 +67,14 @@ class PagesController extends Controller
     public function searchProduct($name)
     {
         $categories = Category::all();
-        $prods = Product::where('slug', 'like', '%' . $name . '%')->orderBy('name')->paginate(8);
+
+        $prods = Product::leftJoin('shops', 'shops.id', '=', 'products.shop_id')
+            ->whereNull('shops.blocked_at')
+            ->where('products.slug', 'like', '%' . $name . '%')
+            ->orderBy('name')
+            ->selectRaw('products.*')
+            ->paginate(8);
+
         return view('search.product', compact('prods', 'name', 'categories'));
     }
 

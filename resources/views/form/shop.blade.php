@@ -32,7 +32,8 @@
                             id="shop_logo" name="shop_logo" type="file" />
                     </div>
                     <div class="col-md-2">
-                        <img src="#" id="shop_logo-show" alt="Logo" class="img-thumbnail" />
+                        <img src="{{ asset('img/exampleLogo.png') }}" id="shop_logo-show" alt="Logo de ejemplo"
+                            class="img-thumbnail" />
                     </div>
                 </div>
                 <div class="form mb-3 row">
