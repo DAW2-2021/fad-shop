@@ -42,7 +42,6 @@
         <div class="row mt-3">
             <div class="col-md-12">
                 <div class="tab-content about-tab" id="myTabContent">
-
                     <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
                         <div class="row">
                             <div class="col-md-6">
@@ -51,48 +50,6 @@
                             <div class="col-md-6">
                                 <p>{{ $shop->name }}</p>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Description</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p class="text-break">{{ $shop->description }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Logo</label>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="col-2">
-                                    <img src="{{ asset('storage/' . $shop->logo) }}"
-                                        alt="Logo de la tienda {{ $shop->name }}" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-3">
-            <div class="col-md-12">
-                <div class="tab-content about-tab" id="myTabContent">
-
-                    <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Productos vendidos</label>
-                            </div>
-                            @foreach ($orders as $order)
-                            <div class="col-md-6">
-                                <p>{{ $order->name }}</p>
-                                <p>{{ $order->email}}</p>
-                                <p>{{ $order->quantity}}</p>
-                                <p>{{ $order->price}}</p>
-                            </div>
-                            @endforeach
                         </div>
                         <div class="row">
                             <div class="col-md-6">
