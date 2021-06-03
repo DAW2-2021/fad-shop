@@ -57,7 +57,7 @@
                                 Modificar
                             </button>
                         @endif
-                        
+
                         @if ($errors->any())
                             {!! implode('', $errors->all('<span class="invalid-feedback" role="alert" style="display:block !important"> <strong>:message</strong></span><br>')) !!}
                         @endif
@@ -170,7 +170,8 @@
                         <br />
                         <label for="" class="form-label mt-2 fw-bold
                         text-dark">Opinión</label>
-                        <input type="text" name="comment" value="{{ $comment->comment }}" class="form-control" />
+                        <input type="text" name="comment"
+                        value="{{ $comment->comment }}" class="form-control" />
                         <button type="submit" class="btn btn-secondary align-self-start mt-3">
                         Enviar opinión
                         </button>
@@ -239,7 +240,23 @@
                                                                 <i class="fas fa-star"></i>
                         @endif
                     </div>
-                    <span class="m-4">Revisado en {{ $comment->created_at }}</span>
+                    <span class="m-4">
+                        @if ($currentTime->diffInMinutes($comment->created_at) < 60)
+                            hace {{ $currentTime->diffInMinutes($comment->created_at) }}
+                            @if ($currentTime->diffInMinutes($comment->created_at) == 1) minuto
+                        @else
+                            minutos @endif
+                        @elseif($currentTime->diffInHours($comment->created_at) < 24) hace
+                                {{ $currentTime->diffInHours($comment->created_at) }} @if ($currentTime->diffInHours($comment->created_at) == 1) hora
+                    @else
+                        horas @endif @else hace {{ $currentTime->diffInDays($comment->created_at) }}
+                                @if ($currentTime->diffInDays($comment->created_at) == 1)
+                                día
+                            @else
+                                días
+                        @endif
+                        @endif
+                    </span>
                 </div>
             </div>
             <div>
@@ -680,7 +697,7 @@
         @if (Auth::check() && Auth::user()->hasRole('seller'))
             $('#formProduct').on('submit', function(e) {
             let valid = true;
-
+        
             if (!$(".categories-checkbox:checked").length) {
             alert("¡Tienes que seleccionar al menos una categoria!");
             valid = false;
@@ -689,7 +706,7 @@
             alert("¡Solo puedes seleccionar un máximo de 5 categorías!");
             valid = false;
             }
-
+        
             if (!valid) {
             e.preventDefault();
             }

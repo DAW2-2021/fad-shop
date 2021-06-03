@@ -28,8 +28,4 @@ Lista de tecnologías usadas para este proyecto
 
 No se necesita instalación, ve al link de abajo
 
-[LINK de la página](http://todo-fad.herokuapp.com/login) <- poner link de la pagina
-
-```
-
-```
+[LINK de la página](https://fad-shop.davidbayona.tk/) <- poner link de la pagina

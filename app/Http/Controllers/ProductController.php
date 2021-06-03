@@ -9,8 +9,8 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use PharIo\Manifest\Author;
 use App\Models\Category;
+use Carbon\Carbon;
 
 class ProductController extends Controller
 {
@@ -67,7 +67,8 @@ class ProductController extends Controller
         foreach ($request->categories as $category) {
             $product->categories()->attach($category);
         }
-        return redirect()->route('shop.product.show', [$shop->slug, $product->slug])->withInput()->withErrors(['Coincidence' => 'Ya existe el nombre del producto en la tienda.']);
+
+        return redirect()->route('shop.product.show', [$shop->slug, $product->slug]);
     }
 
     public function show($shop, $product)
@@ -75,9 +76,10 @@ class ProductController extends Controller
         $categories = Category::all();
         $shop = Shop::where('slug', $shop)->firstOrFail();
         $product = Product::where(['slug' => $product, 'shop_id' => $shop->id])->firstOrFail();
-        $comments = Opinion::where('product_id', $product->id)->get();
+        $comments = Opinion::where('product_id', $product->id)->orderByDesc('id')->get();
+        $currentTime = Carbon::now();
 
-        return view('shop.product.show', compact('product', 'shop', 'comments', 'categories'));
+        return view('shop.product.show', compact('product', 'shop', 'comments', 'categories', 'currentTime'));
     }
 
     public function update(Request $request, $shop, $product)

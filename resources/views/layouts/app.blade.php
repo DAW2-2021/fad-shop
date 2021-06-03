@@ -7,20 +7,23 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'FAD Shop') }} {{ $title ?? '' }}</title>
-    <meta name="description" content="FAD Shop, la tienda para los MDLR" />
-    <meta name="keywords" content="MDLR,calle, flowtt" />
+    <meta name="description" content="La aplicación compra venta líder en escoles Nuria" />
+    <meta name="keywords" content="compra,venta,escolesnuria,nuria,compraventa,barato" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="shortcat icon" href="/storage/logos/logo_small_icon_only_inverted.png"> 
+    <link rel="shortcat icon" href="/storage/logos/logo_small_icon_only_inverted.png">
 
-    <!-- Google Font -->
-    {{-- <link
-        href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet"
-    />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet"
-    /> --}}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BKHN6YTB14"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-BKHN6YTB14');
+    </script>
 
     <!-- Css Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -30,7 +33,6 @@
     <script src="{{ asset('js/jquery-cookies.min.js') }}"></script>
     <!-- FUNCTIONS -->
     <script src="{{ asset('js/functions.js') }}"></script>
-
     @yield('extraHeader')
 </head>
 
@@ -52,7 +54,6 @@
             }
             updateSizeCart();
         })
-
     </script>
     @yield('extraFooter')
 </body>
