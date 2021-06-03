@@ -31,7 +31,6 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Nº Prod.</th>
                         <th scope="col">Creador/Modificador</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Descripción</th>
@@ -47,7 +46,6 @@
                 <tbody>
                     @foreach ($products as $product)
                         <tr>
-                            <th scope="row">{{ $product->id }}</th>
                             <td>{{ $product->user->username }}</td>
                             <td>{{ $product->name }}</td>
                             @if (Str::length($product->description) <= 20)
@@ -55,7 +53,7 @@
                             @else
                                 <td>{{ Str::substr($product->description, 0, 20) . '...' }}</td>
                             @endif
-                            <td>{{ $product->price }}</td>
+                            <td>{{ $product->price }}€</td>
                             <td>{{ $product->stock }}</td>
                             {{-- <td>{{ $product->categories }}</td> --}}
                             <td>{{ $product->created_at }}</td>
