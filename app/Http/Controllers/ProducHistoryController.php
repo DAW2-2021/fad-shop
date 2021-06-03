@@ -27,7 +27,7 @@ class ProducHistoryController extends Controller
         //Comprueba que exista el producto
         $product = Product::where(['slug' => $product, 'shop_id' => $shop->id])->firstOrFail();
 
-        $prod_history = ProductHistory::where('slug', $product->slug)->orderByDesc('updated_at')->paginate(15);
+        $prod_history = ProductHistory::where(['id' => $product->id, 'shop_id' => $shop->id])->orderByDesc('updated_at')->paginate(15);
         return view('history.show', compact('prod_history', 'product'));
     }
 }
