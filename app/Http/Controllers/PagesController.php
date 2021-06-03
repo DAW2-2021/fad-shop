@@ -43,7 +43,7 @@ class PagesController extends Controller
             ->get();
 
         $categories = Category::all();
-        $shops = Shop::inRandomOrder()->limit(7)->get();
+        $shops = Shop::whereNull('shops.blocked_at')->inRandomOrder()->limit(7)->get();
         return view('index', compact('categories', 'shops', 'popularProductsMonth', 'popularShopsWeek'));
     }
 
@@ -67,7 +67,14 @@ class PagesController extends Controller
     public function searchProduct($name)
     {
         $categories = Category::all();
-        $prods = Product::where('slug', 'like', '%' . $name . '%')->orderBy('name')->paginate(8);
+
+        $prods = Product::leftJoin('shops', 'shops.id', '=', 'products.shop_id')
+            ->whereNull('shops.blocked_at')
+            ->where('products.slug', 'like', '%' . $name . '%')
+            ->orderBy('name')
+            ->selectRaw('products.*')
+            ->paginate(8);
+
         return view('search.product', compact('prods', 'name', 'categories'));
     }
 
